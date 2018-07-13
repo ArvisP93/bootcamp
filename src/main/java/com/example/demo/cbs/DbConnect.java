@@ -187,6 +187,34 @@ public class DbConnect { //Copied from sample, needs work to make usable for thi
 		statement.executeUpdate("UPDATE Users SET password = + '"+newpass+"' where username = '" + username + "';");
 		close();
 	}
+	public ArrayList<ArrayList<String>> GetCinMovies(int cinema_id) throws SQLException{
+		ArrayList<ArrayList<String>> res = new ArrayList<ArrayList<String>>();
+		ArrayList<String> temp = new ArrayList<String>(9);
+		Connect();
+		resultSet = statement
+                .executeQuery("SELECT cinema_id, cinema_name, room_name, movie_id, name, genre, date, taken_seats, total_seats FROM Show_info WHERE cinema_id = " + Integer.toString(cinema_id) + ";");
+		boolean tmp = true;
+		int i = 1;
+		resultSet.next();
+		while (tmp) {
+			try {
+					temp.add(resultSet.getString(i));
+					if ((i%9)==0) {
+						res.add(temp);
+						temp = new ArrayList<String>(9);
+						resultSet.next();
+						i=0;
+					}
+					i++;
+				} catch (SQLException e) {
+					tmp = false;
+			}
+		}
+			
+		close();
+		return res;
+	}
+	
 	
 	
 	/*
