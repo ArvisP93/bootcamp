@@ -11,7 +11,7 @@ import hello.Movies;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest
-public class MoviesTest {
+public class TestMovies {
 	
 	@Test
 	public void testConstructor(){
