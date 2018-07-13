@@ -54,13 +54,13 @@ public class TestShows {
 		Shows obj = new Shows();
 		try {
 			obj.setMovie_id(0);
-			fail("Exception was expected for 0 id input");
+			fail("Exception was expected for 0 movie_id input");
 		}
 		catch(IllegalArgumentException e) {
 		}
 		try {
 			obj.setMovie_id(-10);
-			fail("Exception was expected for negative id input");
+			fail("Exception was expected for negative movie_id input");
 		}
 		catch(IllegalArgumentException e) {
 		}
