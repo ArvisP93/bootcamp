@@ -1,16 +1,18 @@
 package hello;
 
 public class Cinemas {
-	public int cinema_id;
-	public String name;
-	public double latitude;
-	public double longitude;
+	private int cinema_id;
+	private String name;
+	private double latitude;
+	private double longitude;
+	
+	public Cinemas(){} //constructor for testing purposes
 	
 	public Cinemas(int id, String name, double latitude, double longitude){
-		this.cinema_id=id;
-		this.name=name;
-		this.latitude=latitude;
-		this.longitude=longitude;
+		setCinema_id(id);
+		setName(name);
+		setLatitude(latitude);
+		setLongitude(longitude);
 	}
 
 	public int getCinema_id() {
@@ -18,7 +20,12 @@ public class Cinemas {
 	}
 
 	public void setCinema_id(int cinema_id) {
-		this.cinema_id = cinema_id;
+		if(cinema_id <= 0) {
+			throw new IllegalArgumentException();
+		}
+		else {
+			this.cinema_id = cinema_id;
+		}
 	}
 
 	public String getName() {
@@ -26,7 +33,12 @@ public class Cinemas {
 	}
 
 	public void setName(String name) {
-		this.name = name;
+		if(name == "") {
+			throw new IllegalArgumentException();
+		}
+		else {
+			this.name = name;
+		}
 	}
 
 	public double getLatitude() {
@@ -34,7 +46,12 @@ public class Cinemas {
 	}
 
 	public void setLatitude(double latitude) {
-		this.latitude = latitude;
+		if(latitude <=0) {
+			throw new IllegalArgumentException();
+		}
+		else {
+			this.latitude = latitude;
+		}
 	}
 
 	public double getLongitude() {
@@ -42,6 +59,12 @@ public class Cinemas {
 	}
 
 	public void setLongitude(double longitude) {
-		this.longitude = longitude;
+		if(longitude <=0) {
+			throw new IllegalArgumentException();
+		}
+		else {
+			this.longitude = longitude;
+		}
 	}
 }
+
