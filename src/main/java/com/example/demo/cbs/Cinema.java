@@ -1,17 +1,17 @@
 package com.example.demo.cbs;
 
 public class Cinema {
-	
-	long id;
-	String name;
-	int NoOfSeats;
-	int NoOfRows;
-	double lattitude;
-	double longitude;
-	
-	Cinema(){}
-	
-	Cinema(long id, String name, int NoOfSeats, int NoOfRows, double lattitude, double longitude){
+
+	private long id;
+	private String name;
+	private int NoOfSeats;
+	private int NoOfRows;
+	private double lattitude;
+	private double longitude;
+
+	Cinema() {} // constructor for testing purposes
+
+	Cinema(long id, String name, int NoOfSeats, int NoOfRows, double lattitude, double longitude) {
 		setId(id);
 		setName(name);
 		setNoOfSeats(NoOfSeats);
@@ -25,7 +25,11 @@ public class Cinema {
 	}
 
 	public void setId(long id) {
-		this.id = id;
+		if (id <= 0) {
+			throw new IllegalArgumentException();
+		} else {
+			this.id = id;
+		}
 	}
 
 	public String getName() {
@@ -33,7 +37,12 @@ public class Cinema {
 	}
 
 	public void setName(String name) {
-		this.name = name;
+		if (name == "") {
+			throw new IllegalArgumentException();
+		} else {
+			this.name = name;
+			;
+		}
 	}
 
 	public int getNoOfSeats() {
@@ -41,15 +50,19 @@ public class Cinema {
 	}
 
 	public void setNoOfSeats(int noOfSeats) {
-		NoOfSeats = noOfSeats;
+		if (noOfSeats <= 0) {
+			throw new IllegalArgumentException();
+		} else {
+			this.NoOfSeats = noOfSeats;
+		}
 	}
-	
+
 	public int getNoOfRows() {
 		return NoOfSeats;
 	}
 
 	public void setNoOfRows(int noOfRows) {
-		NoOfSeats = noOfRows;
+		noOfRows = NoOfSeats;
 	}
 
 	public double getLattitude() {
@@ -57,7 +70,11 @@ public class Cinema {
 	}
 
 	public void setLattitude(double lattitude) {
-		this.lattitude = lattitude;
+		if (lattitude <= 0) {
+			throw new IllegalArgumentException();
+		} else {
+			this.lattitude = lattitude;
+		}
 	}
 
 	public double getLongitude() {
@@ -65,7 +82,12 @@ public class Cinema {
 	}
 
 	public void setLongitude(double longitude) {
-		this.longitude = longitude;
+		if (longitude <= 0) {
+			throw new IllegalArgumentException();
+		} else {
+			this.longitude = longitude;
+		}
 	}
-	
+
 }
+

@@ -52,7 +52,7 @@ CREATE TABLE `Movies` (
   `name` varchar(30) NOT NULL,
   `genre` varchar(30) NOT NULL,
   PRIMARY KEY (`movie_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -61,6 +61,7 @@ CREATE TABLE `Movies` (
 
 LOCK TABLES `Movies` WRITE;
 /*!40000 ALTER TABLE `Movies` DISABLE KEYS */;
+INSERT INTO `Movies` VALUES (1,'Emila nedarbi','Trilleris'),(2,'Ugunsgreks','Drama');
 /*!40000 ALTER TABLE `Movies` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -74,6 +75,7 @@ DROP TABLE IF EXISTS `Rooms`;
 CREATE TABLE `Rooms` (
   `room_id` int(11) NOT NULL AUTO_INCREMENT,
   `cinema_id` int(11) NOT NULL,
+  `name` varchar(20) NOT NULL,
   `seats` int(11) NOT NULL,
   PRIMARY KEY (`room_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
@@ -149,4 +151,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2018-07-12 10:29:58
+-- Dump completed on 2018-07-13 10:24:25
