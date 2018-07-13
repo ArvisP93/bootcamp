@@ -1,10 +1,10 @@
 package hello;
 
 public class Rooms {
-		private int room_id;
-		private int cinema_id;
-		private String name;
-		private int seats;
+		public int room_id;
+		public int cinema_id;
+		public String name;
+		public int seats;
 		
 		public Rooms() {} //constructor for testing purposes
 		
