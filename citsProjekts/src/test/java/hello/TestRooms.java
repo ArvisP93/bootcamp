@@ -1,4 +1,4 @@
-package com.example.demo;
+package chello;
 
 import static org.junit.Assert.fail;
 
