@@ -1,9 +1,9 @@
 package hello;
 
 public class Movies {
-	private int movie_id;
-	private String name;
-	private String genre;
+	public int movie_id;
+	public String name;
+	public String genre;
 	
 	public Movies() {} // constructor for testing purposes
 	
