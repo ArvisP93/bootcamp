@@ -82,11 +82,6 @@ public class Shows {
 	}
 
 	public void setTaken_seats(String taken_seats) {
-		if(taken_seats == "") {
-			throw new IllegalArgumentException();
-		}else {
-			this.room_id = room_id;
-		}
-	}
+		this.taken_seats = taken_seats;
 }
 
