@@ -3,29 +3,22 @@ package com.example.demo.cbs;
 import java.sql.*;
 import java.util.ArrayList;
 
-import javax.sql.DataSource;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-
-
 public class DbConnect { //Copied from sample, needs work to make usable for this
 	
 	private Connection connect = null;
 	private Statement statement = null;
 	private ResultSet resultSet = null;
-	private static final Logger log = LoggerFactory.getLogger(Application.class);
+	//private static final Logger log = LoggerFactory.getLogger(Application.class);
 
 	private void Connect() throws ClassNotFoundException, SQLException {
 		Class.forName("com.mysql.jdbc.Driver");
         // Setup the connection with the DB
-        //datasource;
         connect = DriverManager.getConnection("jdbc:mysql://localhost/db_cbs?user=java&password=Pass1234");
-        
         //CREATE USER 'javadm'@'%' IDENTIFIED BY 'Pass1234';
         //GRANT ALL PRIVILEGES ON db_cbs.* TO 'javadm'@'%';
-        Statement statement = connect.createStatement();
+        statement = connect.createStatement();
 	}
-	public ArrayList<String> GetMovies(DBAccess choice, int cinema_id, int room_id) throws Exception {
+	public ArrayList<String> GetMovies(int cinema_id, int room_id) throws Exception {
             // This will load the MySQL driver, each DB has its own driver
 		 	Connect();
             // Result set get the result of the SQL query 
@@ -61,7 +54,9 @@ public class DbConnect { //Copied from sample, needs work to make usable for thi
 			close(); 
 			return res;
     }    
-	 
+	
+	
+	/*
 	public void Connect(boolean IsAdmin) throws SQLException {
         if (IsAdmin) {
             connect = DriverManager
@@ -72,10 +67,13 @@ public class DbConnect { //Copied from sample, needs work to make usable for thi
         	connect = DriverManager
         			.getConnection("jdbc:mysql://localhost:3306/db_cbs?"
         					+ "user=java&password=Pass1234;autoReconnect=true");
-        }
+        } 
+	} 
+	*/
+	
 //CREATE USER 'java'@'%' IDENTIFIED BY 'Pass1234';
 //GRANT SELECT ON db_cbs.* TO 'java'@'%';
-	}
+	
 	
     private void close() {
         try {

@@ -76,7 +76,7 @@ public class Application {
 
     public static void main(String[] args) {
         SpringApplication.run(Application.class, args);
-        DbConnect cdb = new DbConnect();
+        //DbConnect cdb = new DbConnect();
         try {
 			
 		} catch (Exception e) {
