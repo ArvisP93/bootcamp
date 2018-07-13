@@ -3,12 +3,12 @@ package hello;
 import java.sql.Date;
 
 public class Shows {
-	private int show_id;
-	private int cinema_id;
-	private int movie_id;
-	private int room_id;
-	private Date date;
-	private String taken_seats;
+	public int show_id;
+	public int cinema_id;
+	public int movie_id;
+	public int room_id;
+	public Date date;
+	public String taken_seats;
 	
 	public Shows() {} //constructor for testing purposes
 
