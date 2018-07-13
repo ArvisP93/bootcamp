@@ -1,0 +1,3 @@
+<div th:each="cinema : ${cinemas}">
+<a th:href="@{/getShows?cinema={cid}(cid=${cinema.getCinema_id()})}" th:text="${cinema.getName()}">Title...</a>
+</div>

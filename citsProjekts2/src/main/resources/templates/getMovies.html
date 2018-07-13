@@ -1,0 +1,8 @@
+
+<table border="1">
+<tr th:each="filma : ${filmas}">
+	<td th:text="${filma.getMovie_id()}">1</td>
+	<td><a href="#" th:text="${filma.getName()}">Title ...</a></td>
+    <td th:text="${filma.getGenre()}">Text ...</td>
+</tr>
+</table>

@@ -1,0 +1,11 @@
+<p th:text="'Te jabut filmam, kas pieejamas kino ar id ' + ${cinema} + '!'" />
+
+<table border="1">
+<tr th:each="show : ${shows}">
+	<td><a href="#" th:text="${show.getMovie_name()}">Movie ...</a></td>
+    <td th:text="${show.getMovie_genre()}">Text ...</td>
+    <td th:text="${show.getDate()}">Text ...</td>
+    <td th:text="${show.getRoom_name()}">Text ...</td>
+    <td th:text="${show.getTotal_seats()}">Text ...</td>
+</tr>
+</table>
