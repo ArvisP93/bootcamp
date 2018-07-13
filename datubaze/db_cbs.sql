@@ -16,6 +16,24 @@
 /*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
 
 --
+-- Temporary table structure for view `Cinema_rooms`
+--
+
+DROP TABLE IF EXISTS `Cinema_rooms`;
+/*!50001 DROP VIEW IF EXISTS `Cinema_rooms`*/;
+SET @saved_cs_client     = @@character_set_client;
+SET character_set_client = utf8;
+/*!50001 CREATE VIEW `Cinema_rooms` AS SELECT 
+ 1 AS `cinema_id`,
+ 1 AS `name`,
+ 1 AS `latitude`,
+ 1 AS `longitude`,
+ 1 AS `room_id`,
+ 1 AS `room_name`,
+ 1 AS `seats`*/;
+SET character_set_client = @saved_cs_client;
+
+--
 -- Table structure for table `Cinemas`
 --
 
@@ -91,6 +109,46 @@ LOCK TABLES `Rooms` WRITE;
 UNLOCK TABLES;
 
 --
+-- Temporary table structure for view `Show_info`
+--
+
+DROP TABLE IF EXISTS `Show_info`;
+/*!50001 DROP VIEW IF EXISTS `Show_info`*/;
+SET @saved_cs_client     = @@character_set_client;
+SET character_set_client = utf8;
+/*!50001 CREATE VIEW `Show_info` AS SELECT 
+ 1 AS `cinema_id`,
+ 1 AS `cinema_name`,
+ 1 AS `room_name`,
+ 1 AS `show_id`,
+ 1 AS `movie_id`,
+ 1 AS `name`,
+ 1 AS `genre`,
+ 1 AS `room_id`,
+ 1 AS `date`,
+ 1 AS `taken_seats`,
+ 1 AS `total_seats`*/;
+SET character_set_client = @saved_cs_client;
+
+--
+-- Temporary table structure for view `Show_movies`
+--
+
+DROP TABLE IF EXISTS `Show_movies`;
+/*!50001 DROP VIEW IF EXISTS `Show_movies`*/;
+SET @saved_cs_client     = @@character_set_client;
+SET character_set_client = utf8;
+/*!50001 CREATE VIEW `Show_movies` AS SELECT 
+ 1 AS `show_id`,
+ 1 AS `movie_id`,
+ 1 AS `name`,
+ 1 AS `genre`,
+ 1 AS `room_id`,
+ 1 AS `date`,
+ 1 AS `taken_seats`*/;
+SET character_set_client = @saved_cs_client;
+
+--
 -- Table structure for table `Shows`
 --
 
@@ -141,6 +199,60 @@ LOCK TABLES `Users` WRITE;
 /*!40000 ALTER TABLE `Users` DISABLE KEYS */;
 /*!40000 ALTER TABLE `Users` ENABLE KEYS */;
 UNLOCK TABLES;
+
+--
+-- Final view structure for view `Cinema_rooms`
+--
+
+/*!50001 DROP VIEW IF EXISTS `Cinema_rooms`*/;
+/*!50001 SET @saved_cs_client          = @@character_set_client */;
+/*!50001 SET @saved_cs_results         = @@character_set_results */;
+/*!50001 SET @saved_col_connection     = @@collation_connection */;
+/*!50001 SET character_set_client      = utf8 */;
+/*!50001 SET character_set_results     = utf8 */;
+/*!50001 SET collation_connection      = utf8_general_ci */;
+/*!50001 CREATE ALGORITHM=UNDEFINED */
+/*!50013 DEFINER=`root`@`localhost` SQL SECURITY DEFINER */
+/*!50001 VIEW `Cinema_rooms` AS select `Cinemas`.`cinema_id` AS `cinema_id`,`Cinemas`.`name` AS `name`,`Cinemas`.`latitude` AS `latitude`,`Cinemas`.`longitude` AS `longitude`,`Rooms`.`room_id` AS `room_id`,`Rooms`.`name` AS `room_name`,`Rooms`.`seats` AS `seats` from (`Cinemas` join `Rooms`) where (`Cinemas`.`cinema_id` = `Rooms`.`cinema_id`) */;
+/*!50001 SET character_set_client      = @saved_cs_client */;
+/*!50001 SET character_set_results     = @saved_cs_results */;
+/*!50001 SET collation_connection      = @saved_col_connection */;
+
+--
+-- Final view structure for view `Show_info`
+--
+
+/*!50001 DROP VIEW IF EXISTS `Show_info`*/;
+/*!50001 SET @saved_cs_client          = @@character_set_client */;
+/*!50001 SET @saved_cs_results         = @@character_set_results */;
+/*!50001 SET @saved_col_connection     = @@collation_connection */;
+/*!50001 SET character_set_client      = utf8 */;
+/*!50001 SET character_set_results     = utf8 */;
+/*!50001 SET collation_connection      = utf8_general_ci */;
+/*!50001 CREATE ALGORITHM=UNDEFINED */
+/*!50013 DEFINER=`root`@`localhost` SQL SECURITY DEFINER */
+/*!50001 VIEW `Show_info` AS select `cr`.`cinema_id` AS `cinema_id`,`cr`.`name` AS `cinema_name`,`cr`.`room_name` AS `room_name`,`sm`.`show_id` AS `show_id`,`sm`.`movie_id` AS `movie_id`,`sm`.`name` AS `name`,`sm`.`genre` AS `genre`,`sm`.`room_id` AS `room_id`,`sm`.`date` AS `date`,`sm`.`taken_seats` AS `taken_seats`,`cr`.`seats` AS `total_seats` from (`Cinema_rooms` `cr` join `Show_movies` `sm`) where (`cr`.`room_id` = `sm`.`room_id`) */;
+/*!50001 SET character_set_client      = @saved_cs_client */;
+/*!50001 SET character_set_results     = @saved_cs_results */;
+/*!50001 SET collation_connection      = @saved_col_connection */;
+
+--
+-- Final view structure for view `Show_movies`
+--
+
+/*!50001 DROP VIEW IF EXISTS `Show_movies`*/;
+/*!50001 SET @saved_cs_client          = @@character_set_client */;
+/*!50001 SET @saved_cs_results         = @@character_set_results */;
+/*!50001 SET @saved_col_connection     = @@collation_connection */;
+/*!50001 SET character_set_client      = utf8 */;
+/*!50001 SET character_set_results     = utf8 */;
+/*!50001 SET collation_connection      = utf8_general_ci */;
+/*!50001 CREATE ALGORITHM=UNDEFINED */
+/*!50013 DEFINER=`root`@`localhost` SQL SECURITY DEFINER */
+/*!50001 VIEW `Show_movies` AS select `sh`.`show_id` AS `show_id`,`mv`.`movie_id` AS `movie_id`,`mv`.`name` AS `name`,`mv`.`genre` AS `genre`,`sh`.`room_id` AS `room_id`,`sh`.`date` AS `date`,`sh`.`taken_seats` AS `taken_seats` from (`Movies` `mv` join `Shows` `sh`) where (`mv`.`movie_id` = `sh`.`movie_id`) */;
+/*!50001 SET character_set_client      = @saved_cs_client */;
+/*!50001 SET character_set_results     = @saved_cs_results */;
+/*!50001 SET collation_connection      = @saved_col_connection */;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
 
 /*!40101 SET SQL_MODE=@OLD_SQL_MODE */;
@@ -151,4 +263,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2018-07-13 10:24:25
+-- Dump completed on 2018-07-13 10:55:28
