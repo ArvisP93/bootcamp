@@ -1,14 +1,16 @@
 package hello;
 
 public class Movies {
-	public int movie_id;
-	public String name;
-	public String genre;
+	private int movie_id;
+	private String name;
+	private String genre;
+	
+	public Movies() {} // constructor for testing purposes
 	
 	public Movies(int id, String name, String genre){
-		this.movie_id=id;
-		this.name=name;
-		this.genre=genre;
+		setMovie_id(id);
+		setName(name);
+		setGenre(genre);
 	}
 
 	public int getMovie_id() {
@@ -16,7 +18,12 @@ public class Movies {
 	}
 
 	public void setMovie_id(int movie_id) {
-		this.movie_id = movie_id;
+		if(movie_id <= 0) {
+			throw new IllegalArgumentException();
+		}
+		else{
+			this.movie_id = movie_id;
+		}
 	}
 
 	public String getName() {
@@ -24,7 +31,11 @@ public class Movies {
 	}
 
 	public void setName(String name) {
-		this.name = name;
+		if (name == "") {
+			throw new IllegalArgumentException();
+		} else {
+			this.name = name;;
+		}
 	}
 
 	public String getGenre() {
@@ -32,6 +43,11 @@ public class Movies {
 	}
 
 	public void setGenre(String genre) {
-		this.genre = genre;
+		if (genre == "") {
+			throw new IllegalArgumentException();
+		} else {
+			this.name = name;;
+		}
 	}
 }
+
