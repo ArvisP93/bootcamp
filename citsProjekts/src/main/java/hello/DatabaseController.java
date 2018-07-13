@@ -17,7 +17,6 @@ public class DatabaseController {
 		Class.forName("com.mysql.jdbc.Driver");
 		this.connection=DriverManager.getConnection("jdbc:mysql://localhost/" + database + "?user=" + user + "&password=" + pass);
 		this.statement=this.connection.createStatement();
-		
 		//GRANT ALL PRIVILEGES ON *.* TO 'springuser'@'localhost' IDENTIFIED BY 'parole' WITH GRANT OPTION;
 	}
 	
