@@ -54,13 +54,13 @@ public class TestShows {
 		Shows obj = new Shows();
 		try {
 			obj.setMovie_id(0);
-			fail("Exception was expected for 0 movie_id input");
+			fail("Exception was expected for 0 id input");
 		}
 		catch(IllegalArgumentException e) {
 		}
 		try {
 			obj.setMovie_id(-10);
-			fail("Exception was expected for negative movie_id input");
+			fail("Exception was expected for negative id input");
 		}
 		catch(IllegalArgumentException e) {
 		}
@@ -84,5 +84,67 @@ public class TestShows {
 		}
 	
 	}
+	
+	@Test
+	public void testRoomName() {
+		Shows obj = new Shows();
+		try {
+			obj.setRoom_name("");
+			fail("Exception was expected for empty room_name input");
+		}
+		catch(IllegalArgumentException e) {
+		}
+	}
+	
+	@Test
+	public void testCinemaName() {
+		Shows obj = new Shows();
+		try {
+			obj.setRoom_name("");
+			fail("Exception was expected for empty room_name input");
+		}
+		catch(IllegalArgumentException e) {
+		}
+	}
+	
+	@Test
+	public void testMovieName() {
+		Shows obj = new Shows();
+		try {
+			obj.setMovie_name("");
+			fail("Exception was expected for empty movie_name input");
+		}
+		catch(IllegalArgumentException e) {
+		}
+	}
+	
+	@Test
+	public void testMovieGenre() {
+		Shows obj = new Shows();
+		try {
+			obj.setMovie_genre("");
+			fail("Exception was expected for empty movie_genre input");
+		}
+		catch(IllegalArgumentException e) {
+		}
+	}
+	
+	@Test
+	public void testTotalSeats() {
+		Shows obj = new Shows();
+		try {
+			obj.setTotal_seats(0);
+			fail("Exception was expected for 0 total_seats input");
+		}
+		catch(IllegalArgumentException e) {
+		}
+		try {
+			obj.setTotal_seats(-40);
+			fail("Exception was expected for negative total_seats input");
+		}
+		catch(IllegalArgumentException e) {
+		}
+	}
+
 
 }
