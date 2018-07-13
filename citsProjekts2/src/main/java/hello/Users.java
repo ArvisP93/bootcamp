@@ -6,11 +6,13 @@ public class Users {
 	public String password;
 	public String role;
 	
-	public Users(int uid, String user, String pass, String role) {
-		this.user_id=uid;
-		this.username=user;
-		this.password=pass;
-		this.role=role;
+	public Users() {} //constructor for testing purposes
+
+	public Users(int user_id, String username, String password, String role) {
+		setUser_id(user_id);
+		setUsername(username);
+		setPassword(password);
+		setRole(role);
 	}
 
 	public int getUser_id() {
@@ -18,7 +20,11 @@ public class Users {
 	}
 
 	public void setUser_id(int user_id) {
-		this.user_id = user_id;
+		if(user_id <= 0) {
+			throw new IllegalArgumentException();
+		}else {
+			this.user_id = user_id;
+		}
 	}
 
 	public String getUsername() {
@@ -26,7 +32,11 @@ public class Users {
 	}
 
 	public void setUsername(String username) {
-		this.username = username;
+		if(username == "") {
+			throw new IllegalArgumentException();
+		}else {
+			this.username = username;
+		}
 	}
 
 	public String getPassword() {
@@ -34,7 +44,11 @@ public class Users {
 	}
 
 	public void setPassword(String password) {
-		this.password = password;
+		if(password == "") {
+			throw new IllegalArgumentException();
+		}else {
+			this.password = password;
+		}
 	}
 
 	public String getRole() {
@@ -42,6 +56,10 @@ public class Users {
 	}
 
 	public void setRole(String role) {
-		this.role = role;
+		if(role == "") {
+			throw new IllegalArgumentException();
+		}else {
+			this.role = role;
+		}
 	}
 }

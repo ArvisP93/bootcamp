@@ -15,6 +15,7 @@ public class Shows {
 	public Date date;
 	public String taken_seats;
 	public int total_seats;
+	public Shows() {} //constructor for testing purposes
 	
 	public Shows(int sid, int cid, String cinema_name, int mid, String movie_name, String movie_genre, int rid, String room_name, Date date, String taken_seats, int total_seats) {
 		this.show_id=sid;
@@ -36,7 +37,11 @@ public class Shows {
 	}
 
 	public void setShow_id(int show_id) {
-		this.show_id = show_id;
+		if(show_id <= 0) {
+			throw new IllegalArgumentException();
+		}else {
+			this.show_id = show_id;
+		}
 	}
 
 	public int getCinema_id() {
@@ -44,23 +49,34 @@ public class Shows {
 	}
 
 	public void setCinema_id(int cinema_id) {
-		this.cinema_id = cinema_id;
-	}
+		if(cinema_id <= 0) {
+			throw new IllegalArgumentException();
+		}else {
+			this.cinema_id = cinema_id;
+		}
+}
 
 	public int getMovie_id() {
 		return movie_id;
 	}
 
 	public void setMovie_id(int movie_id) {
-		this.movie_id = movie_id;
+		if(movie_id <= 0) {
+			throw new IllegalArgumentException();
+		}else {
+			this.movie_id = movie_id;
+		}
 	}
-
 	public int getRoom_id() {
 		return room_id;
 	}
 
 	public void setRoom_id(int room_id) {
-		this.room_id = room_id;
+		if(room_id <= 0) {
+			throw new IllegalArgumentException();
+		}else {
+			this.room_id = room_id;
+		}
 	}
 
 	public Date getDate() {
@@ -76,8 +92,8 @@ public class Shows {
 	}
 
 	public void setTaken_seats(String taken_seats) {
-		this.taken_seats = taken_seats;
-	}
+		this.taken_seats=taken_seats;
+}
 
 	public String getCinema_name() {
 		return cinema_name;
@@ -93,6 +109,11 @@ public class Shows {
 
 	public void setTotal_seats(int total_seats) {
 		this.total_seats = total_seats;
+		if(total_seats <= 0) {
+			throw new IllegalArgumentException();
+		}else {
+			this.total_seats = total_seats;
+		}
 	}
 
 	public String getRoom_name() {
@@ -100,7 +121,12 @@ public class Shows {
 	}
 
 	public void setRoom_name(String room_name) {
-		this.room_name = room_name;
+		if(room_name == "") {
+			throw new IllegalArgumentException();
+		}else {
+			this.room_name = room_name;
+		}
+		
 	}
 
 	public String getMovie_name() {
@@ -108,7 +134,12 @@ public class Shows {
 	}
 
 	public void setMovie_name(String movie_name) {
-		this.movie_name = movie_name;
+		if(movie_name == "") {
+			throw new IllegalArgumentException();
+		}else {
+			this.movie_name = movie_name;
+		}
+
 	}
 
 	public String getMovie_genre() {
@@ -116,6 +147,10 @@ public class Shows {
 	}
 
 	public void setMovie_genre(String movie_genre) {
-		this.movie_genre = movie_genre;
+		if(movie_genre == "") {
+			throw new IllegalArgumentException();
+		}else {
+			this.movie_genre = movie_genre;
+		}
 	}
 }
