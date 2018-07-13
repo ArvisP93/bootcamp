@@ -8,9 +8,9 @@ public class Rooms {
 		
 		public Rooms() {} //constructor for testing purposes
 		
-		public Rooms(int rid, int cid, String name, int seats) {
-			setRoom_id(cid);
-			setCinema_id(cid);
+		public Rooms(int room_id, int cinema_id, String name, int seats) {
+			setRoom_id(room_id);
+			setCinema_id(cinema_id);
 			setName(name);
 			setSeats(seats);
 		}
