@@ -84,17 +84,5 @@ public class TestShows {
 		}
 	
 	}
-	
-	@Test
-	public void testTakenSeats() {
-		Shows obj = new Shows();
-		try {
-			obj.setTaken_seats("");
-			fail("Exception was expected for empty taken_seats input");
-		}
-		catch(IllegalArgumentException e) {
-		}
-	}
-
 
 }
