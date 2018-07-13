@@ -7,7 +7,7 @@ import org.junit.runner.RunWith;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
 
-import com.modelclasses.Movies;
+import hello.Movies;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest
