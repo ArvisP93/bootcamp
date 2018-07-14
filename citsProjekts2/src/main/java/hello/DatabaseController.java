@@ -71,10 +71,18 @@ public class DatabaseController {
 		ResultSet rs = this.statement.executeQuery("SELECT username FROM Users WHERE username = " + username + ";");
 		return rs.next();
 	}
+		boolean AddUser(String username, String password) throws SQLException { //returns true if successfully added
+		boolean tmp = this.statement.execute("INSERT INTO Users (username, password, role) VALUES ('"+username+"', '"+password+"','user');");
+		return !tmp;
+	}
 	
-	boolean AddUser(String username, String password) throws SQLException {
-		boolean tmp = this.statement.execute("INSERT INTO Users (username, password, role) VALUES ('"+username+"', '"+password+"','user';");
-		return tmp;
+	boolean AddCinema(String name, double latitude, double longitude) throws SQLException {//returns true if successfully added
+		boolean tmp = this.statement.execute("INSERT INTO Cinemas (name, latitude, longitude) VALUES ('" + name + "', "+latitude+","+longitude+");");
+		return !tmp;
+	}
+	boolean AddMovie(String title, String genre) throws SQLException {//returns true if successfully added
+		boolean tmp = this.statement.execute("INSERT INTO Movies (name, genre) VALUES ('"+title+"', '"+genre+"');");
+		return !tmp;
 	}
 	
 }
