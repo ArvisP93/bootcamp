@@ -46,7 +46,7 @@ CREATE TABLE `Cinemas` (
   `latitude` double NOT NULL,
   `longitude` double NOT NULL,
   PRIMARY KEY (`cinema_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -55,6 +55,7 @@ CREATE TABLE `Cinemas` (
 
 LOCK TABLES `Cinemas` WRITE;
 /*!40000 ALTER TABLE `Cinemas` DISABLE KEYS */;
+INSERT INTO `Cinemas` VALUES (1,'Kino RIO',10,11),(2,'Kino Zupa',15,11);
 /*!40000 ALTER TABLE `Cinemas` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -96,7 +97,7 @@ CREATE TABLE `Rooms` (
   `name` varchar(20) NOT NULL,
   `seats` int(11) NOT NULL,
   PRIMARY KEY (`room_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -105,6 +106,7 @@ CREATE TABLE `Rooms` (
 
 LOCK TABLES `Rooms` WRITE;
 /*!40000 ALTER TABLE `Rooms` DISABLE KEYS */;
+INSERT INTO `Rooms` VALUES (1,1,'Liela zale',100),(2,2,'Liela zale',120);
 /*!40000 ALTER TABLE `Rooms` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -163,7 +165,7 @@ CREATE TABLE `Shows` (
   `date` datetime NOT NULL,
   `taken_seats` varchar(250) DEFAULT NULL,
   PRIMARY KEY (`show_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -172,6 +174,7 @@ CREATE TABLE `Shows` (
 
 LOCK TABLES `Shows` WRITE;
 /*!40000 ALTER TABLE `Shows` DISABLE KEYS */;
+INSERT INTO `Shows` VALUES (1,1,1,1,'2018-07-13 00:00:00','1,2,3');
 /*!40000 ALTER TABLE `Shows` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -263,4 +266,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2018-07-13 10:55:28
+-- Dump completed on 2018-07-14 11:19:51
