@@ -67,4 +67,14 @@ public class DatabaseController {
 		return tmp;
 	}
 	
+	boolean UserExists(String username) throws SQLException{
+		ResultSet rs = this.statement.executeQuery("SELECT username FROM Users WHERE username = " + username + ";");
+		return rs.next();
+	}
+	
+	boolean AddUser(String username, String password) throws SQLException {
+		boolean tmp = this.statement.execute("INSERT INTO Users (username, password, role) VALUES ('"+username+"', '"+password+"','user';");
+		return tmp;
+	}
+	
 }
