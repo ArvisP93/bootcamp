@@ -15,23 +15,21 @@ public class Shows {
 	public Date date;
 	public String taken_seats;
 	public int total_seats;
-	
-	
 	public Shows() {} //constructor for testing purposes
-
+	
 	public Shows(int sid, int cid, String cinema_name, int mid, String movie_name, String movie_genre, int rid, String room_name, Date date, String taken_seats, int total_seats) {
-		setShow_id(sid);
-		setCinema_id(cid);
-		setCinema_name(cinema_name);
-		setMovie_id(mid);
-		setMovie_name(movie_name);
-		setMovie_genre(movie_genre);
+		this.show_id=sid;
+		this.cinema_id=cid;
+		this.cinema_name=cinema_name;
+		this.movie_id=mid;
+		this.movie_name=movie_name;
+		this.movie_genre=movie_genre;
 		
-		setRoom_id(rid);
-		setRoom_name(room_name);
-		setDate(date);
-		setTaken_seats(taken_seats);
-		setTotal_seats(total_seats);
+		this.room_id=rid;
+		this.room_name=room_name;
+		this.date=date;
+		this.taken_seats=taken_seats;
+		this.total_seats=total_seats;
 	}
 
 	public int getShow_id() {
@@ -79,8 +77,8 @@ public class Shows {
 		}else {
 			this.room_id = room_id;
 		}
-}
-	
+	}
+
 	public Date getDate() {
 		return date;
 	}
@@ -102,11 +100,7 @@ public class Shows {
 	}
 
 	public void setCinema_name(String cinema_name) {
-		if(cinema_name == "") {
-			throw new IllegalArgumentException();
-		}else {
-			this.total_seats = total_seats;
-		}	
+		this.cinema_name = cinema_name;
 	}
 
 	public int getTotal_seats() {
@@ -114,6 +108,7 @@ public class Shows {
 	}
 
 	public void setTotal_seats(int total_seats) {
+		this.total_seats = total_seats;
 		if(total_seats <= 0) {
 			throw new IllegalArgumentException();
 		}else {
@@ -158,6 +153,4 @@ public class Shows {
 			this.movie_genre = movie_genre;
 		}
 	}
-	
 }
-	

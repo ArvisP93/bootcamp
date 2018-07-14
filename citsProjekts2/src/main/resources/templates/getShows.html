@@ -1,11 +1,21 @@
 <p th:text="'Te jabut filmam, kas pieejamas kino ar id ' + ${cinema} + '!'" />
 
 <table border="1">
+<tr>
+	<td>Filma</td>
+    <td>Zanrs</td>
+    <td>Datums</td>
+    <td>Auditorija</td>
+    <td>Sedvietu skaits</td>
+</tr>
 <tr th:each="show : ${shows}">
-	<td><a href="#" th:text="${show.getMovie_name()}">Movie ...</a></td>
-    <td th:text="${show.getMovie_genre()}">Text ...</td>
-    <td th:text="${show.getDate()}">Text ...</td>
-    <td th:text="${show.getRoom_name()}">Text ...</td>
-    <td th:text="${show.getTotal_seats()}">Text ...</td>
+	<td><a th:href="@{/getShow?show_id={sid}(sid=${show.getShow_id()})}" th:text="${show.getMovie_name()}">Movie ...</a></td>
+    <td th:text="${show.getMovie_genre()}">Genre ...</td>
+    <td th:text="${show.getDate()}">Date ...</td>
+    <td th:text="${show.getRoom_name()}">Room name ...</td>
+    <td th:text="${show.getTotal_seats()}">Total seats ...</td>
 </tr>
 </table>
+
+<p>**********</p>
+</i><a href="/index.html"><i>Sakumlapa</i></a>

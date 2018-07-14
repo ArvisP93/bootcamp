@@ -56,5 +56,15 @@ public class DatabaseController {
 		
 		return tmp;
 	}
+	Shows getShow(String showID) throws SQLException{
+		Shows tmp;
+		//this.statement.executeUpdate(sql);
+		ResultSet rs = this.statement.executeQuery("SELECT * FROM Show_info WHERE show_id = " + showID + ";");
+		tmp=new Shows(rs.getInt("show_id"), rs.getInt("cinema_id"), rs.getString("cinema_name"), rs.getInt("movie_id"), rs.getString("name"), rs.getString("genre"), rs.getInt("room_id"), rs.getString("room_name"), rs.getDate("date"), rs.getString("taken_seats"), rs.getInt("total_seats"));
+	
+		
+		
+		return tmp;
+	}
 	
 }
