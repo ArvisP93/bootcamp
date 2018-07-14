@@ -71,7 +71,7 @@ public class DatabaseController {
 		ResultSet rs = this.statement.executeQuery("SELECT username FROM Users WHERE username = " + username + ";");
 		return rs.next();
 	}
-		boolean AddUser(String username, String password) throws SQLException { //returns true if successfully added
+	boolean AddUser(String username, String password) throws SQLException { //returns true if successfully added
 		boolean tmp = this.statement.execute("INSERT INTO Users (username, password, role) VALUES ('"+username+"', '"+password+"','user');");
 		return !tmp;
 	}
@@ -83,6 +83,21 @@ public class DatabaseController {
 	boolean AddMovie(String title, String genre) throws SQLException {//returns true if successfully added
 		boolean tmp = this.statement.execute("INSERT INTO Movies (name, genre) VALUES ('"+title+"', '"+genre+"');");
 		return !tmp;
+	}
+	boolean AddRoom(int cinema_id, String name, int seats) throws SQLException {
+		boolean tmp = this.statement.execute("INSERT INTO Rooms (cinema_id, name, seats) VALUES (" + cinema_id + ", '" + name + "', " + seats + ");");
+		return !tmp;
+	}
+	
+	int FindClosest(double CurrLatitude, double CurrLongitude) throws SQLException { //returns the ID of the closest cinema, calculated by Pythagorean formula with latitudes and longitudes
+		ResultSet  rs = this.statement.executeQuery("SELECT cinema_id, latitude, longitude, sqrt(pow(latitude-"+CurrLatitude+")+pow(longitude-"+CurrLongitude+")) as dist from Cinemas order by dist limit 1;");
+		rs.next();
+		Integer tmp = rs.getInt("cinema_id");
+		return tmp;
+	}
+	boolean CheckPassword(String username, String password) throws SQLException {
+		ResultSet rs = this.statement.executeQuery("SELECT username FROM Users WHERE username = '" + username + "' AND password = '" + password + "';");
+		return rs.next();
 	}
 	
 }
