@@ -56,15 +56,57 @@ public class DatabaseController {
 		
 		return tmp;
 	}
-	Shows getShow(String showID) throws SQLException{
-		Shows tmp;
+	ArrayList<Seat> getShowSeats(String showID) throws NumberFormatException, SQLException{
+		ArrayList<Seat> tmp = new ArrayList<Seat>();
+		boolean takenSeat;
 		//this.statement.executeUpdate(sql);
 		ResultSet rs = this.statement.executeQuery("SELECT * FROM Show_info WHERE show_id = " + showID + ";");
-		tmp=new Shows(rs.getInt("show_id"), rs.getInt("cinema_id"), rs.getString("cinema_name"), rs.getInt("movie_id"), rs.getString("name"), rs.getString("genre"), rs.getInt("room_id"), rs.getString("room_name"), rs.getDate("date"), rs.getString("taken_seats"), rs.getInt("total_seats"));
-	
-		
-		
+		if(rs.next()) {
+			
+			String[] taken_seats = rs.getString("taken_seats").split(",");
+			
+			for(int i=1; i<=rs.getInt("total_seats"); i++) {
+				takenSeat=false;
+				
+				for(String s : taken_seats) {
+					if(i==Integer.parseInt(s)) {
+						takenSeat=true;
+						break;
+					}
+				}
+				
+				tmp.add(new Seat(i,takenSeat));
+			}
+			
+
+		}
 		return tmp;
+	}
+	boolean reserveSeat(String showID, String seatID) throws SQLException {
+		
+		
+		System.out.println("showID: " + showID);
+		System.out.println("seatID" + seatID);
+		
+		ResultSet rs = this.statement.executeQuery("SELECT taken_seats FROM Shows WHERE show_id = " + showID + ";");
+		
+		
+		String taken_seats;
+		if(rs.next()) {
+			taken_seats=rs.getString("taken_seats");
+			
+			if(taken_seats.equals("")) {
+				taken_seats+=seatID;
+			}
+			else {
+				taken_seats+=","+seatID;
+			}
+			this.statement.executeUpdate("UPDATE Shows SET taken_seats = '" + taken_seats + "' WHERE show_id = " + showID + ";");
+			return true;
+		}
+		else {
+			return false;
+		}
 	}
 	
 	boolean UserExists(String username) throws SQLException{
@@ -98,6 +140,6 @@ public class DatabaseController {
 	boolean CheckPassword(String username, String password) throws SQLException {
 		ResultSet rs = this.statement.executeQuery("SELECT username FROM Users WHERE username = '" + username + "' AND password = '" + password + "';");
 		return rs.next();
-	}
+}
 	
 }
