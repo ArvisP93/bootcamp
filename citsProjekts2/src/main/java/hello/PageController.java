@@ -140,6 +140,7 @@ public class PageController {
     	model.addAttribute("cinema",db.getCinemas(cinema_id));
     	return "showCinema";
     }
+	//Made by TM starts here - 16.07
     @PostMapping("/changeCinema")
     public String changeCinema(Cinemas cinema) throws ClassNotFoundException, SQLException {
     	
@@ -173,6 +174,6 @@ public class PageController {
     	db.changeShow(show);	
     	return "redirect:/showShow?show_id="+show.getShow_id();
     }
-    
+    //Made by TM ends here - 16.07
  
 }
