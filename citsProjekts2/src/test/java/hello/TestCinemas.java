@@ -27,25 +27,16 @@ public class TestCinemas {
 		} catch(IllegalArgumentException e) {
 		}
 		try {
-			Cinemas obj = new Cinemas(1010, "KinoRio", -10.2, 15.7);
-			fail("Exception was expected for negative latitude input");
+			Cinemas obj = new Cinemas(1010, "KinoRio", -100.0, 15.7);
+			fail("Exception was expected for latitude input out of bondaries");
 		} catch(IllegalArgumentException e) {
 		}
 		try {
-			Cinemas obj = new Cinemas(1010, "KinoRio", 10.2, -15.7);
-			fail("Exception was expected for negative longitude input");
+			Cinemas obj = new Cinemas(1010, "KinoRio", 10.2, -200.0);
+			fail("Exception was expected for longitude input out of bondaries");
 		} catch(IllegalArgumentException e) {
 		}
-		try {
-			Cinemas obj = new Cinemas(1010, "KinoRio", 0, 15.7);
-			fail("Exception was expected for 0 latitude input");
-		} catch(IllegalArgumentException e) {
-		}
-		try {
-			Cinemas obj = new Cinemas(0, "KinoRio", 10.2, 0);
-			fail("Exception was expected for 0 longitude input");
-		} catch(IllegalArgumentException e) {
-		}
+		
 	}
 	
 	@Test
@@ -76,30 +67,12 @@ public class TestCinemas {
 	@Test
 	public void testLatitude() {
 		Cinemas obj = new Cinemas();
-		try {
-			obj.setLatitude(0);
-			fail("Exception was expected for 0 latitude input");
-		}catch(IllegalArgumentException e) {
-		}
-		try {
-			obj.setLatitude(-10.6);
-			fail("Exception was expected for negative latitude input");
-		}catch(IllegalArgumentException e) {
-		}
+		
 	}
 	
 	@Test
 	public void testLongitude() {
 		Cinemas obj = new Cinemas();
-		try {
-			obj.setLongitude(0);
-			fail("Exception was expected for 0 longitude input");
-		}catch(IllegalArgumentException e) {
-		}
-		try {
-			obj.setLongitude(-10.6);
-			fail("Exception was expected for negative longitude input");
-		}catch(IllegalArgumentException e) {
-		}
+		
 	}
 }
