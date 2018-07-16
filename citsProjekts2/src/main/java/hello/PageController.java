@@ -3,6 +3,8 @@ package hello;
 import java.sql.SQLException;
 //import java.util.ArrayList;
 
+import javax.servlet.http.HttpServletRequest;
+
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -129,8 +131,48 @@ public class PageController {
     	db=new DatabaseController(database,username,password);
     	model.addAttribute("rooms",db.getRooms(cinema_id));
     	model.addAttribute("cinemas",db.getCinemas());
-        return "showRooms";
-}
+        return "/showRooms";
+    }
+    
+    @GetMapping("/showCinema")
+    public String showCinema(@RequestParam(name="cinema_id",required=true) int cinema_id, Model model) throws SQLException, ClassNotFoundException {
+    	db=new DatabaseController(database,username,password);
+    	model.addAttribute("cinema",db.getCinemas(cinema_id));
+    	return "showCinema";
+    }
+    @PostMapping("/changeCinema")
+    public String changeCinema(Cinemas cinema) throws ClassNotFoundException, SQLException {
+    	
+    	db=new DatabaseController(database,username,password);
+    	db.changeCinema(cinema);	
+    	return "redirect:/showCinema?cinema_id="+cinema.getCinema_id();
+    }
+    @GetMapping("/showRoom")
+    public String showRoom(@RequestParam(name="room_id",required=true) int room_id, Model model) throws SQLException, ClassNotFoundException {
+    	db=new DatabaseController(database,username,password);
+    	model.addAttribute("room",db.getRoom(room_id));
+    	return "showRoom";
+    }
+    @PostMapping("/changeRoom")
+    public String changeRoom(Rooms room) throws ClassNotFoundException, SQLException {
+    	
+    	db=new DatabaseController(database,username,password);
+    	db.changeRoom(room);	
+    	return "redirect:/showRoom?room_id="+room.getRoom_id();
+    }
+    @GetMapping("/showShow")
+    public String showShow(@RequestParam(name="show_id",required=true) int show_id, Model model) throws SQLException, ClassNotFoundException {
+    	db=new DatabaseController(database,username,password);
+    	model.addAttribute("show",db.getShow(show_id));
+    	return "showShow";
+    }
+    @PostMapping("/changeShow")
+    public String changeShow(Shows show) throws ClassNotFoundException, SQLException {
+    	
+    	db=new DatabaseController(database,username,password);
+    	db.changeShow(show);	
+    	return "redirect:/showShow?show_id="+show.getShow_id();
+    }
     
  
 }

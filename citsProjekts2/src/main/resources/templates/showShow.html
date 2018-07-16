@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title th:text = "${show.getMovie_name()}"> - 123</title>
+</head>
+<body>
+<table border="1">
+	<form action="#" th:action="@{'/changeShow?show_id='+${show.getShow_id()}}" th:object="${show}" method="post">
+            <table>
+        	    <tr>
+        			<td>Show ID:</td>
+        			<td th:text="${show.getShow_id()}"></td>	    
+        	    </tr>
+                <tr>
+                    <td>Cinema ID:</td>
+                    <td th:text="${show.getCinema_id()}"/></td>
+                </tr>
+                <tr>
+                    <td>Cinema Name:</td>
+                    <td th:text="${show.getCinema_name()}"/></td>
+                </tr>
+                <tr>
+                    <td>Room ID:</td>
+                    <td><input type="text" th:field="*{room_id}"/></td>
+                </tr>
+                <tr>
+                    <td>Room Name:</td>
+                    <td th:text="${show.getRoom_name()}"/></td>
+                </tr>
+                <tr>
+                    <td>Movie ID:</td>
+                    <td><input type="text" th:field="*{movie_id}"/></td>
+                </tr>
+                <tr>
+                    <td>Movie Name:</td>
+                    <td th:text="${show.getMovie_name()}"/></td>
+                </tr>
+                <tr>
+                    <td>Movie Genre:</td>
+                    <td th:text="${show.getMovie_genre()}"/></td>
+                </tr>
+                <tr>
+                    <td>Date:</td>
+                    <td><input type="text" th:field="*{date}"/></td>
+                </tr>
+                <tr>
+                    <td>Taken Seats:</td>
+                    <td><input type="text" th:field="*{taken_seats}"/></td>
+                </tr>
+                <tr>
+                    <td>Total Seats:</td>
+                    <td th:text="${show.getTotal_seats()}"/></td>
+                </tr>
+                <tr>
+                    <td><button type="submit">Update</button></td>
+                </tr>
+            </table>
+	</form>
+</table>
+
+
+<p>**********</p>
+<a href="/"><i>Sakumlapa</i></a>
+</body>
+</html>

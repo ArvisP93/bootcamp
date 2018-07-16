@@ -43,6 +43,18 @@ public class DatabaseController {
 		
 		return tmp;
 	}
+	Cinemas getCinemas(int cinema_id) throws SQLException{
+		Cinemas tmp = new Cinemas();
+		//this.statement.executeUpdate(sql);
+		ResultSet rs = this.statement.executeQuery("SELECT * FROM Cinemas where cinema_id = " + cinema_id + ";");
+		
+		while(rs.next()) {
+			tmp = new Cinemas(rs.getInt("cinema_id"), rs.getString("name"), rs.getDouble("latitude"), rs.getDouble("longitude"));
+		}
+		
+		
+		return tmp;
+	}
 	
 	ArrayList<Shows> getShows(String cinemaID) throws SQLException{
 		ArrayList<Shows> tmp = new ArrayList<Shows>();
@@ -159,6 +171,28 @@ public class DatabaseController {
 		}
 		return tmp;
 	}
-	
-	
+	int changeCinema(Cinemas cinema) throws SQLException{
+		return this.statement.executeUpdate("UPDATE Cinemas SET name='"+cinema.getName()+"', latitude = " + cinema.getLatitude() + ", longitude = " + cinema.getLongitude() + " where cinema_id = "+ cinema.getCinema_id() + ";");
+	}
+
+	int changeRoom(Rooms room) throws SQLException {
+		return this.statement.executeUpdate("UPDATE Rooms SET name='"+room.getName()+"', seats = " + room.getSeats() + ", cinema_id = " + room.getCinema_id() + " where room_id = "+ room.getRoom_id() + ";");
+	}
+
+	Rooms getRoom(int room_id) throws SQLException {
+		ResultSet rs = this.statement.executeQuery("SELECT * FROM Rooms WHERE room_id = "+ room_id +";");
+		rs.next();
+		Rooms tmp = new Rooms(rs.getInt("room_id"),rs.getInt("cinema_id"),rs.getString("name"),rs.getInt("seats"));
+		return tmp;
+	}
+
+	Shows getShow(int show_id) throws SQLException {
+		ResultSet rs = this.statement.executeQuery("SELECT * FROM Show_info WHERE show_id = "+ show_id+";");
+		rs.next();
+		Shows tmp = new Shows(rs.getInt("show_id"),rs.getInt("cinema_id"),rs.getString("cinema_name"),rs.getInt("movie_id"),rs.getString("name"),rs.getString("genre"),rs.getInt("room_id"),rs.getString("room_name"),rs.getDate("date"),rs.getString("taken_seats"),rs.getInt("total_seats"));
+		return tmp;
+	}
+	int changeShow(Shows show) throws SQLException {	 
+		return this.statement.executeUpdate("UPDATE Shows SET cinema_id ="+show.getCinema_id()+",movie_id = "+show.getMovie_id()+",room_id = "+show.getRoom_id()+",date = '" + show.getDate()+"', taken_seats = '"+show.getTaken_seats()+"' where show_id = "+show.getShow_id()+";"); 
+	}
 }

@@ -17,6 +17,7 @@
 	<td th:text="${room.getRoom_id()}">roomid</td>
 	<td th:text="${room.getName()}">roomname</td>
     <td th:text="${room.getSeats()}">totalseats</td>
+    <td><a th:href="@{'/showRoom?room_id='+${room.getRoom_id()}}" >Edit Room</a></td>
 </tr>
 </table>
 
