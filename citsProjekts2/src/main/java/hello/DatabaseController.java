@@ -7,8 +7,6 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
 
-import javax.naming.spi.DirStateFactory.Result;
-
 public class DatabaseController {
 
 	Statement statement;
@@ -69,7 +67,7 @@ public class DatabaseController {
 			if(!rs.getString("taken_seats").equals(""))
 				taken_seats = rs.getString("taken_seats").split(",");
 			else
-				taken_seats=new String[0];
+				taken_seats = new String[0];
 			
 			for(int i=1; i<=rs.getInt("total_seats"); i++) {
 				takenSeat=false;
@@ -114,20 +112,6 @@ public class DatabaseController {
 			return false;
 		}
 	}
-	ArrayList<Rooms> getRooms(int cinema_id) throws SQLException{
-		ResultSet rs;
-		if (cinema_id>0) {
-			rs = this.statement.executeQuery("SELECT room_id, cinema_id, room_name, seats FROM Cinema_rooms WHERE cinema_id = "+ cinema_id + " ORDER BY room_name;");
-		} else {
-			rs = this.statement.executeQuery("SELECT room_id, cinema_id, room_name, seats FROM Cinema_rooms ORDER BY room_name;");
-		}
-		ArrayList<Rooms> tmp = new ArrayList<Rooms>();
-		
-		while (rs.next()) {
-			tmp.add(new Rooms(rs.getInt("room_id"), rs.getInt("cinema_id"), rs.getString("room_name"),rs.getInt("seats")));
-		}
-		return tmp;
-	}
 	
 	boolean UserExists(String username) throws SQLException{
 		ResultSet rs = this.statement.executeQuery("SELECT username FROM Users WHERE username = " + username + ";");
@@ -152,14 +136,29 @@ public class DatabaseController {
 	}
 	
 	int FindClosest(double CurrLatitude, double CurrLongitude) throws SQLException { //returns the ID of the closest cinema, calculated by Pythagorean formula with latitudes and longitudes
-		ResultSet  rs = this.statement.executeQuery("SELECT cinema_id, latitude, longitude, sqrt(pow(latitude-"+CurrLatitude+")+pow(longitude-"+CurrLongitude+")) as dist from Cinemas order by dist limit 1;");
+		ResultSet  rs = this.statement.executeQuery("SELECT cinema_id, latitude, longitude, sqrt(pow(latitude-"+CurrLatitude+",2)+pow(longitude-"+CurrLongitude+",2)) as dist from Cinemas order by dist limit 1;");
 		rs.next();
-		Integer tmp = rs.getInt("cinema_id");
+		int tmp = rs.getInt("cinema_id");
 		return tmp;
 	}
 	boolean CheckPassword(String username, String password) throws SQLException {
 		ResultSet rs = this.statement.executeQuery("SELECT username FROM Users WHERE username = '" + username + "' AND password = '" + password + "';");
 		return rs.next();
-}
+	}
+	ArrayList<Rooms> getRooms(int cinema_id) throws SQLException{
+		ResultSet rs;
+		if (cinema_id>0) {
+			rs = this.statement.executeQuery("SELECT room_id, cinema_id, room_name, seats FROM Cinema_rooms WHERE cinema_id = "+ cinema_id + " ORDER BY room_name;");
+		} else {
+			rs = this.statement.executeQuery("SELECT room_id, cinema_id, room_name, seats FROM Cinema_rooms ORDER BY room_name;");
+		}
+		ArrayList<Rooms> tmp = new ArrayList<Rooms>();
+		
+		while (rs.next()) {
+			tmp.add(new Rooms(rs.getInt("room_id"), rs.getInt("cinema_id"), rs.getString("room_name"),rs.getInt("seats")));
+		}
+		return tmp;
+	}
+	
 	
 }

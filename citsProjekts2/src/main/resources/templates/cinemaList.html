@@ -1,3 +1,29 @@
+<p id="message"></p>
+<a id="cinLink" href="#" text=>Atrast tuvako kinoteatri</a>
+<script>
+var x = document.getElementById("message");
+function getLocation() {
+    if (navigator.geolocation) {
+        navigator.geolocation.getCurrentPosition(showPosition);
+    } else {
+        x.innerHTML = "Geolocation is not supported by this browser.";
+    }
+}
+function showPosition(position) {
+    //x.innerHTML = "Latitude: " + position.coords.latitude +
+    //"<br>Longitude: " + position.coords.longitude;
+    
+    //console.log(position.coords.latitude);
+    var yourElement = document.getElementById('cinLink');
+    //yourElement.setAttribute('href', '#?latitude=' + position.coords.latitude + '&longitude=' + position.coords.longitude);
+    yourElement.setAttribute('href', '/getShows?latitude=' + position.coords.latitude + '&longitude=' + position.coords.longitude);
+    
+}
+getLocation();
+
+</script> 
+
+
 <table border=1>
 <tr th:each="cinema : ${cinemas}">
 	<td><a th:text="${cinema.getName()}">cinid</a></td>
@@ -6,5 +32,5 @@
 </tr>
 </table>
 
-<p>**********</p>
+
 </i><a href="/index.html"><i>Sakumlapa</i></a>
