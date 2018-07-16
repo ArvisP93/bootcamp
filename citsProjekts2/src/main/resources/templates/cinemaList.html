@@ -1,5 +1,10 @@
-<div th:each="cinema : ${cinemas}">
-<a th:href="@{/getShows?cinema={cid}(cid=${cinema.getCinema_id()})}" th:text="${cinema.getName()}">Title...</a>
-</div>
+<table border=1>
+<tr th:each="cinema : ${cinemas}">
+	<td><a th:text="${cinema.getName()}">cinid</a></td>
+	<td><a th:href="@{'/getShows?cinema='+${cinema.getCinema_id()}}">Shows</a></td>
+	<td><a th:href="@{'/showRooms?cinema_id='+${cinema.getCinema_id()}}">Rooms</a></td>
+</tr>
+</table>
+
 <p>**********</p>
 </i><a href="/index.html"><i>Sakumlapa</i></a>
