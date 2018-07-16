@@ -7,6 +7,8 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
 
+import javax.naming.spi.DirStateFactory.Result;
+
 public class DatabaseController {
 
 	Statement statement;
@@ -34,7 +36,7 @@ public class DatabaseController {
 	ArrayList<Cinemas> getCinemas() throws SQLException{
 		ArrayList<Cinemas> tmp = new ArrayList<Cinemas>();
 		//this.statement.executeUpdate(sql);
-		ResultSet rs = this.statement.executeQuery("SELECT * FROM Cinemas;");
+		ResultSet rs = this.statement.executeQuery("SELECT * FROM Cinemas ORDER BY cinema_id;");
 		
 		while(rs.next()) {
 			tmp.add(new Cinemas(rs.getInt("cinema_id"), rs.getString("name"), rs.getDouble("latitude"), rs.getDouble("longitude")));
@@ -63,7 +65,11 @@ public class DatabaseController {
 		ResultSet rs = this.statement.executeQuery("SELECT * FROM Show_info WHERE show_id = " + showID + ";");
 		if(rs.next()) {
 			
-			String[] taken_seats = rs.getString("taken_seats").split(",");
+			String[] taken_seats;
+			if(!rs.getString("taken_seats").equals(""))
+				taken_seats = rs.getString("taken_seats").split(",");
+			else
+				taken_seats=new String[0];
 			
 			for(int i=1; i<=rs.getInt("total_seats"); i++) {
 				takenSeat=false;
@@ -107,6 +113,20 @@ public class DatabaseController {
 		else {
 			return false;
 		}
+	}
+	ArrayList<Rooms> getRooms(int cinema_id) throws SQLException{
+		ResultSet rs;
+		if (cinema_id>0) {
+			rs = this.statement.executeQuery("SELECT room_id, cinema_id, room_name, seats FROM Cinema_rooms WHERE cinema_id = "+ cinema_id + " ORDER BY room_name;");
+		} else {
+			rs = this.statement.executeQuery("SELECT room_id, cinema_id, room_name, seats FROM Cinema_rooms ORDER BY room_name;");
+		}
+		ArrayList<Rooms> tmp = new ArrayList<Rooms>();
+		
+		while (rs.next()) {
+			tmp.add(new Rooms(rs.getInt("room_id"), rs.getInt("cinema_id"), rs.getString("room_name"),rs.getInt("seats")));
+		}
+		return tmp;
 	}
 	
 	boolean UserExists(String username) throws SQLException{

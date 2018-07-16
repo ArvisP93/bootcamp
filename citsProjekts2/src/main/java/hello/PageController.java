@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 public class PageController {
 	
 	public static DatabaseController db;
+	public static final String username="springuser",password="parole",database="db_cbs";
 	
     @GetMapping("/greeting")
     public String greeting(@RequestParam(name="name", required=false, defaultValue="World") String name, Model model) throws ClassNotFoundException, SQLException {
@@ -28,7 +29,7 @@ public class PageController {
     @GetMapping("/getMovies")
     public String getMovies(Model model) throws ClassNotFoundException, SQLException {
     	
-    	db=new DatabaseController("db_cbs", "springuser", "parole");
+    	db=new DatabaseController(database,username,password);
     	
         model.addAttribute("filmas", db.getFilmas());
         return "getMovies";
@@ -36,7 +37,7 @@ public class PageController {
     @GetMapping("/index1")
     public String index1(Model model) throws ClassNotFoundException, SQLException {
     	
-    	db=new DatabaseController("db_cbs", "springuser", "parole");
+    	db=new DatabaseController(database,username,password);
     	
         model.addAttribute("cinemas", db.getCinemas());
         //model.addAttribute("filmas", db.getShows());
@@ -45,30 +46,37 @@ public class PageController {
     
     @GetMapping("/cinemaList")
     public String cinemaList(Model model) throws ClassNotFoundException, SQLException{
-    	db=new DatabaseController("db_cbs", "springuser", "parole");
+    	db=new DatabaseController(database,username,password);
     	model.addAttribute("cinemas", db.getCinemas());
     	return "cinemaList";
     }
     
     @GetMapping("/getShows")
     public String getShows(@RequestParam(name="cinema", required=true, defaultValue="1") String cinema, Model model) throws ClassNotFoundException, SQLException{
-    	db=new DatabaseController("db_cbs", "springuser", "parole");
+    	db=new DatabaseController(database,username,password);
     	model.addAttribute("shows", db.getShows(cinema));
     	model.addAttribute("cinema", cinema);
     	return "getShows";
     }
     @GetMapping("/getShow")
     public String getShow(@RequestParam(name="show_id", required=true, defaultValue="1") String show_id, Model model) throws ClassNotFoundException, SQLException{
-    	db=new DatabaseController("db_cbs", "springuser", "parole");
+    	db=new DatabaseController(database,username,password);
     	model.addAttribute("showSeats", db.getShowSeats(show_id));
     	return "getShow";
     }
     @GetMapping("/reserveSeat")
     public String reserveSeat(@RequestParam(name="show_id", required=true, defaultValue="1") String show_id, @RequestParam(name="seat_id", required=true, defaultValue="1") String seat_id, Model model) throws ClassNotFoundException, SQLException{
-    	db=new DatabaseController("db_cbs", "springuser", "parole");
+    	db=new DatabaseController(database,username,password);
     	System.out.println("SHOWID:" + show_id + " SEATID:" + seat_id);
     	model.addAttribute("reserved", db.reserveSeat(show_id, seat_id));
     	return "reserveSeat";
+    }
+    @GetMapping("/showRooms")
+    public String showRooms(@RequestParam(name="cinema_id", required=false, defaultValue="-1") int cinema_id, Model model) throws ClassNotFoundException, SQLException {
+    	db=new DatabaseController(database,username,password);
+    	model.addAttribute("rooms",db.getRooms(cinema_id));
+    	model.addAttribute("cinemas",db.getCinemas());
+        return "showRooms";
     }
     
  
