@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title th:text = "${cinema.getName()}"> - 123</title>
+</head>
+<body>
+<table border="1">
+	<form action="#" th:action="@{'/changeCinema?cinema_id='+${cinema.getCinema_id()}}" th:object="${cinema}" method="post">
+            <table>
+                <tr>
+                    <td>Cinema ID:</td>
+                    <td th:text="${cinema.getCinema_id()}"/></td>
+                </tr>
+                <tr>
+                    <td>Cinema Name:</td>
+                    <td><input type="text" th:field="*{name}"/></td>
+                </tr>
+                <tr>
+                    <td>Latitude:</td>
+                    <td><input type="text" th:field="*{latitude}"/></td>
+                </tr>
+                <tr>
+                    <td>Longitude:</td>
+                    <td><input type="text" th:field="*{longitude}"/></td>
+                </tr>
+                <tr>
+                    <td><button type="submit">Update</button></td>
+                </tr>
+            </table>
+	</form>
+</table>
+
+
+<p>**********</p>
+<a href="/"><i>Sakumlapa</i></a>
+</body>
+</html>

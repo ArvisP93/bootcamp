@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title th:text = "${room.getName()}"> - 123</title>
+</head>
+<body>
+<table border="1">
+	<form action="#" th:action="@{'/changeRoom?room_id='+${room.getRoom_id()}}" th:object="${room}" method="post">
+            <table>
+        	    <tr>
+        			<td>Room ID:</td>
+        			<td th:text="${room.getRoom_id()}"></td>	    
+        	    </tr>
+                <tr>
+                    <td>Cinema ID:</td>
+                    <td><input type="text" th:field="*{cinema_id}"/></td>
+                </tr>
+                <tr>
+                    <td>Name:</td>
+                    <td><input type="text" th:field="*{name}"/></td>
+                </tr>
+                <tr>
+                    <td>Seats:</td>
+                    <td><input type="text" th:field="*{seats}"/></td>
+                </tr>
+                <tr>
+                    <td><button type="submit">Update</button></td>
+                </tr>
+            </table>
+	</form>
+</table>
+
+
+<p>**********</p>
+<a href="/"><i>Sakumlapa</i></a>
+</body>
+</html>
