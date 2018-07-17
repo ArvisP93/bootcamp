@@ -1,0 +1,27 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head> 
+    <title>Add A New Show</title> 
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+</head>
+<body>
+	Add Show:
+
+    <form action="#" th:action="@{/AddShowTM}" th:object="${show}" method="post">
+    	              <select name="selectRoom" id="${index.getRoom_id()">
+    	              	<option>     </option>
+    	              	<option th:each="index : ${rooms}"
+                         	th:value = "${index.getRoom_id()}"
+                            th:text="'${index.getName()}+ ' (Cinema: '+${index.getCinema_ID()}+')''"/>
+                 	 </select>   
+    	<p>Movie ID: <input type="text" th:field="*{movie_id}" /></p>
+       	<p>Date: <input type="text" th:field="*{date}" /></p>
+        <p><input type="submit" value="Submit" /><input type="reset" value="Reset" /></p>
+    </form>
+
+	
+	<p>**********</p>
+<a href="/"><i>Sakumlapa</i></a>
+<a href="/admin"><i>Admin Page</i></a>
+</body>
+</html>

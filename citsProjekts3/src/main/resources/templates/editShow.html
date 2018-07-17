@@ -5,9 +5,9 @@
 <title th:text = "${show.getMovie_name()}"> - 123</title>
 </head>
 <body>
-<table border="1">
-	<form action="#" th:action="@{'/changeShow?show_id='+${show.getShow_id()}}" th:object="${show}" method="post">
-            <table>
+<form action="#" th:action="@{'/changeShow?show_id='+${show.getShow_id()}}" th:object="${show}" method="post">
+	<table border="1">
+		<table>
         	    <tr>
         			<td>Show ID:</td>
         			<td th:text="${show.getShow_id()}"></td>	    
@@ -56,11 +56,12 @@
                     <td><button type="submit">Update</button></td>
                 </tr>
             </table>
-	</form>
-</table>
+	</table>
+</form>
 
 
 <p>**********</p>
 <a href="/"><i>Sakumlapa</i></a>
+<a href="/admin"><i>Admin Page</i></a>
 </body>
 </html>
