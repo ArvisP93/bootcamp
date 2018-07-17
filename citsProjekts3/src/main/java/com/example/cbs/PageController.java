@@ -53,7 +53,7 @@ public class PageController {
     }
     
     @GetMapping("/getShows")
-    public String getShows(@RequestParam(name="longitude", required=false, defaultValue="none") String longitude,@RequestParam(name="latitude", required=false, defaultValue="none") String latitude,@RequestParam(name="cinema", required=false, defaultValue="1") String cinema, Model model) throws ClassNotFoundException, SQLException{
+    public String getShows(@RequestParam(name="longitude", required=false, defaultValue="none") String longitude,@RequestParam(name="latitude", required=false, defaultValue="none") String latitude,@RequestParam(name="cinema", required=false, defaultValue="-1") String cinema, Model model) throws ClassNotFoundException, SQLException{
     	db=new DatabaseController(database, username, password);
     	if(!latitude.equals("none") && !longitude.equals("none"))
     	{
@@ -292,7 +292,7 @@ public class PageController {
     public String AddShowTM(Shows show) throws ClassNotFoundException, SQLException {
     	db=new DatabaseController(database,username,password);
     	db.AddNewShow(show.getMovie_id(), show.getRoom_id(),show.getDate());
-    	return "AddShowTM";
+    	return "redirect:/admShowShows";
     }
     
     //ADM edit links
@@ -318,7 +318,7 @@ public class PageController {
     @GetMapping("/admShowShows")
     public String AdmShowShows(Model model) throws ClassNotFoundException, SQLException {
     	db=new DatabaseController(database,username,password);
-    	model.addAttribute("shows",db.getShows());
+    	model.addAttribute("shows",db.getShows("-1"));
         return "admShowShows";
     }
     

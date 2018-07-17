@@ -6,8 +6,9 @@ import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
-
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
 
 public class DatabaseController {
 	//private static final Logger logger = LogManager.getLogger(DatabaseController.class);
@@ -49,14 +50,19 @@ public class DatabaseController {
 	ArrayList<Shows> getShows(String cinemaID) throws SQLException{
 		ArrayList<Shows> tmp = new ArrayList<Shows>();
 		//this.statement.executeUpdate(sql);
-		ResultSet rs = this.statement.executeQuery("SELECT * FROM Show_info WHERE cinema_id = " + cinemaID + ";");
+		ResultSet rs;
+		if (cinemaID!="-1") {
+			rs = this.statement.executeQuery("SELECT * FROM Show_info WHERE cinema_id = " + cinemaID + ";");
+		} else {
+			rs = this.statement.executeQuery("SELECT * FROM Show_info;");
+		}
 		
 		while(rs.next()) {
 			tmp.add(new Shows(rs.getInt("show_id"), rs.getInt("cinema_id"), rs.getString("cinema_name"), rs.getInt("movie_id"), rs.getString("name"), rs.getString("genre"), rs.getInt("room_id"), rs.getString("room_name"), rs.getDate("date"), rs.getString("taken_seats"), rs.getInt("total_seats")));
 		}
 		return tmp;
 	}
-	ArrayList<Shows> getShows() throws SQLException{
+	/*ArrayList<Shows> getShows() throws SQLException{
 		ArrayList<Shows> tmp = new ArrayList<Shows>();
 		//this.statement.executeUpdate(sql);
 		ResultSet rs = this.statement.executeQuery("SELECT * FROM Show_info;");
@@ -66,6 +72,7 @@ public class DatabaseController {
 		}
 		return tmp;
 	}
+	*/
 	ArrayList<Seat> getShowSeats(String showID) throws NumberFormatException, SQLException{
 		ArrayList<Seat> tmp = new ArrayList<Seat>();
 		boolean takenSeat;
@@ -160,13 +167,14 @@ public class DatabaseController {
 		return !tmp;
 	}
 	boolean AddShow(int cinema_id, int movie_id, int room_id, int date, String taken_seats) throws SQLException {//returns true if successfully added
-		boolean tmp = this.statement.execute("INSERT INTO Shows (cinema_id, movie_id, room_id, date, taken_seats) VALUES ("+cinema_id+","+movie_id+", "+room_id+", "+date+", '"+taken_seats+"');");
+		String timeStamp = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss").format(date);
+		boolean tmp = this.statement.execute("INSERT INTO Shows (cinema_id, movie_id, room_id, date, taken_seats) VALUES ("+cinema_id+","+movie_id+", "+room_id+", "+timeStamp+", '"+taken_seats+"');");
 		return !tmp;
 	}
 	boolean DeleteCinema(int id) throws SQLException {//returns true if successfully deleted
 		boolean tmp = this.statement.execute("DELETE FROM Cinemas WHERE cinema_id = "+id+";");
-		boolean tmprooms = this.statement.execute("DELETE FROM Rooms WHERE cinema_id = "+id+";");
-		boolean tmpshows = this.statement.execute("DELETE FROM Shows WHERE cinema_id = "+id+";");
+		this.statement.execute("DELETE FROM Rooms WHERE cinema_id = "+id+";");
+		this.statement.execute("DELETE FROM Shows WHERE cinema_id = "+id+";");
 		return !tmp;
 	}
 	boolean DeleteMovie(int id) throws SQLException {//returns true if successfully deleted
@@ -247,6 +255,7 @@ public class DatabaseController {
 	}
 
 	boolean AddNewShow(int movie_id, int room_id, Date date) throws SQLException {
-		return this.statement.execute("INSERT INTO Shows (cinema_id, movie_id, room_id, date, taken_seats) VALUES ((SELECT cinema_id FROM Rooms where room_id = " + room_id + "),"+movie_id+","+room_id+","+date+",'');");
+		String timeStamp = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss").format(date);
+		return this.statement.execute("INSERT INTO Shows (cinema_id, movie_id, room_id, date, taken_seats) VALUES ((SELECT cinema_id FROM Rooms where room_id = " + room_id + "),"+movie_id+","+room_id+",'"+timeStamp+"','');");
 	}	
 }
