@@ -23,10 +23,10 @@
         
     </Appenders>
     <Loggers>
-        <Logger name="com.example.cbs" level="debug" additivity="false">
+        <AsyncLogger name="com.example.cbs" level="debug" additivity="false">
         	<AppenderRef ref="ConsoleAppender" />
             <AppenderRef ref="FileAppender" />
-        </Logger>
+        </AsyncLogger>
 
         <Root level="info">
             <AppenderRef ref="ConsoleAppender" />
