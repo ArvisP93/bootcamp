@@ -290,7 +290,8 @@ public class PageController {
     }
     @PostMapping("/AddShowTM")
     public String AddShowTM(Shows show) throws ClassNotFoundException, SQLException {
-    	
+    	db=new DatabaseController(database,username,password);
+    	db.AddNewShow(show.getMovie_id(), show.getRoom_id(),show.getDate());
     	return "AddShowTM";
     }
     

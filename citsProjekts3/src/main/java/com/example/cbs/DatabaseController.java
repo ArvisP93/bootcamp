@@ -1,6 +1,7 @@
 package com.example.cbs;
 
 import java.sql.Connection;
+import java.sql.Date;
 import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -243,5 +244,9 @@ public class DatabaseController {
 	boolean DeleteRoom(int id) throws SQLException {//returns true if successfully deleted
 		boolean tmp = this.statement.execute("DELETE FROM Rooms WHERE room_id = "+id+";");
 		return !tmp;
+	}
+
+	boolean AddNewShow(int movie_id, int room_id, Date date) throws SQLException {
+		return this.statement.execute("INSERT INTO Shows (cinema_id, movie_id, room_id, date, taken_seats) VALUES ((SELECT cinema_id FROM Rooms where room_id = " + room_id + "),"+movie_id+","+room_id+","+date+",'');");
 	}	
 }
