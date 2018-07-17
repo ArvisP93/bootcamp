@@ -8,14 +8,9 @@
 	Add Show:
 
     <form action="#" th:action="@{/AddShowTM}" th:object="${show}" method="post">
-    	              <select name="selectRoom" id="${index.getRoom_id()">
-    	              	<option>     </option>
-    	              	<option th:each="index : ${rooms}"
-                         	th:value = "${index.getRoom_id()}"
-                            th:text="'${index.getName()}+ ' (Cinema: '+${index.getCinema_ID()}+')''"/>
-                 	 </select>   
-    	<p>Movie ID: <input type="text" th:field="*{movie_id}" /></p>
-       	<p>Date: <input type="text" th:field="*{date}" /></p>
+		<p>Room ID: <input type="text" th:field= "*{room_id}" /> <a href=/showRooms>List of Rooms</a></p>
+    	<p>Movie ID: <input type="text" th:field="*{movie_id}" /> <a href=/getMovies>List of Movies</a></p>
+       	<p>Date: <input type="date" th:field="*{date}" /></p> 
         <p><input type="submit" value="Submit" /><input type="reset" value="Reset" /></p>
     </form>
 
