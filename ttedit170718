@@ -23,6 +23,13 @@
 
 
 
+	boolean DeleteRoom(int id) throws SQLException {//returns true if successfully deleted
+		boolean tmp = this.statement.execute("DELETE FROM Rooms WHERE room_id = "+id+";");
+		return !tmp;
+	}
+
+
+
 
 
 <form action="#" th:action="@{/deleteRoom}" th:object="${cinemas}" method="post">
