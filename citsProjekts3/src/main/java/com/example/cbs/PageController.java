@@ -280,7 +280,33 @@ public class PageController {
     		
     	}
      	return "/deleteRoom";
-    	
     }
+    //ADM edit links
+    @GetMapping("/admShowRooms")
+    public String AdmShowRooms(@RequestParam(name="cinema_id", required=false, defaultValue="-1") int cinema_id, Model model) throws ClassNotFoundException, SQLException {
+    	db=new DatabaseController(database,username,password);
+    	model.addAttribute("rooms",db.getRooms(cinema_id));
+    	model.addAttribute("cinemas",db.getCinemas());
+        return "admShowRooms";
+    }
+    @GetMapping("/admShowMovies")
+    public String AdmShowMovies(Model model) throws ClassNotFoundException, SQLException {
+    	db=new DatabaseController(database,username,password);
+    	model.addAttribute("movies",db.getFilmas());
+        return "admShowMovies";
+    }
+    @GetMapping("/admShowCinemas")
+    public String AdmShowCinemas(Model model) throws ClassNotFoundException, SQLException {
+    	db=new DatabaseController(database,username,password);
+    	model.addAttribute("cinemas",db.getCinemas());
+        return "admShowCinemas";
+    }
+    @GetMapping("/admShowShows")
+    public String AdmShowShows(Model model) throws ClassNotFoundException, SQLException {
+    	db=new DatabaseController(database,username,password);
+    	model.addAttribute("shows",db.getShows());
+        return "admShowShows";
+    }
+    
  
 }

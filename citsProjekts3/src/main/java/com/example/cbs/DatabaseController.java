@@ -53,8 +53,16 @@ public class DatabaseController {
 		while(rs.next()) {
 			tmp.add(new Shows(rs.getInt("show_id"), rs.getInt("cinema_id"), rs.getString("cinema_name"), rs.getInt("movie_id"), rs.getString("name"), rs.getString("genre"), rs.getInt("room_id"), rs.getString("room_name"), rs.getDate("date"), rs.getString("taken_seats"), rs.getInt("total_seats")));
 		}
+		return tmp;
+	}
+	ArrayList<Shows> getShows() throws SQLException{
+		ArrayList<Shows> tmp = new ArrayList<Shows>();
+		//this.statement.executeUpdate(sql);
+		ResultSet rs = this.statement.executeQuery("SELECT * FROM Show_info;");
 		
-		
+		while(rs.next()) {
+			tmp.add(new Shows(rs.getInt("show_id"), rs.getInt("cinema_id"), rs.getString("cinema_name"), rs.getInt("movie_id"), rs.getString("name"), rs.getString("genre"), rs.getInt("room_id"), rs.getString("room_name"), rs.getDate("date"), rs.getString("taken_seats"), rs.getInt("total_seats")));
+		}
 		return tmp;
 	}
 	ArrayList<Seat> getShowSeats(String showID) throws NumberFormatException, SQLException{
@@ -151,7 +159,7 @@ public class DatabaseController {
 		return !tmp;
 	}
 	boolean AddShow(int cinema_id, int movie_id, int room_id, int date, String taken_seats) throws SQLException {//returns true if successfully added
-		boolean tmp = this.statement.execute("INSERT INTO Shows (cinema_id, movie_id, room_id, date, taken_seats) VALUES ('"+cinema_id+"', '"+movie_id+"', '"+room_id+"' '"+date+"', '"+taken_seats+"');");
+		boolean tmp = this.statement.execute("INSERT INTO Shows (cinema_id, movie_id, room_id, date, taken_seats) VALUES ("+cinema_id+","+movie_id+", "+room_id+", "+date+", '"+taken_seats+"');");
 		return !tmp;
 	}
 	boolean DeleteCinema(int id) throws SQLException {//returns true if successfully deleted
@@ -191,9 +199,10 @@ public class DatabaseController {
 	}
 	Cinemas getCinema(int cinema_id) throws SQLException {
 		ResultSet rs = this.statement.executeQuery("SELECT * FROM Cinemas WHERE cinema_id = "+ cinema_id +";");
-		rs.next();
-		Cinemas tmp = new Cinemas(rs.getInt("cinema_id"),rs.getString("name"),rs.getDouble("latitude"),rs.getDouble("longitude"));
-		return tmp;
+		if(rs.next()) {
+			return new Cinemas(rs.getInt("cinema_id"),rs.getString("name"),rs.getDouble("latitude"),rs.getDouble("longitude")); 
+		}
+		return null;
 	}
 	int changeCinema(Cinemas cinema) throws SQLException{
 		return this.statement.executeUpdate("UPDATE Cinemas SET name='"+cinema.getName()+"', latitude = " + cinema.getLatitude() + ", longitude = " + cinema.getLongitude() + " where cinema_id = "+ cinema.getCinema_id() + ";");
@@ -205,25 +214,28 @@ public class DatabaseController {
 
 	Rooms getRoom(int room_id) throws SQLException {
 		ResultSet rs = this.statement.executeQuery("SELECT * FROM Rooms WHERE room_id = "+ room_id +";");
-		rs.next();
-		Rooms tmp = new Rooms(rs.getInt("room_id"),rs.getInt("cinema_id"),rs.getString("name"),rs.getInt("seats"));
-		return tmp;
+		if (rs.next()) {
+			return new Rooms(rs.getInt("room_id"),rs.getInt("cinema_id"),rs.getString("name"),rs.getInt("seats"));
+		}
+		return null;
 	}
 
 	Shows getShow(int show_id) throws SQLException {
 		ResultSet rs = this.statement.executeQuery("SELECT * FROM Show_info WHERE show_id = "+ show_id+";");
-		rs.next();
-		Shows tmp = new Shows(rs.getInt("show_id"),rs.getInt("cinema_id"),rs.getString("cinema_name"),rs.getInt("movie_id"),rs.getString("name"),rs.getString("genre"),rs.getInt("room_id"),rs.getString("room_name"),rs.getDate("date"),rs.getString("taken_seats"),rs.getInt("total_seats"));
-		return tmp;
+		if (rs.next()) {
+			return new Shows(rs.getInt("show_id"),rs.getInt("cinema_id"),rs.getString("cinema_name"),rs.getInt("movie_id"),rs.getString("name"),rs.getString("genre"),rs.getInt("room_id"),rs.getString("room_name"),rs.getDate("date"),rs.getString("taken_seats"),rs.getInt("total_seats"));
+		}
+		return null;
 	}
 	int changeShow(Shows show) throws SQLException {	 
 		return this.statement.executeUpdate("UPDATE Shows SET cinema_id ="+show.getCinema_id()+",movie_id = "+show.getMovie_id()+",room_id = "+show.getRoom_id()+",date = '" + show.getDate()+"', taken_seats = '"+show.getTaken_seats()+"' where show_id = "+show.getShow_id()+";"); 
 	}
 	Movies getMovie(int movie_id) throws SQLException {
 		ResultSet rs = this.statement.executeQuery("SELECT * FROM Movies WHERE movie_id = "+ movie_id+";");
-		rs.next();
-		Movies tmp = new Movies(rs.getInt("movie_id"),rs.getString("name"),rs.getString("genre"));
-		return tmp;
+		if (rs.next()) {
+		return new Movies(rs.getInt("movie_id"),rs.getString("name"),rs.getString("genre"));
+		}
+		return null;
 	}
 	int changeMovie(Movies movie) throws SQLException {	 
 		return this.statement.executeUpdate("UPDATE Movies SET name ='"+movie.getName()+"',genre = '"+movie.getGenre()+"'where movie_id = "+movie.getMovie_id()+";"); 
@@ -231,7 +243,5 @@ public class DatabaseController {
 	boolean DeleteRoom(int id) throws SQLException {//returns true if successfully deleted
 		boolean tmp = this.statement.execute("DELETE FROM Rooms WHERE room_id = "+id+";");
 		return !tmp;
-	}
-	
-	
+	}	
 }
