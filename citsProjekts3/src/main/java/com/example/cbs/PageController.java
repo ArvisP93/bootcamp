@@ -208,38 +208,57 @@ public class PageController {
     }
 
 	//Made by TM starts here - 16.07
+    @GetMapping("/editCinema")
+    public String showCinema(@RequestParam(name="cinema_id",required=true) int cinema_id, Model model) throws SQLException, ClassNotFoundException {
+    	db=new DatabaseController(database,username,password);
+    	model.addAttribute("cinema",db.getCinema(cinema_id));
+    	return "editCinema";
+    }
     @PostMapping("/changeCinema")
     public String changeCinema(Cinemas cinema) throws ClassNotFoundException, SQLException {
     	
     	db=new DatabaseController(database,username,password);
     	db.changeCinema(cinema);	
-    	return "redirect:/showCinema?cinema_id="+cinema.getCinema_id();
+    	return "redirect:/editCinema?cinema_id="+cinema.getCinema_id();
     }
-    @GetMapping("/showRoom")
+    @GetMapping("/editRoom")
     public String showRoom(@RequestParam(name="room_id",required=true) int room_id, Model model) throws SQLException, ClassNotFoundException {
     	db=new DatabaseController(database,username,password);
     	model.addAttribute("room",db.getRoom(room_id));
-    	return "showRoom";
+    	return "editRoom";
     }
     @PostMapping("/changeRoom")
     public String changeRoom(Rooms room) throws ClassNotFoundException, SQLException {
     	
     	db=new DatabaseController(database,username,password);
     	db.changeRoom(room);	
-    	return "redirect:/showRoom?room_id="+room.getRoom_id();
+    	return "redirect:/editRoom?room_id="+room.getRoom_id();
     }
-    @GetMapping("/showShow")
+    @GetMapping("/editShow")
     public String showShow(@RequestParam(name="show_id",required=true) int show_id, Model model) throws SQLException, ClassNotFoundException {
     	db=new DatabaseController(database,username,password);
     	model.addAttribute("show",db.getShow(show_id));
-    	return "showShow";
+    	return "editShow";
     }
     @PostMapping("/changeShow")
     public String changeShow(Shows show) throws ClassNotFoundException, SQLException {
     	
     	db=new DatabaseController(database,username,password);
     	db.changeShow(show);	
-    	return "redirect:/showShow?show_id="+show.getShow_id();
+    	return "redirect:/editShow?show_id="+show.getShow_id();
+    }
+    @GetMapping("/editMovie")
+    public String showMovie(@RequestParam(name="movie_id",required=true) int movie_id, Model model) throws SQLException, ClassNotFoundException {
+    	db=new DatabaseController(database,username,password);
+    	model.addAttribute("movie",db.getMovie(movie_id));
+    	return "editMovie";
+    }
+    @PostMapping("/changeMovie")
+    public String changeMovie(Movies movie) throws ClassNotFoundException, SQLException {
+    	
+    	db=new DatabaseController(database,username,password);
+    	db.changeMovie(movie);	
+    	return "redirect:/editMovie?movie_id="+movie.getMovie_id();
     }
 //Made by TM ends here - 16.07
 
