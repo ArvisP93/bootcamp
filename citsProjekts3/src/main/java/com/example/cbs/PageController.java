@@ -281,6 +281,19 @@ public class PageController {
     	}
      	return "/deleteRoom";
     }
+    @GetMapping("/AddShowTM")
+    public String AddShowTM(Model model) throws ClassNotFoundException, SQLException {
+    	db=new DatabaseController(database,username,password);
+    	model.addAttribute("show", new Shows());
+        model.addAttribute("rooms", db.getRooms(-1));
+    	return "AddShowTM";
+    }
+    @PostMapping("/AddShowTM")
+    public String AddShowTM(Shows show) throws ClassNotFoundException, SQLException {
+    	
+    	return "AddShowTM";
+    }
+    
     //ADM edit links
     @GetMapping("/admShowRooms")
     public String AdmShowRooms(@RequestParam(name="cinema_id", required=false, defaultValue="-1") int cinema_id, Model model) throws ClassNotFoundException, SQLException {
