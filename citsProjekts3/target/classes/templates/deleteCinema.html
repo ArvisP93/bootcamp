@@ -1,0 +1,22 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head> 
+    <title>Getting Started: Serving Web Content</title> 
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+</head>
+<body>
+	Delete Cinema:
+
+    <form action="#" th:action="@{/deleteCinema}" th:object="${cinemas}" method="post">
+    	              <select name="selectCinema" id="${index.getCinema_id()">
+                         <option th:each="index : ${cinemas}"
+                         	th:value = "${index.getCinema_id()}";
+                            th:text="${index.getName()}"/>
+                 	 </select>   
+        <p><input type="submit" value="Submit" /></p>
+    </form>
+
+	
+	
+</body>
+</html>

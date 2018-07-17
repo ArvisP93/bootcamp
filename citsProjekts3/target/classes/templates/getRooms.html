@@ -1,0 +1,31 @@
+
+
+<form action="#" th:action="@{/getRooms}" th:object="${cinemas}" method="post">
+    	              <select name="cinemaID" id="${index.getCinema_id()">
+                         <option th:each="index : ${cinemas}"
+                         	th:value = "${index.getCinema_id()}";
+                            th:text="${index.getName()}"/>
+                 	 </select>   
+        <p><input type="submit" value="Submit" /><input type="reset" value="Reset" /></p>
+</form>
+
+
+<table border="1">
+<tr>
+	<td>room_id</td>
+    <td>cinema_id</td>
+    <td>name</td>
+    <td>seats</td>
+</tr>
+<tr th:each="room : ${rooms}">
+
+	<td th:text="${room.getRoom_id()}">1</td>
+    <td th:text="${room.getCinema_id()}">Genre ...</td>
+    <td th:text="${room.getName()}">Genre ...</td>
+    <td th:text="${room.getSeats()}">Genre ...</td>
+</table>
+
+
+<p>**********</p>
+</i><a href="/index.html"><i>Sakumlapa</i></a>
+</i><a href="/admin"><i>Admin Page</i></a>

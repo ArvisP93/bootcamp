@@ -1,0 +1,19 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head> 
+    <title>Getting Started: Serving Web Content</title> 
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+</head>
+<body>
+	Enter Movie:
+
+    <form action="#" th:action="@{/addMovie}" th:object="${movie}" method="post">
+    	<p>Name: <input type="text" th:field="*{name}" pattern=".{2,30}" title="Must contain 2-30 characters" /></p>
+       	<p>Genre: <input type="text" th:field="*{genre}" pattern=".{2,30}" title="Must contain 2-30 characters" /></p>
+        <p><input type="submit" value="Submit" /><input type="reset" value="Reset" /></p>
+    </form>
+
+	
+	
+</body>
+</html>
