@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>All Shows</title>
+</head>
+<body>
+<table border="1">
+<tr>
+	<th>Show ID</th>
+	<th>Cinema ID</th>
+	<th>Movie ID</th>
+	<th>Room ID</th>
+	<th>Date</th>
+	<th>Taken Seats</th>
+	<th>Edit Link</th>
+</tr>
+<tr th:each="show : ${shows}">
+	<td th:text="${show.getShow_id()}">showid</a></td>
+	<td th:text="${show.getCinema_id()}">cinid</td>
+	<td th:text="${show.getMovie_id()}">movname</td>
+    <td th:text="${show.getRoom_id()}">roomid</td>
+    <td th:text="${show.getDate()}">date</td>
+    <td th:text="${show.getTaken_seats()}">takenseats</td>
+    <td><a th:href="@{'/editShow?show_id='+${show.getShow_id()}}">Edit</a></td>
+</tr>
+</table>
+
+<p>**********</p>
+<a href="/"><i>Sakumlapa</i></a>
+<a href="/admin"><i>Admin Page</i></a>
+</body>
+</html>
