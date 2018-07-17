@@ -1,67 +1,88 @@
-    @GetMapping("/deleteRoom")
-    public String deleteRoom(@RequestParam(name="cinemaID", required=true, defaultValue="1") String cinemaID, Cinemas cinema, Model model) throws ClassNotFoundException, SQLException {
-    	db=new DatabaseController("db_cbs", "springuser", "parole");
-      	model.addAttribute("cinemas", db.getCinemas());
-        model.addAttribute("rooms", db.getRooms(Integer.parseInt(cinemaID)));
-    	return "deleteRoom";
-    }
-    @PostMapping(value = "/deleteRoom")
-    public String adminDeleteRoom(@RequestParam(name="cinemaID", required=true, defaultValue="1") String cinemaID, @RequestParam(name="deleteRoom", required=true, defaultValue="0") String deleteRoom, Cinemas cinema, Model model) throws ClassNotFoundException, SQLException{  	
-        	db=new DatabaseController("db_cbs", "springuser", "parole");
-        	model.addAttribute("cinemas", db.getCinemas());
-        	model.addAttribute("rooms", db.getRooms(Integer.parseInt(cinemaID)));
-    	if (Integer.parseInt(deleteRoom) != 0) {
-    		db.DeleteRoom(Integer.parseInt(deleteRoom));
-    		return "deleteRoom";
-    		
-    	}
-     	return "/deleteRoom";
-    	
-    }
-    
-
-
-
-
-	boolean DeleteRoom(int id) throws SQLException {//returns true if successfully deleted
-		boolean tmp = this.statement.execute("DELETE FROM Rooms WHERE room_id = "+id+";");
+	
+	boolean DeleteShow(int id) throws SQLException {//returns true if successfully deleted
+		boolean tmp = this.statement.execute("DELETE FROM Shows WHERE show_id = "+id+";");
 		return !tmp;
 	}
+	boolean AddShow(int cinema_id, int movie_id, int room_id, Date date, String taken_seats) throws SQLException {//returns true if successfully added
+		System.out.println("INSERT INTO Shows (cinema_id, movie_id, room_id, date, taken_seats) VALUES ('"+cinema_id+"', '"+movie_id+"', '"+room_id+"' '"+date+"', '"+taken_seats+"');");
+		boolean tmp = this.statement.execute("INSERT INTO Shows (cinema_id, movie_id, room_id, date, taken_seats) VALUES ('"+cinema_id+"', '"+movie_id+"', '"+room_id+"' '"+date+"', '"+taken_seats+"');");
+		return !tmp;
+	}
+	
+	
+	
+	
+	    
+    @GetMapping("/addShow")
+    public String addShow(@RequestParam(name="selectCinema", required=true, defaultValue="1") String selectCinema, Cinemas cinema, Movies movie, Rooms room, Shows show, Model model) throws ClassNotFoundException, SQLException {
+    	db=new DatabaseController("db_cbs", "springuser", "parole");
+        model.addAttribute("cinemas", db.getCinemas());
+    	model.addAttribute("movies", db.getFilmas());
+    	model.addAttribute("rooms", db.getRooms(Integer.parseInt(selectCinema)));
+    	model.addAttribute("shows", show);
+    	return "addShow";
+    }
+ 
+    @PostMapping(value = "/addShow")
+    public String adminAddShow(@RequestParam(name="selectCinema", required=true, defaultValue="1") String selectCinema, 
+    		@RequestParam(name="selectMovie", required=true, defaultValue="0") String selectMovie,
+    		@RequestParam(name="selectRoom", required=true, defaultValue="0") String selectRoom,
+    		@RequestParam(name="addShow", required=true, defaultValue="0") String addShow,
+    		@ModelAttribute Rooms room, Cinemas cinema, Movies movie, Shows show, Model model) throws ClassNotFoundException, SQLException{
+    	//System.out.println(selectedCinema.getCinema_id());
+    	db=new DatabaseController("db_cbs", "springuser", "parole");
+        model.addAttribute("cinemas", db.getCinemas());
+    	model.addAttribute("movies", db.getFilmas());
+    	model.addAttribute("rooms", db.getRooms(Integer.parseInt(selectCinema)));
+    	model.addAttribute("shows", show);
+    	Date date = new Date(12,12,1111);
+    	if (Integer.parseInt(addShow) == 1) {
+        	db.AddShow(Integer.parseInt(selectCinema), Integer.parseInt(selectMovie), Integer.parseInt(selectRoom),
+        			show.getDate(), show.getTaken_seats());
+         	return "/addShow";
+    	}
+     	return "/addShow";
+    }
+    
+    
+    
+    
+    <!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head> 
+    <title>Getting Started: Serving Web Content</title> 
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+</head>
+<body>
+	Add Room:
 
-
-
-
-
-<form action="#" th:action="@{/deleteRoom}" th:object="${cinemas}" method="post">
-    	              <select name="cinemaID" id="${index.getCinema_id()">
+    <form action="#" th:action="@{/addRoom}" th:object="${room}" method="post">
+    	              <select name="selectCinema" id="${index.getCinema_id()">
                          <option th:each="index : ${cinemas}"
-                         	th:value = "${index.getCinema_id()}"
+                         	th:value = "${index.getCinema_id()}";
                             th:text="${index.getName()}"/>
                  	 </select>   
+    	<p>Name: <input type="text" th:field="*{name}" /></p>
+       	<p>Seats: <input type="text" th:field="*{seats}" /></p>
         <p><input type="submit" value="Submit" /><input type="reset" value="Reset" /></p>
-</form>
+    </form>
+
+	
+	
+</body>
+</html>
 
 
-<table border="1">
-<tr>
-	<td>room_id</td>
-    <td>cinema_id</td>
-    <td>name</td>
-    <td>seats</td>
-    <td>Delete Room</td>    
-</tr>
-<form action="#" th:action="@{/deleteRoom}" th:object="${rooms}" method="post">
-<tr th:each="room : ${rooms}">
-
-	<td th:text="${room.getRoom_id()}"></td>
-    <td th:text="${room.getCinema_id()}"></td>
-    <td th:text="${room.getName()}"></td>
-    <td th:text="${room.getSeats()}"></td>
-    <td> <button type="submit" name="deleteRoom" th:value = "${room.getRoom_id()}">Delete</button></td>
-</table>
-</form>
 
 
-<p>**********</p>
-</i><a href="/index.html"><i>Sakumlapa</i></a>
-</i><a href="/admin"><i>Admin Page</i></a>
+
+
+
+
+
+
+	boolean AddShow(int cinema_id, int movie_id, int room_id, Date date, String taken_seats) throws SQLException {//returns true if successfully added
+		System.out.println("INSERT INTO Shows (cinema_id, movie_id, room_id, date, taken_seats) VALUES ('"+cinema_id+"', '"+movie_id+"', '"+room_id+"' '"+date+"', '"+taken_seats+"');");
+		boolean tmp = this.statement.execute("INSERT INTO Shows (cinema_id, movie_id, room_id, date, taken_seats) VALUES ('"+cinema_id+"', '"+movie_id+"', '"+room_id+"' '"+date+"', '"+taken_seats+"');");
+		return !tmp;
+	}
