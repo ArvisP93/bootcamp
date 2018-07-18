@@ -321,6 +321,40 @@ public class PageController {
     	model.addAttribute("shows",db.getShows("-1"));
         return "admShowShows";
     }
+    @GetMapping("/registration")
+    public String Registration(@RequestParam(name="error", required=false, defaultValue="") String error, Model model) throws ClassNotFoundException, SQLException {
+    	db=new DatabaseController(database,username,password);
+    	model.addAttribute("user",new Users());
+    	model.addAttribute("error",error);
+    	//model.addAttribute("usernames", db.getUsernames());
+        return "registration";
+    }
+    @PostMapping("/registration")
+    public String Registration(Users user)throws ClassNotFoundException, SQLException {
+    	db=new DatabaseController(database,username,password);
+    	String error = "";
+    	if (db.getUsernames().contains(user.getUsername())) {
+    		error +="username";
+    	}
+    	try {
+    		user.setEmail(user.getEmail());
+    	} catch (IllegalArgumentException e) {
+    		error +="email";
+    	}
+    	
+    	if (error == "") {
+	    	db.AddUser(user.getUsername(),user.getPassword(),user.getEmail(),"user");
+	    	return "redirect:userPage?user_id="+db.getUser(user.getUsername()).getUser_id();
+    	} else {
+    		return "redirect:registration?error="+error;
+    	}
+    }
+    @GetMapping("/userPage")
+    public String userPage(@RequestParam(name="user_id",required=true) int user_id, Model model)throws ClassNotFoundException, SQLException {
+    	db=new DatabaseController(database,username,password);
+    	model.addAttribute("user",db.getUser(user_id));
+    	return "userPage";
+    }
     
  
 }

@@ -133,8 +133,8 @@ public class DatabaseController {
 		ResultSet rs = this.statement.executeQuery("SELECT username FROM Users WHERE username = " + username + ";");
 		return rs.next();
 	}
-	boolean AddUser(String username, String password) throws SQLException { //returns true if successfully added
-		boolean tmp = this.statement.execute("INSERT INTO Users (username, password, role) VALUES ('"+username+"', '"+password+"','user');");
+	boolean AddUser(String username, String password, String email, String role) throws SQLException { 
+		boolean tmp = this.statement.execute("INSERT INTO Users (username, password, email, role) VALUES ('"+username+"', '"+password+"','"+email+"','"+role+"');");
 		if(tmp)
 			Application.logger.info("User '" + username + "' succesfully added");
 		else
@@ -257,5 +257,28 @@ public class DatabaseController {
 	boolean AddNewShow(int movie_id, int room_id, Date date) throws SQLException {
 		String timeStamp = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss").format(date);
 		return this.statement.execute("INSERT INTO Shows (cinema_id, movie_id, room_id, date, taken_seats) VALUES ((SELECT cinema_id FROM Rooms where room_id = " + room_id + "),"+movie_id+","+room_id+",'"+timeStamp+"','');");
-	}	
+	}
+	ArrayList<String> getUsernames() throws SQLException {
+		ArrayList<String> tmp = new ArrayList<String>();
+		ResultSet rs = this.statement.executeQuery("SELECT username FROM Users;");
+		while (rs.next()) {
+			tmp.add(rs.getString("username"));
+		}
+		return tmp;
+	}
+
+	public Users getUser(String username) throws SQLException {
+		ResultSet rs = this.statement.executeQuery("SELECT * FROM Users where username = '" + username + "';");
+		if (rs.next()) {
+			return new Users(rs.getInt("user_id"),rs.getString("username"),rs.getString("password"),rs.getString("email"),rs.getString("role"));
+		} else
+			return null;
+	}
+	public Users getUser(int user_id) throws SQLException {
+		ResultSet rs = this.statement.executeQuery("SELECT * FROM Users where user_id = '" + user_id + "';");
+		if (rs.next()) {
+			return new Users(rs.getInt("user_id"),rs.getString("username"),rs.getString("password"),rs.getString("email"),rs.getString("role"));
+		} else
+			return null;
+	}
 }
