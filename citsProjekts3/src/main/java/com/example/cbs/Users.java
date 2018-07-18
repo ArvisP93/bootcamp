@@ -9,10 +9,6 @@ public class Users {
 	private String email;
 	private String role;
 	
-	private static final Pattern VALID_EMAIL_ADDRESS_REGEX = 
-		    Pattern.compile("^[A-Z0-9._%+-]+@[A-Z0-9.-]", Pattern.CASE_INSENSITIVE);
-
-	
 	public Users() {} //constructor for testing purposes
 
 	public Users(int user_id, String username, String password, String email, String role) {
@@ -75,9 +71,6 @@ public class Users {
 		return email;
 	}
 	public void setEmail(String email) {
-		if (VALID_EMAIL_ADDRESS_REGEX.matcher(email).find())
-			this.email = email;
-		else
-			throw new IllegalArgumentException();
+		this.email = email;
 	}
 }

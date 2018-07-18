@@ -2,6 +2,7 @@ package com.example.cbs;
 
 import java.sql.SQLException;
 //import java.util.ArrayList;
+import java.util.regex.Pattern;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -332,13 +333,15 @@ public class PageController {
     @PostMapping("/registration")
     public String Registration(Users user)throws ClassNotFoundException, SQLException {
     	db=new DatabaseController(database,username,password);
+    	final Pattern VALID_EMAIL_ADDRESS_REGEX = Pattern.compile("^[\\w._%+-]+@[\\w.-]+\\.[\\D]{2,6}$", Pattern.CASE_INSENSITIVE);
+    	final Pattern VALID_USERNAME_REGEX = Pattern.compile("^[\\w._%+-]", Pattern.CASE_INSENSITIVE);
     	String error = "";
     	if (db.getUsernames().contains(user.getUsername())) {
     		error +="username";
+    	} else if (!VALID_USERNAME_REGEX.matcher(user.getUsername()).find()){
+    		error +="username";
     	}
-    	try {
-    		user.setEmail(user.getEmail());
-    	} catch (IllegalArgumentException e) {
+    	if (!VALID_EMAIL_ADDRESS_REGEX.matcher(user.getEmail()).find()) {
     		error +="email";
     	}
     	
