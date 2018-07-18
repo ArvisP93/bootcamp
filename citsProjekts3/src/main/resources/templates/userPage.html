@@ -1,0 +1,15 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head> 
+    <title th:text="${user.getUsername()}"></title> 
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+</head>
+<body>
+	<p>Username: <b th:text= "${user.getUsername()}" ></b>
+    <p>Email: <b th:text="${user.getEmail()}" ></b>
+    <p>Role: <b th:text="${user.getRole()}" ></b>
+<p>**********</p>
+<a href="/"><i>Sakumlapa</i></a>
+<a href="/admin"><i>Admin Page</i></a>
+</body>
+</html>
