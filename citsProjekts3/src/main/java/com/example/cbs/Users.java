@@ -1,17 +1,25 @@
 package com.example.cbs;
 
+import java.util.regex.Pattern;
+
 public class Users {
-	public int user_id;
-	public String username;
-	public String password;
-	public String role;
+	private int user_id;
+	private String username;
+	private String password;
+	private String email;
+	private String role;
+	
+	private static final Pattern VALID_EMAIL_ADDRESS_REGEX = 
+		    Pattern.compile("^[A-Z0-9._%+-]+@[A-Z0-9.-]+\\.[A-Z]{2,6}$", Pattern.CASE_INSENSITIVE);
+
 	
 	public Users() {} //constructor for testing purposes
 
-	public Users(int user_id, String username, String password, String role) {
+	public Users(int user_id, String username, String password, String email, String role) {
 		setUser_id(user_id);
 		setUsername(username);
 		setPassword(password);
+		setEmail(email);
 		setRole(role);
 	}
 
@@ -61,5 +69,15 @@ public class Users {
 		}else {
 			this.role = role;
 		}
+	}
+	
+	public String getEmail() {
+		return email;
+	}
+	public void setEmail(String email) {
+		if (VALID_EMAIL_ADDRESS_REGEX.matcher(email).find())
+			this.email = email;
+		else
+			throw new IllegalArgumentException();
 	}
 }
