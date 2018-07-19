@@ -33,7 +33,7 @@ public class Cinemas {
 	}
 
 	public void setName(String name) {
-		if(name == "") {
+		if(name == "" || name.length() > 30) {
 			throw new IllegalArgumentException();
 		}
 		else {
@@ -46,7 +46,7 @@ public class Cinemas {
 	}
 
 	public void setLatitude(double latitude) {
-		if(latitude>180 && latitude<-180) {
+		if(latitude>90 || latitude<-90) {
 			throw new IllegalArgumentException();
 		}
 		else {
