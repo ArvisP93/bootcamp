@@ -1,11 +1,9 @@
-package com.example.demo;
+package hello;
 
 import static org.junit.Assert.*;
 import static org.junit.Assert.fail;
 import org.junit.Test;
-
-import hello.Cinemas;
-import hello.Seat;
+import com.example.cbs.Seat;
 
 public class TestSeat {
 	
