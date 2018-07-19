@@ -236,8 +236,11 @@ public class DatabaseController {
 		}
 		return null;
 	}
-	int changeShow(Shows show) throws SQLException {	 
+	int changeShow(Shows show) throws SQLException { //made by TM	 
 		return this.statement.executeUpdate("UPDATE Shows SET cinema_id ="+show.getCinema_id()+",movie_id = "+show.getMovie_id()+",room_id = "+show.getRoom_id()+",date = '" + show.getDate()+"', taken_seats = '"+show.getTaken_seats()+"' where show_id = "+show.getShow_id()+";"); 
+	}
+	int changeUser(Users user) throws SQLException { //made by TM	 
+		return this.statement.executeUpdate("UPDATE Users SET username = '"+user.getUsername()+"',email = '"+user.getEmail()+"',role = '" + user.getRole()+"' WHERE user_id = "+user.getUser_id()+";"); 
 	}
 	Movies getMovie(int movie_id) throws SQLException {
 		ResultSet rs = this.statement.executeQuery("SELECT * FROM Movies WHERE movie_id = "+ movie_id+";");
@@ -254,11 +257,11 @@ public class DatabaseController {
 		return !tmp;
 	}
 
-	boolean AddNewShow(int movie_id, int room_id, Date date) throws SQLException {
+	boolean AddNewShow(int movie_id, int room_id, Date date) throws SQLException {//made by TM
 		String timeStamp = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss").format(date);
 		return this.statement.execute("INSERT INTO Shows (cinema_id, movie_id, room_id, date, taken_seats) VALUES ((SELECT cinema_id FROM Rooms where room_id = " + room_id + "),"+movie_id+","+room_id+",'"+timeStamp+"','');");
 	}
-	ArrayList<String> getUsernames() throws SQLException {
+	ArrayList<String> getUsernames() throws SQLException {//written by TM
 		ArrayList<String> tmp = new ArrayList<String>();
 		ResultSet rs = this.statement.executeQuery("SELECT username FROM Users;");
 		while (rs.next()) {
@@ -266,19 +269,34 @@ public class DatabaseController {
 		}
 		return tmp;
 	}
+	ArrayList<Users> getUsers() throws SQLException { //written by TM
+		ResultSet rs = this.statement.executeQuery("SELECT * FROM Users;");
+		ArrayList<Users> tmp = new ArrayList<Users>();
+		while (rs.next()) {
+			tmp.add(new Users(rs.getInt("user_id"),rs.getString("username"),rs.getString("password"),rs.getString("email"),rs.getString("role")));
+			//System.out.println(rs.getString("username"));
+		}
+		return tmp;
+		
+	}
 
-	public Users getUser(String username) throws SQLException {
+	Users getUser(String username) throws SQLException {//written by TM
 		ResultSet rs = this.statement.executeQuery("SELECT * FROM Users where username = '" + username + "';");
 		if (rs.next()) {
 			return new Users(rs.getInt("user_id"),rs.getString("username"),rs.getString("password"),rs.getString("email"),rs.getString("role"));
 		} else
 			return null;
 	}
-	public Users getUser(int user_id) throws SQLException {
+	Users getUser(int user_id) throws SQLException {//written by TM
 		ResultSet rs = this.statement.executeQuery("SELECT * FROM Users where user_id = '" + user_id + "';");
 		if (rs.next()) {
 			return new Users(rs.getInt("user_id"),rs.getString("username"),rs.getString("password"),rs.getString("email"),rs.getString("role"));
 		} else
 			return null;
+	}
+	boolean deleteUser(int user_id) throws SQLException {
+		boolean tmp = this.statement.execute("DELETE FROM Users WHERE user_id = "+user_id+";");
+		System.out.println(tmp);
+		return tmp;
 	}
 }

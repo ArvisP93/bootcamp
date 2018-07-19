@@ -178,6 +178,20 @@ public class PageController {
     	model.addAttribute("cinemas",db.getCinemas());
         return "showRooms";
     }
+    @GetMapping("/deleteUser")
+    public String deleteUser(Model model) throws ClassNotFoundException, SQLException {
+    	db=new DatabaseController(database,username,password);
+        model.addAttribute("users", db.getUsers());
+    	return "deleteUser";
+    }
+ 
+    @PostMapping(value = "/deleteUser")
+    public String adminDeleteUser(@ModelAttribute Users user, int user_id)throws ClassNotFoundException, SQLException{
+    	
+    	db=new DatabaseController(database,username,password);
+    	db.deleteUser(user_id);
+     	return "redirect:/getUsers";
+    }
     @GetMapping("/deleteCinema")
     public String deleteCinema(Model model) throws ClassNotFoundException, SQLException {
     	db=new DatabaseController(database,username,password);
@@ -262,7 +276,19 @@ public class PageController {
     	return "redirect:/editMovie?movie_id="+movie.getMovie_id();
     }
 //Made by TM ends here - 16.07
-
+    @GetMapping("/editUser")//made by TM
+    public String editUser(@RequestParam(name="user_id",required=true) int user_id, Model model) throws SQLException, ClassNotFoundException {
+    	db=new DatabaseController(database,username,password);
+    	model.addAttribute("user",db.getUser(user_id));
+    	return "editUser";
+    }
+    @PostMapping("/changeUser") //made by TM
+    public String changeUser(Users user) throws ClassNotFoundException, SQLException {
+    	
+    	db=new DatabaseController(database,username,password);
+    	db.changeUser(user);	
+    	return "redirect:/editUser?user_id="+user.getUser_id();
+    }
     @GetMapping("/deleteRoom")
     public String deleteRoom(@RequestParam(name="cinemaID", required=true, defaultValue="1") String cinemaID, Cinemas cinema, Model model) throws ClassNotFoundException, SQLException {
     	db=new DatabaseController(database,username,password);
@@ -298,32 +324,44 @@ public class PageController {
     
     //ADM edit links
     @GetMapping("/admShowRooms")
-    public String AdmShowRooms(@RequestParam(name="cinema_id", required=false, defaultValue="-1") int cinema_id, Model model) throws ClassNotFoundException, SQLException {
+    public String AdmShowRooms(@RequestParam(name="cinema_id", required=false, defaultValue="-1") int cinema_id, Model model) throws ClassNotFoundException, SQLException {//written by TM
     	db=new DatabaseController(database,username,password);
     	model.addAttribute("rooms",db.getRooms(cinema_id));
     	model.addAttribute("cinemas",db.getCinemas());
         return "admShowRooms";
     }
     @GetMapping("/admShowMovies")
-    public String AdmShowMovies(Model model) throws ClassNotFoundException, SQLException {
+    public String AdmShowMovies(Model model) throws ClassNotFoundException, SQLException {//written by TM
     	db=new DatabaseController(database,username,password);
     	model.addAttribute("movies",db.getFilmas());
         return "admShowMovies";
     }
     @GetMapping("/admShowCinemas")
-    public String AdmShowCinemas(Model model) throws ClassNotFoundException, SQLException {
+    public String AdmShowCinemas(Model model) throws ClassNotFoundException, SQLException {//written by TM
     	db=new DatabaseController(database,username,password);
     	model.addAttribute("cinemas",db.getCinemas());
         return "admShowCinemas";
     }
     @GetMapping("/admShowShows")
-    public String AdmShowShows(Model model) throws ClassNotFoundException, SQLException {
+    public String AdmShowShows(Model model) throws ClassNotFoundException, SQLException {//written by TM
     	db=new DatabaseController(database,username,password);
     	model.addAttribute("shows",db.getShows("-1"));
         return "admShowShows";
     }
+    @GetMapping("/admShowUsers")
+    public String AdmShowUsers(Model model) throws ClassNotFoundException, SQLException {//written by TM
+    	db=new DatabaseController(database,username,password);
+    	model.addAttribute("users",db.getUsers());
+        return "admShowUsers";
+    }
+    @GetMapping("/getUsers")
+    public String getUsers(Model model) throws ClassNotFoundException, SQLException {//written by TM
+    	db=new DatabaseController(database,username,password);
+    	model.addAttribute("users",db.getUsers());
+        return "getUsers";
+    }
     @GetMapping("/registration")
-    public String Registration(@RequestParam(name="error", required=false, defaultValue="") String error, Model model) throws ClassNotFoundException, SQLException {
+    public String Registration(@RequestParam(name="error", required=false, defaultValue="") String error, Model model) throws ClassNotFoundException, SQLException {//written by TM
     	db=new DatabaseController(database,username,password);
     	model.addAttribute("user",new Users());
     	model.addAttribute("error",error);
@@ -331,7 +369,7 @@ public class PageController {
         return "registration";
     }
     @PostMapping("/registration")
-    public String Registration(Users user)throws ClassNotFoundException, SQLException {
+    public String Registration(Users user)throws ClassNotFoundException, SQLException {//written by TM
     	db=new DatabaseController(database,username,password);
     	final Pattern VALID_EMAIL_ADDRESS_REGEX = Pattern.compile("^[\\w._%+-]+@[\\w.-]+\\.[\\D]{2,6}$", Pattern.CASE_INSENSITIVE);
     	final Pattern VALID_USERNAME_REGEX = Pattern.compile("^[\\w._%+-]", Pattern.CASE_INSENSITIVE);
@@ -353,7 +391,7 @@ public class PageController {
     	}
     }
     @GetMapping("/userPage")
-    public String userPage(@RequestParam(name="user_id",required=true) int user_id, Model model)throws ClassNotFoundException, SQLException {
+    public String userPage(@RequestParam(name="user_id",required=true) int user_id, Model model)throws ClassNotFoundException, SQLException {//written by TM
     	db=new DatabaseController(database,username,password);
     	model.addAttribute("user",db.getUser(user_id));
     	return "userPage";
