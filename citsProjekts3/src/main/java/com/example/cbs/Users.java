@@ -36,7 +36,7 @@ public class Users {
 	}
 
 	public void setUsername(String username) {
-		if(username == "") {
+		if(username == ""|| username.length() > 30) {
 			throw new IllegalArgumentException();
 		}else {
 			this.username = username;
@@ -48,7 +48,7 @@ public class Users {
 	}
 
 	public void setPassword(String password) {
-		if(password == "") {
+		if(password == "" || password.length() > 30) {
 			throw new IllegalArgumentException();
 		}else {
 			this.password = password;
@@ -60,7 +60,7 @@ public class Users {
 	}
 
 	public void setRole(String role) {
-		if(role == "") {
+		if(role == ""|| role.length() > 5) {
 			throw new IllegalArgumentException();
 		}else {
 			this.role = role;
@@ -71,6 +71,11 @@ public class Users {
 		return email;
 	}
 	public void setEmail(String email) {
-		this.email = email;
+		if(email == "" || email.length() > 50) {
+			throw new IllegalArgumentException();
+		}
+		else {
+			this.email = email;
+		}
 	}
 }
