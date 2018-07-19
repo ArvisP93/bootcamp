@@ -79,7 +79,7 @@ public class TestCinemas {
 		Cinemas obj = new Cinemas();
 		try {
 			obj.setLatitude(200.0);
-			fail("Exception was expected for ninvalid latitude input");
+			fail("Exception was expected for invalid latitude input");
 		}catch(IllegalArgumentException e) {
 		}
 	}
