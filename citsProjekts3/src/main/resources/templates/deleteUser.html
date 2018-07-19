@@ -1,0 +1,24 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head> 
+    <title>Delete User</title> 
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+</head>
+<body>
+	Delete User:
+
+    <form action="#" th:action="@{/deleteUser}" th:object="${users}" method="post">
+    	              <select name="user_id" id="${user.getUser_id()}">
+                         <option th:each="user : ${users}"
+                         	th:value = "${user.getUser_id()}"
+                            th:text="${user.getUsername()}"/>
+                 	 </select>   
+        <p><input type="submit" value="Submit" /></p>
+    </form>
+
+	<p>**********</p>
+<a href="/"><i>Sakumlapa</i></a>
+<a href="/admin"><i>Admin Page</i></a>
+	
+</body>
+</html>

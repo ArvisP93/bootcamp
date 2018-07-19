@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<title th:text = "${user.getUsername()}"> - 123</title>
+</head>
+<body>
+<table border="1">
+	<form action="#" th:action="@{'/changeUser?user_id='+${user.getUser_id()}}" th:object="${user}" method="post">
+            <table>
+        	    <tr>
+        			<td>User ID:</td>
+        			<td th:text="${user.getUser_id()}"></td>	    
+        	    </tr>
+                <tr>
+                    <td>Username:</td>
+                    <td><input type="text" th:field="*{username}"/></td>
+                </tr>
+                <tr>
+                    <td>Email:</td>
+                    <td><input type="text" th:field="*{email}"/></td>
+                </tr>
+                <tr>
+                    <td>Role:</td>
+                    <td><input type="text" th:field="*{role}"/></td>
+                </tr>
+                <!--<tr>
+                    <td>Password:</td>
+                    <td><input type="password" th:field="*{password}"/></td>
+                </tr>-->
+                <tr>
+                    <td><button type="submit">Update</button></td>
+                </tr>
+            </table>
+	</form>
+</table>
+
+<p>**********</p>
+<a href="/"><i>Sakumlapa</i></a>
+<a href="/admin"><i>Admin Page</i></a>
+</body>
+</html>
