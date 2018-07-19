@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>All Users</title>
+</head>
+<body>
+<table border="1">
+<tr>
+	<th>User ID</th>
+	<th>Username</th>
+	<th>Email</th>
+	<th>Role</th>
+	<th>Edit Link</th>
+</tr>
+<tr th:each="user : ${users}">
+	<td th:text="${user.getUser_id()}">userid</td>
+	<td th:text="${user.getUsername()}">username</td>
+    <td th:text="${user.getEmail()}">email</td>
+    <td th:text="${user.getRole()}">role</td>
+    <td><a th:href="@{'/editUser?user_id='+${user.getUser_id()}}">Edit</a></td>
+</tr>
+</table>
+
+<p>**********</p>
+<a href="/"><i>Sakumlapa</i></a>
+<a href="/admin"><i>Admin Page</i></a>
+</body>
+</html>

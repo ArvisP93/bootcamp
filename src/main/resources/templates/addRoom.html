@@ -1,0 +1,25 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head> 
+    <title>Getting Started: Serving Web Content</title> 
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+</head>
+<body>
+	Add Room:
+
+    <form action="#" th:action="@{/addRoom}" th:object="${room}" method="post">
+    	              <select th:field="*{cinema_id}" required>
+                         <option th:each="index : ${cinemas}"
+                         	th:value = "${index.getCinema_id()}"
+                            th:text="${index.getName()}"/>
+                 	 </select>   
+    	<p>Name: <input type="text" th:field="*{name}" title="Must contain 2-20 characters" pattern=".{2,20}" required/></p>
+       	<p>Seats: <input type="number" th:field="*{seats}" placeholder="min: 1, max: 1000"
+           min="1" max="1000"/></p>
+        <p><input type="submit" value="Submit" /><input type="reset" value="Reset" /></p>
+    </form>
+
+	
+	
+</body>
+</html>

@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity3">
+<head>
+<meta charset="UTF-8">
+<title>Login page</title>
+</head>
+<body bgcolor="#E6E6FA">
+
+	<div align="center">
+		<header>
+			<br><br><br><br><h3>Please enter your login details</h3>
+		</header>
+	</div>
+
+	<form action="#" th:action="@{/login}" th:object="${user}"
+		method="post">
+		<div align="center">
+			<table>
+				<tr>
+					<td>Name:</td>
+					<td><input type="text" th:field="*{username}" /></td>
+					<td th:if="${#fields.hasErrors('username')}"
+						th:errors="*{username}">Name Error</td>
+				</tr>
+				<tr>
+					<td>Password:</td>
+					<td><input type="password" th:field="*{password}" /></td>
+					<td th:if="${#fields.hasErrors('password')}" th:errors="*{password}">Password
+						Error</td>
+				</tr>
+			</table><br>
+			<div align="center">
+			<input type="checkbox" onclick="myFunction()">Show Password<br><br>
+				<button type="submit">Submit</button>
+			</div>
+		</div>
+	</form>
+	<script>
+		function myFunction() {
+			var x = document.getElementById("password");
+			if (x.type === "password") {
+				x.type = "text";
+			} else {
+				x.type = "password";
+			}
+		}
+	</script>
+</body>
+</html>
