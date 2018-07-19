@@ -396,6 +396,36 @@ public class PageController {
     	model.addAttribute("user",db.getUser(user_id));
     	return "userPage";
     }
+	
+    @GetMapping("/login")
+    public String login(@RequestParam(name="error", required=false, defaultValue="") String error, Model model) throws ClassNotFoundException, SQLException {
+    	db=new DatabaseController(database,username,password);
+    	model.addAttribute("user",new Users());
+    	model.addAttribute("error",error);
+        return "login";
+    }
+    
+    @PostMapping("/login")
+    public String login(Users user)throws ClassNotFoundException, SQLException {
+    	db=new DatabaseController(database,username,password);
+    	String error = "";
+    	if(db.getUsernames().contains(user.getUsername())!= true) {
+    		error+="User does not exist";
+    	}
+    	if(error == "" && db.CheckPassword(user.getUsername(), user.getPassword())) {
+    		if(db.isAdmin(user.getUsername())) {
+    			return "redirect:admin";
+    		}
+    		else if(db.isAdmin(user.getUsername()) != true){
+    			return "redirect:userPage?user_id="+db.getUser(user.getUsername()).getUser_id();
+    		}
+    		else
+    			return "redirect:login?error="+error;
+    	}
+    	else {
+    		return "redirect:login?error="+error;
+    	}
+    }
     
  
 }
