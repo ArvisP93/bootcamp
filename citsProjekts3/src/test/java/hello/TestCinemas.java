@@ -14,7 +14,7 @@ import com.example.cbs.Cinemas;
 //@SpringBootTest
 public class TestCinemas {
 	
-	@Test
+	Test
 	public void testConstructor(){
 		try {
 			Cinemas obj = new Cinemas(0, "KinoRio", 10.2, 15.7);
@@ -27,25 +27,21 @@ public class TestCinemas {
 		} catch(IllegalArgumentException e) {
 		}
 		try {
-			Cinemas obj = new Cinemas(1010, "KinoRio", -10.2, 15.7);
-			fail("Exception was expected for negative latitude input");
+			Cinemas obj = new Cinemas(1010, "Cinemanameistooooooooooooooooooooolong", 10.2, 15.7);
+			fail("Exception was expected for invalid name input");
 		} catch(IllegalArgumentException e) {
 		}
 		try {
-			Cinemas obj = new Cinemas(1010, "KinoRio", 10.2, -15.7);
-			fail("Exception was expected for negative longitude input");
+			Cinemas obj = new Cinemas(1010, "KinoRio", -200.0, 15.7);
+			fail("Exception was expected for invalid latitude input");
 		} catch(IllegalArgumentException e) {
 		}
 		try {
-			Cinemas obj = new Cinemas(1010, "KinoRio", 0, 15.7);
-			fail("Exception was expected for 0 latitude input");
+			Cinemas obj = new Cinemas(1010, "KinoRio", 10.2, -1500.1);
+			fail("Exception was expected for invalid longitude input");
 		} catch(IllegalArgumentException e) {
 		}
-		try {
-			Cinemas obj = new Cinemas(0, "KinoRio", 10.2, 0);
-			fail("Exception was expected for 0 longitude input");
-		} catch(IllegalArgumentException e) {
-		}
+		
 	}
 	
 	@Test
@@ -71,19 +67,19 @@ public class TestCinemas {
 			fail("Exception was expected for empty name input");
 		}catch(IllegalArgumentException e) {
 		}
+		try {
+			obj.setName("Cinemanameistooooooooooooooooooooolong");
+			fail("Exception was expected for empty name input");
+		}catch(IllegalArgumentException e) {
+		}
 	}
 	
 	@Test
 	public void testLatitude() {
 		Cinemas obj = new Cinemas();
 		try {
-			obj.setLatitude(0);
-			fail("Exception was expected for 0 latitude input");
-		}catch(IllegalArgumentException e) {
-		}
-		try {
-			obj.setLatitude(-10.6);
-			fail("Exception was expected for negative latitude input");
+			obj.setLatitude(200.0);
+			fail("Exception was expected for ninvalid latitude input");
 		}catch(IllegalArgumentException e) {
 		}
 	}
@@ -92,13 +88,8 @@ public class TestCinemas {
 	public void testLongitude() {
 		Cinemas obj = new Cinemas();
 		try {
-			obj.setLongitude(0);
-			fail("Exception was expected for 0 longitude input");
-		}catch(IllegalArgumentException e) {
-		}
-		try {
-			obj.setLongitude(-10.6);
-			fail("Exception was expected for negative longitude input");
+			obj.setLongitude(200.0);
+			fail("Exception was expected for invalid longitude input");
 		}catch(IllegalArgumentException e) {
 		}
 	}
