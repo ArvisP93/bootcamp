@@ -2,6 +2,8 @@ package com.example.cbs;
 
 import java.sql.Date;
 
+//import java.sql.Date;
+
 public class Shows {
 	public int show_id;
 	public int cinema_id;
@@ -47,6 +49,7 @@ public class Shows {
 	public int getCinema_id() {
 		return cinema_id;
 	}
+
 
 	public void setCinema_id(int cinema_id) {
 		if(cinema_id <= 0) {

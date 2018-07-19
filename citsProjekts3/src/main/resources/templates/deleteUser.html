@@ -8,12 +8,12 @@
 	Delete User:
 
     <form action="#" th:action="@{/deleteUser}" th:object="${users}" method="post">
-    	              <select name="user_id" id="${user.getUser_id()}">
+    	              <select name="user_id" id="${user.getUser_id()}" required>
                          <option th:each="user : ${users}"
                          	th:value = "${user.getUser_id()}"
                             th:text="${user.getUsername()}"/>
                  	 </select>   
-        <p><input type="submit" value="Submit" /></p>
+        <p><input type="submit" value="Dzest" /></p>
     </form>
 
 	<p>**********</p>

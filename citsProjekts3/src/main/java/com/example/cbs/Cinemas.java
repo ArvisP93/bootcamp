@@ -18,6 +18,9 @@ public class Cinemas {
 	public int getCinema_id() {
 		return cinema_id;
 	}
+	public String getCinema_id_string() {
+		return Integer.toString(cinema_id);
+	}
 
 	public void setCinema_id(int cinema_id) {
 		if(cinema_id <= 0) {
@@ -33,7 +36,7 @@ public class Cinemas {
 	}
 
 	public void setName(String name) {
-		if(name == "" || name.length() > 30) {
+		if(name == "") {
 			throw new IllegalArgumentException();
 		}
 		else {
@@ -46,7 +49,7 @@ public class Cinemas {
 	}
 
 	public void setLatitude(double latitude) {
-		if(latitude>90 || latitude<-90) {
+		if(latitude <-90 || latitude >90) {
 			throw new IllegalArgumentException();
 		}
 		else {
@@ -59,7 +62,7 @@ public class Cinemas {
 	}
 
 	public void setLongitude(double longitude) {
-		if(longitude>180 || longitude<-180) {
+		if(longitude < -180 && longitude > 180) {
 			throw new IllegalArgumentException();
 		}
 		else {

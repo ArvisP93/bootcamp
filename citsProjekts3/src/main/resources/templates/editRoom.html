@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
+<html>
 <head>
 <meta charset="UTF-8">
 <title th:text = "${room.getName()}"> - 123</title>
@@ -12,17 +12,14 @@
         			<td>Room ID:</td>
         			<td th:text="${room.getRoom_id()}"></td>	    
         	    </tr>
-                <tr>
-                    <td>Cinema ID:</td>
-                    <td><input type="text" th:field="*{cinema_id}"/></td>
-                </tr>
+					<input th:field="*{cinema_id}" type="hidden"/>
                 <tr>
                     <td>Name:</td>
-                    <td><input type="text" th:field="*{name}"/></td>
+                    <td><input type="text" th:field="*{name}" pattern=".{2,30}" title="2-30 characters" required/></td>
                 </tr>
                 <tr>
                     <td>Seats:</td>
-                    <td><input type="text" th:field="*{seats}"/></td>
+                    <td><input type="number" th:field="*{seats}" min=1 max=1000 required/></td>
                 </tr>
                 <tr>
                     <td><button type="submit">Update</button></td>
@@ -31,8 +28,8 @@
 	</form>
 </table>
 
+
 <p>**********</p>
 <a href="/"><i>Sakumlapa</i></a>
-<a href="/admin"><i>Admin Page</i></a>
 </body>
 </html>

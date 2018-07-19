@@ -1,7 +1,19 @@
 <i th:if="${reserved}">Sedvieta veiksmigi rezerveta!</i>
 <i th:unless="${reserved}">Sedvietu neizdevas rezervet.</i>
 
-<p>**********</p>
-<a href="/"><i>Sakumlapa</i></a>
-<a href="/admin"><i>Admin Page</i></a>
+<br></br>
+  <label>Enter your email to receive information about your booking:</label>
+    <form action="#" th:action="@{/reserveSeat}" modelAttribute="email" method="post">
+    
+    <input type="email" placeholder="name@domain.com" name="email" size="35" minlength="3" maxlength="64" required="required"/>
+    <input name="show_id" type="hidden" th:value="${show_id}"/>
+    <input name="seat_id" type="hidden" th:value="${seat_id}"/>
+   <p><input type="submit" value="Submit"/></p></form>
 
+
+
+
+
+
+<p>**********</p>
+</i><a href="/index.html"><i>Sakumlapa</i>

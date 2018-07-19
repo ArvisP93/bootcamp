@@ -1,7 +1,9 @@
 package com.example.cbs;
 
+import java.sql.Date;
 import java.sql.SQLException;
 //import java.util.ArrayList;
+import java.util.ArrayList;
 import java.util.regex.Pattern;
 
 import org.springframework.stereotype.Controller;
@@ -54,7 +56,7 @@ public class PageController {
     }
     
     @GetMapping("/getShows")
-    public String getShows(@RequestParam(name="longitude", required=false, defaultValue="none") String longitude,@RequestParam(name="latitude", required=false, defaultValue="none") String latitude,@RequestParam(name="cinema", required=false, defaultValue="-1") String cinema, Model model) throws ClassNotFoundException, SQLException{
+    public String getShows(@RequestParam(name="longitude", required=false, defaultValue="none") String longitude,@RequestParam(name="latitude", required=false, defaultValue="none") String latitude,@RequestParam(name="cinema", required=false, defaultValue="1") String cinema, Model model) throws ClassNotFoundException, SQLException{
     	db=new DatabaseController(database, username, password);
     	if(!latitude.equals("none") && !longitude.equals("none"))
     	{
@@ -71,11 +73,28 @@ public class PageController {
     	model.addAttribute("showSeats", db.getShowSeats(show_id));
     	return "getShow";
     }
+    /*@GetMapping("/reserveSeat")
+    public String reserveSeat(@RequestParam(name="show_id", required=true, defaultValue="1") String show_id, @RequestParam(name="seat_id", required=true, defaultValue="1") String seat_id, Model model) throws ClassNotFoundException, SQLException{
+    	db=new DatabaseController(database, username, password);
+    	System.out.println("SHOWID:" + show_id + " SEATID:" + seat_id);
+    	model.addAttribute("reserved", db.reserveSeat(show_id, seat_id));
+    	return "reserveSeat";
+    }*/
     @GetMapping("/reserveSeat")
     public String reserveSeat(@RequestParam(name="show_id", required=true, defaultValue="1") String show_id, @RequestParam(name="seat_id", required=true, defaultValue="1") String seat_id, Model model) throws ClassNotFoundException, SQLException{
     	db=new DatabaseController(database, username, password);
     	System.out.println("SHOWID:" + show_id + " SEATID:" + seat_id);
     	model.addAttribute("reserved", db.reserveSeat(show_id, seat_id));
+    	model.addAttribute("show_id", show_id);
+    	model.addAttribute("seat_id", seat_id);
+    	return "reserveSeat";
+    }
+    
+    @PostMapping("/reserveSeat")
+    public String mailtest(@ModelAttribute("email") String email, @ModelAttribute("seat_id") String seat_id, @ModelAttribute("show_id") String show_id) throws ClassNotFoundException, SQLException {
+    	System.out.println("e: " + email);
+    	System.out.println("show_id: " + show_id);
+    	SendMail.sendMail(email, show_id, seat_id);
     	return "reserveSeat";
     }
     
@@ -98,7 +117,7 @@ public class PageController {
 
     @GetMapping("/getRooms")
     public String getRooms(@RequestParam(name="cinemaID", required=true, defaultValue="1") String cinemaID, Model model) throws ClassNotFoundException, SQLException{
-    	db=new DatabaseController(database,username,password);
+    	db=new DatabaseController("db_cbs", "springuser", "parole");
     	model.addAttribute("cinemas", db.getCinemas());
     	model.addAttribute("rooms", db.getRooms(Integer.parseInt(cinemaID)));
     	return "getRooms";
@@ -106,7 +125,7 @@ public class PageController {
 
     @PostMapping(value = "/getRooms")
     public String getAdminRooms(@RequestParam(name="cinemaID", required=true, defaultValue="1") String cinemaID, Model model) throws ClassNotFoundException, SQLException{
-    	db=new DatabaseController(database,username,password);
+    	db=new DatabaseController("db_cbs", "springuser", "parole");
        	model.addAttribute("cinemas", db.getCinemas());
     	model.addAttribute("rooms", db.getRooms(Integer.parseInt(cinemaID)));
      	return "/getRooms";
@@ -122,7 +141,7 @@ public class PageController {
     
     @PostMapping("/addMovie")
     public String adminAddMovie(@ModelAttribute Movies movie) throws ClassNotFoundException, SQLException {
-     	db=new DatabaseController(database,username,password);
+     	db=new DatabaseController("db_cbs", "springuser", "parole");
     	db.AddMovie(movie.getName(), movie.getGenre());
     	return "redirect:/getMovies";
     }
@@ -136,39 +155,25 @@ public class PageController {
     @PostMapping(value = "/addCinema")
     public String adminAddCinema(@ModelAttribute Cinemas cinema) throws ClassNotFoundException, SQLException{
      	
-    	db=new DatabaseController(database,username,password);
+    	db=new DatabaseController("db_cbs", "springuser", "parole");
     	db.AddCinema(cinema.getName(), cinema.getLatitude(), cinema.getLatitude());
      	
      	return "redirect:/cinemaList";
     }
-    /*@GetMapping("/addRoom")
-    public String addRoom(Model model) throws ClassNotFoundException, SQLException {
-    	db=new DatabaseController(database, username, password);
-    	model.addAttribute("room", new Rooms());
-        model.addAttribute("cinemas", db.getCinemas());
-    	return "addRoom";
-    }
- 
-    @PostMapping(value = "/addRoom")
-    public String addRoom(@ModelAttribute Rooms room, Cinemas cinema) throws ClassNotFoundException, SQLException{
-     	db=new DatabaseController(database, username, password);
-    	db.AddRoom(room.getCinema_id(), room.getName(), room.getSeats());
-    	System.out.println();
-     	return "redirect:/addRoom";
-    }*/
+
     @GetMapping("/addRoom")
     public String addRoom(Model model) throws ClassNotFoundException, SQLException {
-    	db=new DatabaseController(database,username,password);
+    	db=new DatabaseController("db_cbs", "springuser", "parole");
     	model.addAttribute("room", new Rooms());
         model.addAttribute("cinemas", db.getCinemas());
     	return "addRoom";
     }
  
     @PostMapping(value = "/addRoom")
-    public String adminAddRoom(@ModelAttribute Rooms room, Cinemas cinema, String selectCinema) throws ClassNotFoundException, SQLException{
+    public String adminAddRoom(@ModelAttribute Rooms room) throws ClassNotFoundException, SQLException{
     	//System.out.println(selectedCinema.getCinema_id());
-    	db=new DatabaseController(database,username,password);
-    	db.AddRoom(Integer.parseInt(selectCinema), room.getName(), room.getSeats());
+    	db=new DatabaseController("db_cbs", "springuser", "parole");
+    	db.AddRoom(room.getCinema_id(), room.getName(), room.getSeats());
      	return "redirect:/addRoom";
     }
     @GetMapping("/showRooms")
@@ -178,23 +183,9 @@ public class PageController {
     	model.addAttribute("cinemas",db.getCinemas());
         return "showRooms";
     }
-    @GetMapping("/deleteUser")
-    public String deleteUser(Model model) throws ClassNotFoundException, SQLException {
-    	db=new DatabaseController(database,username,password);
-        model.addAttribute("users", db.getUsers());
-    	return "deleteUser";
-    }
- 
-    @PostMapping(value = "/deleteUser")
-    public String adminDeleteUser(@ModelAttribute Users user, int user_id)throws ClassNotFoundException, SQLException{
-    	
-    	db=new DatabaseController(database,username,password);
-    	db.deleteUser(user_id);
-     	return "redirect:/getUsers";
-    }
     @GetMapping("/deleteCinema")
     public String deleteCinema(Model model) throws ClassNotFoundException, SQLException {
-    	db=new DatabaseController(database,username,password);
+    	db=new DatabaseController("db_cbs", "springuser", "parole");
         model.addAttribute("cinemas", db.getCinemas());
     	return "deleteCinema";
     }
@@ -202,14 +193,14 @@ public class PageController {
     @PostMapping(value = "/deleteCinema")
     public String adminDeleteCinema(@ModelAttribute Cinemas cinema, String selectCinema) throws ClassNotFoundException, SQLException{
     	System.out.println(Integer.parseInt(selectCinema));
-    	db=new DatabaseController(database,username,password);
+    	db=new DatabaseController("db_cbs", "springuser", "parole");
     	db.DeleteCinema(Integer.parseInt(selectCinema));
      	return "redirect:/cinemaList";
     }
     
     @GetMapping("/deleteMovie")
     public String deleteMovie(Model model) throws ClassNotFoundException, SQLException {
-    	db=new DatabaseController(database,username,password);
+    	db=new DatabaseController("db_cbs", "springuser", "parole");
         model.addAttribute("movies", db.getFilmas());
     	return "deleteMovie";
     }
@@ -217,11 +208,13 @@ public class PageController {
     @PostMapping(value = "/deleteMovie")
     public String adminDeleteMovie(@ModelAttribute Cinemas cinema, String selectMovie) throws ClassNotFoundException, SQLException{
     	System.out.println(Integer.parseInt(selectMovie));
-    	db=new DatabaseController(database,username,password);
+    	db=new DatabaseController("db_cbs", "springuser", "parole");
     	db.DeleteMovie(Integer.parseInt(selectMovie));
      	return "redirect:/getMovies";
     }
 
+
+    
 	//Made by TM starts here - 16.07
     @GetMapping("/editCinema")
     public String showCinema(@RequestParam(name="cinema_id",required=true) int cinema_id, Model model) throws SQLException, ClassNotFoundException {
@@ -246,22 +239,25 @@ public class PageController {
     public String changeRoom(Rooms room) throws ClassNotFoundException, SQLException {
     	
     	db=new DatabaseController(database,username,password);
-    	db.changeRoom(room);	
+    	db.changeRoom(room);
     	return "redirect:/editRoom?room_id="+room.getRoom_id();
-    }
+}
     @GetMapping("/editShow")
     public String showShow(@RequestParam(name="show_id",required=true) int show_id, Model model) throws SQLException, ClassNotFoundException {
     	db=new DatabaseController(database,username,password);
     	model.addAttribute("show",db.getShow(show_id));
     	return "editShow";
-    }
+}
     @PostMapping("/changeShow")
     public String changeShow(Shows show) throws ClassNotFoundException, SQLException {
     	
     	db=new DatabaseController(database,username,password);
     	db.changeShow(show);	
-    	return "redirect:/editShow?show_id="+show.getShow_id();
+    	return "redirect:/showShow?show_id="+show.getShow_id();
     }
+    
+    
+    
     @GetMapping("/editMovie")
     public String showMovie(@RequestParam(name="movie_id",required=true) int movie_id, Model model) throws SQLException, ClassNotFoundException {
     	db=new DatabaseController(database,username,password);
@@ -275,38 +271,28 @@ public class PageController {
     	db.changeMovie(movie);	
     	return "redirect:/editMovie?movie_id="+movie.getMovie_id();
     }
+    
 //Made by TM ends here - 16.07
-    @GetMapping("/editUser")//made by TM
-    public String editUser(@RequestParam(name="user_id",required=true) int user_id, Model model) throws SQLException, ClassNotFoundException {
-    	db=new DatabaseController(database,username,password);
-    	model.addAttribute("user",db.getUser(user_id));
-    	return "editUser";
-    }
-    @PostMapping("/changeUser") //made by TM
-    public String changeUser(Users user) throws ClassNotFoundException, SQLException {
-    	
-    	db=new DatabaseController(database,username,password);
-    	db.changeUser(user);	
-    	return "redirect:/editUser?user_id="+user.getUser_id();
-    }
+
     @GetMapping("/deleteRoom")
     public String deleteRoom(@RequestParam(name="cinemaID", required=true, defaultValue="1") String cinemaID, Cinemas cinema, Model model) throws ClassNotFoundException, SQLException {
-    	db=new DatabaseController(database,username,password);
+    	db=new DatabaseController("db_cbs", "springuser", "parole");
       	model.addAttribute("cinemas", db.getCinemas());
         model.addAttribute("rooms", db.getRooms(Integer.parseInt(cinemaID)));
     	return "deleteRoom";
     }
     @PostMapping(value = "/deleteRoom")
     public String adminDeleteRoom(@RequestParam(name="cinemaID", required=true, defaultValue="1") String cinemaID, @RequestParam(name="deleteRoom", required=true, defaultValue="0") String deleteRoom, Cinemas cinema, Model model) throws ClassNotFoundException, SQLException{  	
-        	db=new DatabaseController(database,username,password);
+        	db=new DatabaseController("db_cbs", "springuser", "parole");
         	model.addAttribute("cinemas", db.getCinemas());
         	model.addAttribute("rooms", db.getRooms(Integer.parseInt(cinemaID)));
     	if (Integer.parseInt(deleteRoom) != 0) {
     		db.DeleteRoom(Integer.parseInt(deleteRoom));
-    		return "deleteRoom";
+    		return "redirect:/deleteRoom";
     		
     	}
      	return "/deleteRoom";
+    	
     }
     @GetMapping("/AddShowTM")
     public String AddShowTM(Model model) throws ClassNotFoundException, SQLException {
@@ -320,6 +306,69 @@ public class PageController {
     	db=new DatabaseController(database,username,password);
     	db.AddNewShow(show.getMovie_id(), show.getRoom_id(),show.getDate());
     	return "redirect:/admShowShows";
+    }
+    //***AP 18.07.18***
+    @GetMapping("/addShow")
+    public String addShow(Model model) throws ClassNotFoundException, SQLException {
+    	db=new DatabaseController("db_cbs", "springuser", "parole");
+        model.addAttribute("cinemas", db.getCinemas());
+    	return "addShow";
+    }
+    
+   
+    @PostMapping(value = "/addShow")
+    public String adminAddShow(@ModelAttribute("selectCinema") String selectCinema, Model model) throws ClassNotFoundException, SQLException{
+    	db=new DatabaseController("db_cbs", "springuser", "parole");
+    	model.addAttribute("rooms", db.getRooms(Integer.parseInt(selectCinema)));
+    	
+    	model.addAttribute("cinema", db.getCinema(Integer.parseInt(selectCinema)));
+    	
+    	model.addAttribute("movies", db.getFilmas());
+     	return "addShow";
+    }
+    
+    @PostMapping(value = "/addShowFinal")
+    public String addShowFinal(@ModelAttribute("selectCinema") String selectCinema,
+    		@ModelAttribute("selectHour") String selectHour, 
+    		@ModelAttribute("selectMinute") String selectMinute, 
+    		@ModelAttribute("selectDate") Date selectDate, 
+    		@ModelAttribute("selectMovie") String selectMovie, 
+    		@ModelAttribute("selectRoom") String selectRoom, Model model) throws ClassNotFoundException, SQLException{
+    	db=new DatabaseController("db_cbs", "springuser", "parole");
+    	//model.addAttribute("rooms", db.getRooms(Integer.parseInt(selectCinema)));
+    	
+    	//model.addAttribute("cinema", db.getCinema(Integer.parseInt(selectCinema)));
+    	System.out.println("DATE: " + selectDate.toString());
+    	System.out.println("selectCinema: " + selectCinema);
+    	String showDate = selectDate.toString() + " " + selectHour + ":" + selectMinute + ":00";
+    	db.AddShowString(Integer.parseInt(selectCinema), Integer.parseInt(selectMovie), Integer.parseInt(selectRoom), showDate, "");
+    	//model.addAttribute("movies", db.getFilmas());
+     	return "redirect:/getShows?cinema=" + selectCinema;
+    }
+  //***AP 18.07.18 END***
+    
+    @GetMapping("/deleteShow")
+    public String deleteShow(@RequestParam(name="cinema_id", required=true, defaultValue="1") String cinema_id, Cinemas cinema, Model model) throws ClassNotFoundException, SQLException {
+    	db=new DatabaseController("db_cbs", "springuser", "parole");
+      	model.addAttribute("cinemas", db.getCinemas());
+        model.addAttribute("shows", db.getShows((cinema_id)));
+
+        model.addAttribute("cinema_id", cinema_id);
+    	return "deleteShow";
+    }
+    @PostMapping("/deleteShow")
+    public String adminDeleteShow( @ModelAttribute("cinemaID") String cinemaID, @RequestParam(name="deleteShow", required=true, defaultValue="0") String deleteShow, Cinemas cinema, Model model) throws ClassNotFoundException, SQLException{  	
+        	db=new DatabaseController("db_cbs", "springuser", "parole");
+          	model.addAttribute("cinemas", db.getCinemas());
+            model.addAttribute("shows", db.getShows((cinemaID)));
+
+    	if (Integer.parseInt(deleteShow) != 0) {
+    		db.DeleteShow(Integer.parseInt(deleteShow));
+    		return "redirect:/deleteShow?cinema_id="+cinemaID;
+    		
+    	}
+    	return "redirect:/deleteShow?cinema_id="+cinemaID;
+    	
     }
     
     //ADM edit links
@@ -427,5 +476,11 @@ public class PageController {
     	}
     }
     
+    @GetMapping("/deleteUser")
+    public String deleteUser(Model model) throws ClassNotFoundException, SQLException {
+    	db=new DatabaseController(database,username,password);
+        model.addAttribute("users", db.getUsers());
+    	return "deleteUser";
+    }
  
 }

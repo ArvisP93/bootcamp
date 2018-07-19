@@ -8,17 +8,15 @@
 	Delete Cinema:
 
     <form action="#" th:action="@{/deleteCinema}" th:object="${cinemas}" method="post">
-    	              <select name="selectCinema" id="${index.getCinema_id()">
+    	              <select name="selectCinema" required>
                          <option th:each="index : ${cinemas}"
                          	th:value = "${index.getCinema_id()}";
                             th:text="${index.getName()}"/>
                  	 </select>   
-        <p><input type="submit" value="Submit" /></p>
+        <p><input type="submit" value="Dzest" /></p>
     </form>
 
-	<p>**********</p>
-<a href="/"><i>Sakumlapa</i></a>
-<a href="/admin"><i>Admin Page</i></a>
+	
 	
 </body>
 </html>

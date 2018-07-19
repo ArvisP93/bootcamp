@@ -1,0 +1,45 @@
+<form action="#" th:action="@{/deleteShow}" th:object="${cinemas}" method="post">
+						<b th:text="${cinema_id}"></b>
+						<!--  <input name="cinema_id" type="hidden" th:value="${cinema_id}"/>-->
+    	              <select name="cinemaID" required>
+                         <option th:each="index : ${cinemas}"
+                         	th:value = "${index.getCinema_id()}"
+                         	
+                         	th:selected = "${index.getCinema_id_string()==cinema_id}"
+                            th:text="${index.getName()}"
+                            th:name="${index.getCinema_id()}"/>
+                 	 </select>   
+        <p><input type="submit" value="Izveleties" /></p>
+</form>
+
+<!--  th:selected = "${index.getCinema_id()==cinemaID2}"-->
+
+<table border="1">
+<tr>
+	<td>ID</td>
+	<td>Filma</td>
+    <td>Zanrs</td>
+    <td>Datums</td>
+    <td>Auditorija</td>
+    <td>Sedvietu skaits</td> 
+    <td>Delete</td>     
+</tr>
+<form action="#" th:action="@{/deleteShow}" th:object="${shows}" method="post">
+<tr th:each="show : ${shows}">
+
+	<td th:text="${show.getShow_id()}"></td>
+	<td th:text="${show.getMovie_name()}"></td>
+	<td th:text="${show.getMovie_genre()}"></td>
+	<td th:text="${show.getDate()}"></td>
+	<td th:text="${show.getRoom_name()}"></td>
+	<td th:text="${show.getTotal_seats()}"></td>
+	<input name="cinemaID" th:value="${show.getCinema_id()}" type="hidden"/>
+
+    <td> <button type="submit" name="deleteShow" th:value = "${show.getShow_id()}">Delete</button></td>
+</table>
+</form>
+
+
+<p>**********</p>
+</i><a href="/index.html"><i>Sakumlapa</i></a>
+</i><a href="/admin"><i>Admin Page</i></a>

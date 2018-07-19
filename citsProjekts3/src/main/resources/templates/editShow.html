@@ -1,13 +1,14 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
+<html>
 <head>
 <meta charset="UTF-8">
 <title th:text = "${show.getMovie_name()}"> - 123</title>
+<script></script>
 </head>
 <body>
-<form action="#" th:action="@{'/changeShow?show_id='+${show.getShow_id()}}" th:object="${show}" method="post">
-	<table border="1">
-		<table>
+<table border="1">
+	<form action="#" th:action="@{'/changeShow?show_id='+${show.getShow_id()}}" th:object="${show}" method="post">
+            <table>
         	    <tr>
         			<td>Show ID:</td>
         			<td th:text="${show.getShow_id()}"></td>	    
@@ -22,7 +23,12 @@
                 </tr>
                 <tr>
                     <td>Room ID:</td>
-                    <td><input type="text" th:field="*{room_id}"/></td>
+                    <td>
+                    <!--<input type="text" th:field="*{room_id}"/>  -->
+                    
+                    
+                    </td>
+                    
                 </tr>
                 <tr>
                     <td>Room Name:</td>
@@ -56,12 +62,11 @@
                     <td><button type="submit">Update</button></td>
                 </tr>
             </table>
-	</table>
-</form>
+	</form>
+</table>
 
 
 <p>**********</p>
 <a href="/"><i>Sakumlapa</i></a>
-<a href="/admin"><i>Admin Page</i></a>
 </body>
 </html>
