@@ -27,11 +27,6 @@ public class TestCinemas {
 		} catch(IllegalArgumentException e) {
 		}
 		try {
-			Cinemas obj = new Cinemas(1010, "Cinemanameistooooooooooooooooooooolong", 10.2, 15.7);
-			fail("Exception was expected for invalid name input");
-		} catch(IllegalArgumentException e) {
-		}
-		try {
 			Cinemas obj = new Cinemas(1010, "KinoRio", -200.0, 15.7);
 			fail("Exception was expected for invalid latitude input");
 		} catch(IllegalArgumentException e) {
@@ -64,11 +59,6 @@ public class TestCinemas {
 		Cinemas obj = new Cinemas();
 		try {
 			obj.setName("");
-			fail("Exception was expected for empty name input");
-		}catch(IllegalArgumentException e) {
-		}
-		try {
-			obj.setName("Cinemanameistooooooooooooooooooooolong");
 			fail("Exception was expected for empty name input");
 		}catch(IllegalArgumentException e) {
 		}
