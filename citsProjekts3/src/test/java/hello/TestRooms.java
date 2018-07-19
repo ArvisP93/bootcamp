@@ -44,6 +44,11 @@ public class TestRooms {
 		} catch(IllegalArgumentException e) {
 		}
 		try {
+			Rooms obj = new Rooms(1, 404, "Vevryverylongroomnametoolongfortesetter", 40);
+			fail("Exception was expected for invalid name input");
+		} catch(IllegalArgumentException e) {
+		}
+		try {
 			Rooms obj = new Rooms(1, 404, "Room", 0);
 			fail("Exception was expected for 0 seats input");
 		} catch(IllegalArgumentException e) {
@@ -97,6 +102,11 @@ public class TestRooms {
 			fail("Exception was expected for empty name input");
 		}
 		catch(IllegalArgumentException e) {
+		}
+		try {
+			obj.setName("Vevryverylongroomnametoolongfortesetter");
+			fail("Exception was expected for invalid name input");
+		} catch(IllegalArgumentException e) {
 		}
 	}
 	
