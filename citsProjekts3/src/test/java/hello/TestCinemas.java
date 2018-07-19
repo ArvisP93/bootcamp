@@ -10,8 +10,8 @@ import org.springframework.test.context.junit4.SpringRunner;
 import com.example.cbs.Cinemas;
 
 
-@RunWith(SpringRunner.class)
-@SpringBootTest
+//@RunWith(SpringRunner.class)
+//@SpringBootTest
 public class TestCinemas {
 	
 	@Test
