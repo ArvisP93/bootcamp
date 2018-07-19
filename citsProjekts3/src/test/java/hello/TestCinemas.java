@@ -14,7 +14,7 @@ import com.example.cbs.Cinemas;
 //@SpringBootTest
 public class TestCinemas {
 	
-	Test
+	@Test
 	public void testConstructor(){
 		try {
 			Cinemas obj = new Cinemas(0, "KinoRio", 10.2, 15.7);
