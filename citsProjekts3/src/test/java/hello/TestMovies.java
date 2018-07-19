@@ -13,7 +13,7 @@ import com.example.cbs.Movies;
 //@SpringBootTest
 public class TestMovies {
 	
-	Test
+	@Test
 	public void testConstructor(){
 		try {
 			Movies obj = new Movies(0, "Batman", "Thriller");
