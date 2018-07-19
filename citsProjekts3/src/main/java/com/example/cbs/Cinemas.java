@@ -62,7 +62,7 @@ public class Cinemas {
 	}
 
 	public void setLongitude(double longitude) {
-		if(longitude < -180 && longitude > 180) {
+		if(longitude < -180 || longitude > 180) {
 			throw new IllegalArgumentException();
 		}
 		else {
