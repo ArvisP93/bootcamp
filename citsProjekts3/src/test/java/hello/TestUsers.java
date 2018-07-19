@@ -1,10 +1,9 @@
-package com.example.demo;
+package hello;
 
 import static org.junit.Assert.*;
-
+import static org.junit.Assert.fail;
 import org.junit.Test;
-
-import hello.Users;
+import com.example.cbs.Users;
 
 public class TestUsers {
 
@@ -122,12 +121,12 @@ public class TestUsers {
 		Users obj = new Users();
 		try {
 			obj.setRole("");
-			fail("Exception was expected for empty password input");
+			fail("Exception was expected for empty role input");
 		}catch(IllegalArgumentException e) {
 		}
 		try {
 			obj.setRole("moderator");
-			fail("Exception was expected for invalid password input");
+			fail("Exception was expected for invalid role input");
 		}catch(IllegalArgumentException e) {
 		}
 	}
