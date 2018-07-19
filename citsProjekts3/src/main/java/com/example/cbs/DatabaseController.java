@@ -299,4 +299,12 @@ public class DatabaseController {
 		System.out.println(tmp);
 		return tmp;
 	}
+	
+	public boolean isAdmin(String username) throws SQLException {
+		ResultSet rs = this.statement.executeQuery("SELECT username FROM Users WHERE username = '" + username + "' AND role = 'admin';");
+		if (rs.next()) {
+			return true;
+		} else
+			return false;
+	}
 }
