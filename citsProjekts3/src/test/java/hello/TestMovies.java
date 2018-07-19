@@ -9,11 +9,11 @@ import org.springframework.test.context.junit4.SpringRunner;
 
 import com.example.cbs.Movies;
 
-@RunWith(SpringRunner.class)
-@SpringBootTest
+//@RunWith(SpringRunner.class)
+//@SpringBootTest
 public class TestMovies {
 	
-	@Test
+	Test
 	public void testConstructor(){
 		try {
 			Movies obj = new Movies(0, "Batman", "Thriller");
@@ -31,8 +31,18 @@ public class TestMovies {
 		} catch(IllegalArgumentException e) {
 		}
 		try {
+			Movies obj = new Movies(11, "Veryverylongmovienametoolongforthesetter", "Thriller");
+			fail("Exception was expected for invalid name input");
+		} catch(IllegalArgumentException e) {
+		}
+		try {
 			Movies obj = new Movies(11, "Batman", "");
 			fail("Exception was expected for empty genre input");
+		} catch(IllegalArgumentException e) {
+		}
+		try {
+			Movies obj = new Movies(11, "Batman", "Veryverylonggenrenametoolongforthesetter");
+			fail("Exception was expected for invalid genre input");
 		} catch(IllegalArgumentException e) {
 		}
 	}
@@ -63,6 +73,11 @@ public class TestMovies {
 		}
 		catch(IllegalArgumentException e) {
 		}
+		try {
+			obj.setName("Veryverylongmovienametoolongforthesetter");
+			fail("Exception was expected for invalid name input");
+		} catch(IllegalArgumentException e) {
+		}
 	}
 	
 	@Test
@@ -73,6 +88,11 @@ public class TestMovies {
 			fail("Exception was expected for empty genre input");
 		}
 		catch(IllegalArgumentException e) {
+		}
+		try {
+			obj.setGenre("Veryverylonggenrenametoolongforthesetter");
+			fail("Exception was expected for invalid genre input");
+		} catch(IllegalArgumentException e) {
 		}
 	}
 
