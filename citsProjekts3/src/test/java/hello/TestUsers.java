@@ -45,11 +45,6 @@ public class TestUsers {
 		} catch(IllegalArgumentException e) {
 		}
 		try {
-			Users obj = new Users(101, "NewUser", "NewPassword", "newemailgmailcom", "user");
-			fail("Exception was expected for invalid email input");
-		} catch(IllegalArgumentException e) {
-		}
-		try {
 			Users obj = new Users(101, "NewUser", "NewPassword", "newemailthatisveryveryverylongandshouldcouseerrorsbecauseitislongerthensetterallowesittobe@gmail.com", "user");
 			fail("Exception was expected for invalid email input");
 		} catch(IllegalArgumentException e) {
@@ -102,11 +97,6 @@ public class TestUsers {
 		try {
 			obj.setEmail("");
 			fail("Exception was expected for empty email input");
-		}catch(IllegalArgumentException e) {
-		}
-		try {
-			obj.setEmail("newemailgmailcom");
-			fail("Exception was expected for invalid email input");
 		}catch(IllegalArgumentException e) {
 		}
 		try {
