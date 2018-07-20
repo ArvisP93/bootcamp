@@ -1,22 +1,35 @@
 <!DOCTYPE HTML>
 <html xmlns:th="http://www.thymeleaf.org">
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
 <head> 
     <title>New User</title> 
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
 </head>
 <body>
+	<div align="center">
+		<header>
+			<br><br><br><br><h3>Please enter your registration details</h3>
+		</header>
+	</div>
+	<div align="center">
     <form action="#" th:action="@{/registration}" th:object="${user}" method="post">
 		<p>Username: <input type="text" th:field= "*{username}" required/>
 		<b th:if="${#strings.contains(error, 'user')}">Username Taken or Invalid</b>
 		<p>Email: <input type="email" th:field="*{email}" required/>
 		<b th:if="${#strings.contains(error, 'email')}">Email Invalid</b>
        	<p>Password: <input type="password" th:field="*{password}" required/></p>       	 
-        <p><input type="submit" value="Submit" /><input type="reset" value="Reset"/></p>
+        <p><input type="submit" class="btn btn-info" value="Submit" /><input type="reset" class="btn btn-info" value="Reset"/></p>
     </form>
+    </div>
     
     	
+div align="center" style="padding:100px ">
 <p>**********</p>
-<a href="/"><i>Sakumlapa</i></a>
-<a href="/admin"><i>Admin Page</i></a>
+<a href="/" class="btn btn-success"> <i>Sakumlapa</i></a>
+<a href="/admin" class="btn btn-success"><i>Admin Page</i></a>
+</div>
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script> 
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 </body>
 </html>
