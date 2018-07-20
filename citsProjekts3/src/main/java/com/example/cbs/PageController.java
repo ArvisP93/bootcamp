@@ -257,7 +257,20 @@ public class PageController {
     	db.changeShow(show);	
     	return "redirect:/editShow?show_id="+show.getShow_id();
     }
-    
+    @GetMapping("/editUser")
+    public String showUser(@RequestParam(name="user_id",required=true) int user_id, Model model) throws SQLException, ClassNotFoundException {
+    	db=new DatabaseController(database,username,password);
+    	model.addAttribute("user",db.getUser(user_id));
+    	//model.addAttribute("rooms",db.getRooms(db.getCinemaIdFromShow(show_id) ) );
+    	return "editUser";
+}
+    @PostMapping("/changeUser")
+    public String changeUser(Users user) throws ClassNotFoundException, SQLException { //NEW ONE FROM TM 20.07
+    	
+    	db=new DatabaseController(database,username,password);
+    	db.changeUser(user);	
+    	return "redirect:/editUser?user_id="+user.getUser_id();
+    }
     
     
     @GetMapping("/editMovie")

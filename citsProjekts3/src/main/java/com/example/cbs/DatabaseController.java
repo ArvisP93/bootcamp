@@ -297,7 +297,11 @@ public class DatabaseController {
 		return tmp;
 		
 	}
-
+	
+	int changeUser(Users user) throws SQLException { //NEW ONE FROM TM 20.07
+		return this.statement.executeUpdate("UPDATE Users SET username = '"+user.getUsername()+"',email = '"+user.getEmail()+"',role='"+user.getRole()+"' WHERE user_id = "+user.getUser_id()+";");
+	}
+	
 	Users getUser(String username) throws SQLException {//written by TM
 		ResultSet rs = this.statement.executeQuery("SELECT * FROM Users where username = '" + username + "';");
 		if (rs.next()) {
