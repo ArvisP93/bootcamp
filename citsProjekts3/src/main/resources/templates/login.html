@@ -3,8 +3,9 @@
 <head>
 <meta charset="UTF-8">
 <title>Login page</title>
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
 </head>
-<body bgcolor="#E6E6FA">
+<body>
 
 	<div align="center">
 		<header>
@@ -21,6 +22,7 @@
 					<td><input type="text" th:field="*{username}" /></td>
 					<td th:if="${#fields.hasErrors('username')}"
 						th:errors="*{username}">Name Error</td>
+						
 				</tr>
 				<tr>
 					<td>Password:</td>
@@ -31,7 +33,7 @@
 			</table><br>
 			<div align="center">
 			<input type="checkbox" onclick="myFunction()">Show Password<br><br>
-				<button type="submit">Submit</button>
+				<button type="submit" class="btn btn-info">Submit</button>
 			</div>
 		</div>
 	</form>
@@ -45,5 +47,7 @@
 			}
 		}
 	</script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script> 
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>	
 </body>
 </html>
