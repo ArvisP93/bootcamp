@@ -1,0 +1,39 @@
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+<p id="message"></p>
+<a id="cinLink" href="#" text=>Atrast tuvako kinoteatri</a>
+<script>
+var x = document.getElementById("message");
+function getLocation() {
+    if (navigator.geolocation) {
+        navigator.geolocation.getCurrentPosition(showPosition);
+    } else {
+        x.innerHTML = "Geolocation is not supported by this browser.";
+    }
+}
+function showPosition(position) {
+    //x.innerHTML = "Latitude: " + position.coords.latitude +
+    //"<br>Longitude: " + position.coords.longitude;
+    
+    //console.log(position.coords.latitude);
+    var yourElement = document.getElementById('cinLink');
+    //yourElement.setAttribute('href', '#?latitude=' + position.coords.latitude + '&longitude=' + position.coords.longitude);
+    yourElement.setAttribute('href', '/getShows?latitude=' + position.coords.latitude + '&longitude=' + position.coords.longitude);
+    
+}
+getLocation();
+</script> 
+
+
+<table border=1>
+<tr th:each="cinema : ${cinemas}">
+	<td th:text="${cinema.getName()}"></td>
+	<td><a th:href="@{'/getShows?cinema='+${cinema.getCinema_id()}}">Shows</a></td>
+	<td><a th:href="@{'/showRooms?cinema_id='+${cinema.getCinema_id()}}">Rooms</a></td>
+</tr>
+</table>
+
+
+<br>
+</i><a href="/index.html" class="btn btn-info"><i>Sakumlapa</i></a>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script> 
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script> 

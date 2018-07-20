@@ -1,0 +1,104 @@
+#
+# There is insufficient memory for the Java Runtime Environment to continue.
+# Native memory allocation (mmap) failed to map 65536 bytes for committing reserved memory.
+# Possible reasons:
+#   The system is out of physical RAM or swap space
+#   In 32 bit mode, the process size limit was hit
+# Possible solutions:
+#   Reduce memory load on the system
+#   Increase physical memory or swap space
+#   Check if swap backing store is full
+#   Use 64 bit Java on a 64 bit OS
+#   Decrease Java heap size (-Xmx/-Xms)
+#   Decrease number of Java threads
+#   Decrease Java thread stack sizes (-Xss)
+#   Set larger code cache with -XX:ReservedCodeCacheSize=
+# This output file may be truncated or incomplete.
+#
+#  Out of Memory Error (os_linux.cpp:2643), pid=8386, tid=0x00007f40a0e91700
+#
+# JRE version: OpenJDK Runtime Environment (8.0_171-b11) (build 1.8.0_171-8u171-b11-0ubuntu0.18.04.1-b11)
+# Java VM: OpenJDK 64-Bit Server VM (25.171-b11 mixed mode linux-amd64 compressed oops)
+# Failed to write core dump. Core dumps have been disabled. To enable core dumping, try "ulimit -c unlimited" before starting Java again
+#
+
+---------------  T H R E A D  ---------------
+
+Current thread (0x00007f409c0b3800):  JavaThread "C2 CompilerThread0" daemon [_thread_in_vm, id=8430, stack(0x00007f40a0d92000,0x00007f40a0e92000)]
+
+Stack: [0x00007f40a0d92000,0x00007f40a0e92000],  sp=0x00007f40a0e8ed60,  free space=1011k
+Native frames: (J=compiled Java code, j=interpreted, Vv=VM code, C=native code)
+V  [libjvm.so+0xaab382]
+V  [libjvm.so+0x4d79a7]
+V  [libjvm.so+0x8e66c0]
+V  [libjvm.so+0x8e0c1e]
+V  [libjvm.so+0xaa7d10]
+V  [libjvm.so+0x5fda1d]
+V  [libjvm.so+0x451776]
+V  [libjvm.so+0x8b6df9]
+V  [libjvm.so+0x3e6f4e]
+V  [libjvm.so+0x47717e]
+V  [libjvm.so+0x3bf5ca]
+V  [libjvm.so+0x48249b]
+V  [libjvm.so+0x484778]
+V  [libjvm.so+0xa48af3]
+V  [libjvm.so+0xa48f22]
+V  [libjvm.so+0x8e3b12]
+C  [libpthread.so.0+0x76db]  start_thread+0xdb
+
+
+Current CompileTask:
+C2:  77233 3055   !   4       java.net.URLClassLoader$1::run (63 bytes)
+
+
+---------------  P R O C E S S  ---------------
+
+Java Threads: ( => current thread )
+  0x00007f4070f16000 JavaThread "container-0" [_thread_blocked, id=8480, stack(0x00007f406c6fe000,0x00007f406c7ff000)]
+  0x00007f4070f13800 JavaThread "ContainerBackgroundProcessor[StandardEngine[Tomcat]]" daemon [_thread_blocked, id=8476, stack(0x00007f408c0d4000,0x00007f408c1d5000)]
+  0x00007f4074005800 JavaThread "restartedMain" [_thread_blocked, id=8457, stack(0x00007f40a0698000,0x00007f40a0799000)]
+  0x00007f409c726000 JavaThread "Thread-0" [_thread_blocked, id=8454, stack(0x00007f40a0799000,0x00007f40a089a000)]
+  0x00007f409c0b8800 JavaThread "Service Thread" daemon [_thread_blocked, id=8438, stack(0x00007f40a0b8f000,0x00007f40a0c90000)]
+  0x00007f409c0b6000 JavaThread "C1 CompilerThread1" daemon [_thread_blocked, id=8434, stack(0x00007f40a0c91000,0x00007f40a0d91000)]
+=>0x00007f409c0b3800 JavaThread "C2 CompilerThread0" daemon [_thread_in_vm, id=8430, stack(0x00007f40a0d92000,0x00007f40a0e92000)]
+  0x00007f409c0b2000 JavaThread "Signal Dispatcher" daemon [_thread_blocked, id=8427, stack(0x00007f40a0e92000,0x00007f40a0f93000)]
+  0x00007f409c07e800 JavaThread "Finalizer" daemon [_thread_blocked, id=8422, stack(0x00007f40a1a93000,0x00007f40a1b94000)]
+  0x00007f409c07a000 JavaThread "Reference Handler" daemon [_thread_blocked, id=8414, stack(0x00007f40a1b94000,0x00007f40a1c95000)]
+  0x00007f409c00e000 JavaThread "main" [_thread_blocked, id=8390, stack(0x00007f40a6577000,0x00007f40a6677000)]
+
+Other Threads:
+  0x00007f409c072800 VMThread [stack: 0x00007f40a1c96000,0x00007f40a1d96000] [id=8406]
+  0x00007f409c0bb800 WatcherThread [stack: 0x00007f40a0a8f000,0x00007f40a0b8f000] [id=8445]
+
+VM state:synchronizing (normal execution)
+
+VM Mutex/Monitor currently owned by a thread:  ([mutex/lock_event])
+[0x00007f409c009cb0] CodeCache_lock - owner thread: 0x00007f409c0b3800
+[0x00007f409c00a930] Threads_lock - owner thread: 0x00007f409c072800
+[0x00007f409c00b330] Compile_lock - owner thread: 0x00007f409c0b3800
+[0x00007f409c00b430] MethodCompileQueue_lock - owner thread: 0x00007f409c0b3800
+
+Heap:
+ def new generation   total 19136K, used 16841K [0x00000000c2400000, 0x00000000c38c0000, 0x00000000d6d50000)
+  eden space 17024K,  92% used [0x00000000c2400000, 0x00000000c336b1e8, 0x00000000c34a0000)
+  from space 2112K,  49% used [0x00000000c36b0000, 0x00000000c37b7330, 0x00000000c38c0000)
+  to   space 2112K,   0% used [0x00000000c34a0000, 0x00000000c34a0000, 0x00000000c36b0000)
+ tenured generation   total 42368K, used 20413K [0x00000000d6d50000, 0x00000000d96b0000, 0x0000000100000000)
+   the space 42368K,  48% used [0x00000000d6d50000, 0x00000000d813f778, 0x00000000d813f800, 0x00000000d96b0000)
+ Metaspace       used 33225K, capacity 34716K, committed 34944K, reserved 1079296K
+  class space    used 4162K, capacity 4466K, committed 4480K, reserved 1048576K
+
+Card table byte_map: [0x00007f40a2925000,0x00007f40a2b14000] byte_map_base: 0x00007f40a2313000
+
+Polling page: 0x00007f40a668e000
+
+CodeCache: size=245760Kb used=9874Kb max_used=9874Kb free=235885Kb
+ bounds [0x00007f408d000000, 0x00007f408d9b0000, 0x00007f409c000000]
+ total_blobs=3473 nmethods=3070 adapters=314
+ compilation: enabled
+
+Compilation events (10 events):
+Event: 34,270 Thread 0x00007f409c0b6000 3474       2       org.springframework.asm.Type::getMethodDescriptor (53 bytes)
+Event: 34,332 Thread 0x00007f409c0b6000 nmethod 3474 0x00007f408d992f50 code [0x00007f408d993140, 0x00007f408d993878]
+Event: 34,332 Thread 0x00007f409c0b6000 3475       2       org.springframework.asm.ClassReader::<init> (9 bytes)
+Event: 34,332 Thread 0x00007f409c0b6000 nmethod 3475 0x00007f408d993f50 code [0x00007f408d9940c0, 0x00007f408d994240]

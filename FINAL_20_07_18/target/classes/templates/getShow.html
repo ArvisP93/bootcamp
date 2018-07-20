@@ -1,0 +1,59 @@
+
+<style>
+body {
+    background-color: linen;
+}
+
+h1 {
+    color: maroon;
+    margin-left: 40px;
+}
+
+.seatLink {
+	float:left;
+	width: 98px;
+
+	text-align: center;
+	border-style: solid;
+	border-width:1px;
+	margin-top: 1px;
+	margin-bottom: 1px;
+	margin-left: 1px;
+	margin-right: 1px;
+	
+
+}
+a.seatLinkClick {
+	display:block;
+
+
+}
+a {
+	color:#333333;
+	text-decoration: none;
+}
+
+a.seatLinkClick:hover {
+    background-color: Aqua;
+}
+
+.seatLinkContainer {
+	width: 800px;
+	background-color: red;
+
+}
+</style>
+
+
+
+<div class="seatLinkContainer">
+	<div class="seatLink" th:each="seat : ${showSeats}">
+		<!-- <td th:text="${seat.isTaken()}"></td> -->
+		<i th:if="${seat.isTaken()}">Rezervets</i>
+		<a class="seatLinkClick" th:unless="${seat.isTaken()}" th:href="@{/reserveSeat?show_id={showid}&seat_id={seatid}(showid=${param.show_id},seatid=${seat.getId()})}" th:text="${seat.getId()}"></a>
+	</div>
+</div>
+
+<!--<div class="seatLink"th:each="i: ${#numbers.sequence(1, variable)}">
+
+</div>  -->

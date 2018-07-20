@@ -1,0 +1,25 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head> 
+    <title>Getting Started: Serving Web Content</title> 
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+</head>
+<body>
+	Delete Movie:
+
+    <form action="#" th:action="@{/admin/deleteMovie}" th:object="${movies}" method="post">
+    	              <select name="selectMovie" required>
+                         <option th:each="index : ${movies}"
+                         	th:value = "${index.getMovie_id()}";
+                            th:text="${index.getName()}"/>
+                 	 </select>   
+        <p><input type="submit" value="Dzest" /></p>
+    </form>
+
+
+<p>**********</p>
+</i><a href="/index.html"><i>Sakumlapa</i></a>
+</i><a href="/admin/main"><i>Admin Page</i></a>	
+	
+</body>
+</html>

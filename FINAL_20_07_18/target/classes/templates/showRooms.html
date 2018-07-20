@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>All Rooms</title>
+</head>
+<body>
+<table border="1">
+<tr>
+	<th>cinema</th>
+	<th>room_id</th>
+	<th>name</th>
+	<th>seats</th>
+</tr>
+<tr th:each="room : ${rooms}">
+	<td><a th:href="@{'/getShows?cinema='+${room.getCinema_id()}}" th:text="${cinemas.get(room.getCinema_id()-1).getName()}">cinid</a></td>
+	<td th:text="${room.getRoom_id()}">roomid</td>
+	<td th:text="${room.getName()}">roomname</td>
+    <td th:text="${room.getSeats()}">totalseats</td>
+</tr>
+</table>
+
+<p>**********</p>
+<a href="/"><i>Sakumlapa</i></a>
+<a href="/admin"><i>Admin Page</i></a>
+</body>
+</html>

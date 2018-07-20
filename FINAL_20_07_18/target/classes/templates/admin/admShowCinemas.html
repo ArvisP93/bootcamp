@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>All Cinemas</title>
+</head>
+<body>
+<table border="1">
+<tr>
+	<th>Cinema ID</th>
+	<th>Name</th>
+	<th>Latitude</th>
+	<th>Longitude</th>
+	<th>Edit Link</th>
+</tr>
+<tr th:each="cinema : ${cinemas}">
+	<td th:text="${cinema.getCinema_id()}">cinid</a></td>
+	<td th:text="${cinema.getName()}">roomid</td>
+	<td th:text="${cinema.getLatitude()}">roomname</td>
+    <td th:text="${cinema.getLongitude()}">totalseats</td>
+    <td><a th:href="@{'/admin/editCinema?cinema_id='+${cinema.getCinema_id()}}">Edit</a></td>
+</tr>
+</table>
+
+
+<p>**********</p>
+</i><a href="/index.html"><i>Sakumlapa</i></a>
+</i><a href="/admin/main"><i>Admin Page</i></a>
+</body>
+</html>
