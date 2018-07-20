@@ -46,7 +46,7 @@ CREATE TABLE `Cinemas` (
   `latitude` double NOT NULL,
   `longitude` double NOT NULL,
   PRIMARY KEY (`cinema_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -55,7 +55,7 @@ CREATE TABLE `Cinemas` (
 
 LOCK TABLES `Cinemas` WRITE;
 /*!40000 ALTER TABLE `Cinemas` DISABLE KEYS */;
-INSERT INTO `Cinemas` VALUES (1,'Kino RIO',10,11),(2,'Kino Zupa',15,11),(3,'Kino sfnsef',12.00008,12.00008);
+INSERT INTO `Cinemas` VALUES (1,'Kino RIO',57.39648,21.5647),(2,'Kino Zupa',57.39637,21.61726),(3,'Kino Pope',57.40125,21.86332),(4,'Forum Cinemas',56.9463,24.11679);
 /*!40000 ALTER TABLE `Cinemas` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -80,7 +80,7 @@ CREATE TABLE `Movies` (
 
 LOCK TABLES `Movies` WRITE;
 /*!40000 ALTER TABLE `Movies` DISABLE KEYS */;
-INSERT INTO `Movies` VALUES (2,'Ugunsgreks','Drama'),(3,'uyuyh','fgjtgj'),(4,'Emila nedarbi','Trilleris'),(5,'Atrs un bez zelastibas Tolmets','Komedija');
+INSERT INTO `Movies` VALUES (1,'Harijs Poters','Adventure'),(2,'Ugunsgreks','Drama'),(3,'Doktors Dulitls','Komedija'),(4,'Emila nedarbi','Trilleris'),(5,'Atrs un bez zelastibas Tolmets','Komedija');
 /*!40000 ALTER TABLE `Movies` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -97,7 +97,7 @@ CREATE TABLE `Rooms` (
   `name` varchar(20) NOT NULL,
   `seats` int(11) NOT NULL,
   PRIMARY KEY (`room_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -106,7 +106,7 @@ CREATE TABLE `Rooms` (
 
 LOCK TABLES `Rooms` WRITE;
 /*!40000 ALTER TABLE `Rooms` DISABLE KEYS */;
-INSERT INTO `Rooms` VALUES (1,1,'Liela zale',100);
+INSERT INTO `Rooms` VALUES (1,1,'Liela zale',100),(2,1,'Maza Zale',50),(3,2,'Dzelzs Zale',40),(4,3,'Popes Zale',60),(5,4,'Auditorija SCAPE',602),(6,4,'Auditorija 2',427),(7,4,'Auditorija 3',182),(8,4,'Auditorija 4',165);
 /*!40000 ALTER TABLE `Rooms` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -165,7 +165,7 @@ CREATE TABLE `Shows` (
   `date` datetime NOT NULL,
   `taken_seats` varchar(250) DEFAULT NULL,
   PRIMARY KEY (`show_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=23 DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -174,7 +174,7 @@ CREATE TABLE `Shows` (
 
 LOCK TABLES `Shows` WRITE;
 /*!40000 ALTER TABLE `Shows` DISABLE KEYS */;
-INSERT INTO `Shows` VALUES (1,1,1,1,'2018-07-13 00:00:00','1,2,3,7,100,60,95,98,66,4'),(2,2,2,2,'2018-07-14 00:00:00','2,6,7,94,94,39,77,119,43,1,66,84,14,118,65');
+INSERT INTO `Shows` VALUES (3,4,4,5,'2018-08-31 06:00:00',''),(4,4,4,5,'2018-08-31 08:00:00',''),(5,4,4,6,'2018-08-31 10:00:00',''),(6,4,4,7,'2018-08-31 10:00:00',''),(7,4,3,8,'2018-09-01 12:00:00',''),(8,2,1,3,'2018-07-24 00:00:00',''),(9,2,2,3,'2018-07-24 04:00:00',''),(10,1,5,2,'2018-07-23 18:00:00',''),(11,1,4,1,'2018-07-23 19:00:00',''),(12,1,4,1,'2018-07-23 22:00:00',''),(13,3,2,4,'2018-07-22 08:00:00',''),(14,3,2,4,'2018-07-21 08:00:00',''),(15,3,2,4,'2018-07-21 09:00:00',''),(16,3,2,4,'2018-07-21 10:00:00',''),(17,3,2,4,'2018-07-21 11:00:00',''),(18,3,2,4,'2018-07-21 12:00:00',''),(19,3,2,4,'2018-07-21 13:00:00',''),(20,3,2,4,'2018-07-21 14:00:00',''),(21,3,2,4,'2018-07-21 15:00:00',''),(22,3,2,4,'2018-07-21 16:00:00','');
 /*!40000 ALTER TABLE `Shows` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -192,7 +192,7 @@ CREATE TABLE `Users` (
   `email` varchar(50) NOT NULL,
   `role` varchar(5) NOT NULL,
   PRIMARY KEY (`user_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -201,7 +201,34 @@ CREATE TABLE `Users` (
 
 LOCK TABLES `Users` WRITE;
 /*!40000 ALTER TABLE `Users` DISABLE KEYS */;
+INSERT INTO `Users` VALUES (1,'tomsmiezis','123456','mannav@epas.ts','user'),(2,'tomstukmanis','parole123','ventil@oru.pavelnie.ks','admin'),(3,'arvispukitis','mangarsopelmeni','dzivoju1534@gad.aa','user'),(4,'julijazelenuhina','parole','suns@kak.is','user');
 /*!40000 ALTER TABLE `Users` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `customer`
+--
+
+DROP TABLE IF EXISTS `customer`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `customer` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `name` varchar(100) NOT NULL,
+  `email` varchar(100) NOT NULL,
+  `created_date` date NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=latin1;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `customer`
+--
+
+LOCK TABLES `customer` WRITE;
+/*!40000 ALTER TABLE `customer` DISABLE KEYS */;
+INSERT INTO `customer` VALUES (1,'mkyong','111@yahoo.com','2017-02-11'),(2,'yflow','222@yahoo.com','2017-02-12'),(3,'zilap','333@yahoo.com','2017-02-13');
+/*!40000 ALTER TABLE `customer` ENABLE KEYS */;
 UNLOCK TABLES;
 
 --
@@ -267,4 +294,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2018-07-17  9:19:28
+-- Dump completed on 2018-07-20 11:30:11
