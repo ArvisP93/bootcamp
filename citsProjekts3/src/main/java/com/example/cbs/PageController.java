@@ -246,6 +246,8 @@ public class PageController {
     public String showShow(@RequestParam(name="show_id",required=true) int show_id, Model model) throws SQLException, ClassNotFoundException {
     	db=new DatabaseController(database,username,password);
     	model.addAttribute("show",db.getShow(show_id));
+    	//model.addAttribute("rooms",db.getRooms(db.getCinemaIdFromShow(show_id) ) );
+    	model.addAttribute("movies", db.getFilmas());
     	return "editShow";
 }
     @PostMapping("/changeShow")
@@ -331,7 +333,7 @@ public class PageController {
     public String addShowFinal(@ModelAttribute("selectCinema") String selectCinema,
     		@ModelAttribute("selectHour") String selectHour, 
     		@ModelAttribute("selectMinute") String selectMinute, 
-    		@ModelAttribute("selectDate") Date selectDate, 
+    		@ModelAttribute("selectDate") String selectDate, 
     		@ModelAttribute("selectMovie") String selectMovie, 
     		@ModelAttribute("selectRoom") String selectRoom, Model model) throws ClassNotFoundException, SQLException{
     	db=new DatabaseController(database,username,password);
@@ -340,7 +342,7 @@ public class PageController {
     	//model.addAttribute("cinema", db.getCinema(Integer.parseInt(selectCinema)));
     	System.out.println("DATE: " + selectDate.toString());
     	System.out.println("selectCinema: " + selectCinema);
-    	String showDate = selectDate.toString() + " " + selectHour + ":" + selectMinute + ":00";
+    	String showDate = selectDate + " " + selectHour + ":" + selectMinute + ":00";
     	db.AddShowString(Integer.parseInt(selectCinema), Integer.parseInt(selectMovie), Integer.parseInt(selectRoom), showDate, "");
     	//model.addAttribute("movies", db.getFilmas());
      	return "redirect:/getShows?cinema=" + selectCinema;
