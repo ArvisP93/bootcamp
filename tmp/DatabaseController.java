@@ -62,7 +62,7 @@ public class DatabaseController {
 		}
 		return tmp;
 	}
-
+	
 	ArrayList<Seat> getShowSeats(String showID) throws NumberFormatException, SQLException{
 		ArrayList<Seat> tmp = new ArrayList<Seat>();
 		boolean takenSeat;
@@ -129,7 +129,7 @@ public class DatabaseController {
 			Application.logger.info("User '" + username + "' succesfully added");
 		else
 			Application.logger.error("Failed to add user '" + username);
-		return tmp;
+		return !tmp;
 }
 	
 	boolean AddCinema(String name, double latitude, double longitude) throws SQLException {//returns true if successfully added
@@ -138,7 +138,7 @@ public class DatabaseController {
 			Application.logger.info("Cinema '" + name + "' (latitude:" + latitude + ", longitude:"+ longitude +") added successfuly");
 		else
 			Application.logger.error("Failed to add cinema '" + name + "' (latitude:" + latitude + ", longitude:"+ longitude +")");
-		return tmp;
+		return !tmp;
 	}
 	boolean AddMovie(String title, String genre) throws SQLException {//returns true if successfully added
 		boolean tmp = this.statement.execute("INSERT INTO Movies (name, genre) VALUES ('"+title+"', '"+genre+"');");
@@ -146,7 +146,7 @@ public class DatabaseController {
 			Application.logger.info("Movie '" + title + "' (genre: " +genre+ ") added successfully");
 		else
 			Application.logger.error("Failed to add movie '" + title + "' (genre: " +genre+ ")");
-		return tmp;
+		return !tmp;
 	}
 	boolean AddRoom(int cinema_id, String name, int seats) throws SQLException {
 		boolean tmp = this.statement.execute("INSERT INTO Rooms (cinema_id, name, seats) VALUES (" + cinema_id + ", '" + name + "', " + seats + ");");
@@ -154,40 +154,32 @@ public class DatabaseController {
 			Application.logger.info("Room '" + name + "' (ID: " +cinema_id+ ", seats:"+seats+") added successfully");
 		else
 			Application.logger.error("Failed to add room '" + name + "' (ID: " +cinema_id+ ", seats:"+seats+")");
-		return tmp;
+		return !tmp;
 	}
 	boolean AddShow(int cinema_id, int movie_id, int room_id, String date, String taken_seats) throws SQLException {//returns true if successfully added
 		boolean tmp = this.statement.execute("INSERT INTO Shows (cinema_id, movie_id, room_id, date, taken_seats) VALUES ('"+cinema_id+"', '"+movie_id+"', '"+room_id+"', '"+date+"', '"+taken_seats+"');");
-		if(tmp)
-			Application.logger.info("Show (cinemaID: " +cinema_id+ ", movieID:"+movie_id+", roomID:"+room_id+", date:"+date+", taken_seats:"+taken_seats+") added successfully");
-		else
-			Application.logger.error("Failed to add show (cinemaID: " +cinema_id+ ", movieID:"+movie_id+", roomID:"+room_id+", date:"+date+", takenSeats:"+taken_seats+")");
-		return tmp;
+		return !tmp;
 	}
-
+	boolean AddShowString(int cinema_id, int movie_id, int room_id, String date, String taken_seats) throws SQLException {//returns true if successfully added
+		System.out.println("INSERT INTO Shows (cinema_id, movie_id, room_id, date, taken_seats) VALUES ('"+cinema_id+"', '"+movie_id+"', '"+room_id+"', '"+date+"', '"+taken_seats+"');");
+		boolean tmp = this.statement.execute("INSERT INTO Shows (cinema_id, movie_id, room_id, date, taken_seats) VALUES ('"+cinema_id+"', '"+movie_id+"', '"+room_id+"', '"+date+"', '"+taken_seats+"');");
+		return !tmp;
+	}
+	boolean AddNewShow(int movie_id, int room_id, String date) throws SQLException {
+		//String timeStamp = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss").format(date);
+		return this.statement.execute("INSERT INTO Shows (cinema_id, movie_id, room_id, date, taken_seats) VALUES ((SELECT cinema_id FROM Rooms where room_id = " + room_id + "),"+movie_id+","+room_id+",'"+date+"','');");
+	}
 	boolean DeleteCinema(int id) throws SQLException {//returns true if successfully deleted
 		boolean tmp = this.statement.execute("DELETE FROM Cinemas WHERE cinema_id = "+id+";");
 		boolean tmprooms = this.statement.execute("DELETE FROM Rooms WHERE cinema_id = "+id+";");
 		boolean tmpshows = this.statement.execute("DELETE FROM Shows WHERE cinema_id = "+id+";");
-		
-		if(tmp)
-			Application.logger.info("Cinema ID:" + id + " removed successfully");
-		else
-			Application.logger.error("Failed to remove cinema ID:" + id + " (not found)");
-		
-		return tmp;
+		return !tmp;
 	}
 	//updated
 	boolean DeleteMovie(int id) throws SQLException {//returns true if successfully deleted
 		boolean tmp = this.statement.execute("DELETE FROM Movies WHERE movie_id = "+id+";");
 		boolean tmpshows = this.statement.execute("DELETE FROM Shows WHERE movie_id = "+id+";");
-		
-		if(tmp)
-			Application.logger.info("Movie ID:" + id + " removed successfully");
-		else
-			Application.logger.error("Failed to remove movie ID:" + id + " (not found)");
-			
-		return tmp;
+		return !tmp;
 	}
 	int FindClosest(double CurrLatitude, double CurrLongitude) throws SQLException { //returns the ID of the closest cinema, calculated by Pythagorean formula with latitudes and longitudes
 		ResultSet  rs = this.statement.executeQuery("SELECT cinema_id, latitude, longitude, sqrt(pow(latitude-"+CurrLatitude+",2)+pow(longitude-"+CurrLongitude+",2)) as dist from Cinemas order by dist limit 1;");
@@ -216,23 +208,26 @@ public class DatabaseController {
 	}
 	
 	
-
-	int changeCinema(Cinemas cinema) throws SQLException{
-		int tmp = this.statement.executeUpdate("UPDATE Cinemas SET name='"+cinema.getName()+"', latitude = " + cinema.getLatitude() + ", longitude = " + cinema.getLongitude() + " where cinema_id = "+ cinema.getCinema_id() + ";");
-		if(tmp==1)
-			Application.logger.info("Cinema ID:" + cinema.getCinema_id() + "updated successfully");
-		else
-			Application.logger.error("Failed to update cinema ID:" + cinema.getCinema_id() + "(not found)");
+/*
+	int getCinemaIdFromShow(int show_id) throws SQLException {
+		int tmp;
+		ResultSet rs;
+		rs = this.statement.executeQuery("SELECT cinema_id FROM Shows WHERE show_id=" + show_id + ";");
+		if(rs.next()) {
+			tmp=rs.getInt("cinema_id");
+		}
+		else {
+			tmp=0;
+		}
 		return tmp;
+	}
+*/
+	int changeCinema(Cinemas cinema) throws SQLException{
+		return this.statement.executeUpdate("UPDATE Cinemas SET name='"+cinema.getName()+"', latitude = " + cinema.getLatitude() + ", longitude = " + cinema.getLongitude() + " where cinema_id = "+ cinema.getCinema_id() + ";");
 	}
 
 	int changeRoom(Rooms room) throws SQLException {
-		int tmp = this.statement.executeUpdate("UPDATE Rooms SET name='"+room.getName()+"', seats = " + room.getSeats() + ", cinema_id = " + room.getCinema_id() + " where room_id = "+ room.getRoom_id() + ";");
-		if(tmp==1)
-			Application.logger.info("Room ID:" + room.getRoom_id() + "updated successfully");
-		else
-			Application.logger.error("Failed to update room ID:" + room.getRoom_id()+ "(not found)");
-		return tmp;
+		return this.statement.executeUpdate("UPDATE Rooms SET name='"+room.getName()+"', seats = " + room.getSeats() + ", cinema_id = " + room.getCinema_id() + " where room_id = "+ room.getRoom_id() + ";");
 	}
 
 	Rooms getRoom(int room_id) throws SQLException {
@@ -249,24 +244,13 @@ public class DatabaseController {
 		return tmp;
 	}
 	int changeShow(Shows show) throws SQLException {	 
-		int tmp=this.statement.executeUpdate("UPDATE Shows SET cinema_id ="+show.getCinema_id()+",movie_id = "+show.getMovie_id()+",room_id = "+show.getRoom_id()+",date = '" + show.getDate()+"', taken_seats = '"+show.getTaken_seats()+"' where show_id = "+show.getShow_id()+";"); 
-		if(tmp==1)
-			Application.logger.info("Show ID:" + show.getShow_id() + "updated successfully");
-		else
-			Application.logger.error("Failed to update show ID:" + show.getShow_id() + "(not found)");
-		return tmp;
+		return this.statement.executeUpdate("UPDATE Shows SET cinema_id ="+show.getCinema_id()+",movie_id = "+show.getMovie_id()+",room_id = "+show.getRoom_id()+",date = '" + show.getDate()+"', taken_seats = '"+show.getTaken_seats()+"' where show_id = "+show.getShow_id()+";"); 
 	}
 	//updated
 	boolean DeleteRoom(int id) throws SQLException {//returns true if successfully deleted
 		boolean tmp = this.statement.execute("DELETE FROM Rooms WHERE room_id = "+id+";");
 		boolean tmproom = this.statement.execute("DELETE FROM Shows WHERE room_id = "+id+";");
-		
-		if(tmp)
-			Application.logger.info("Room ID:" + id + "removed successfully");
-		else
-			Application.logger.error("Failed to remove room ID:" + id + "(not found)");
-		
-		return tmp;
+		return !tmp;
 	}
 	Cinemas getCinema(int cinema_id) throws SQLException {
 		ResultSet rs = this.statement.executeQuery("SELECT * FROM Cinemas WHERE cinema_id = "+ cinema_id +";");
@@ -281,20 +265,11 @@ public class DatabaseController {
 		return tmp;
 	}
 	int changeMovie(Movies movie) throws SQLException {	 
-		int tmp = this.statement.executeUpdate("UPDATE Movies SET name ='"+movie.getName()+"',genre = '"+movie.getGenre()+"'where movie_id = "+movie.getMovie_id()+";");
-		if(tmp==1)
-			Application.logger.info("Movie ID:" + movie.getMovie_id() + "updated successfully");
-		else
-			Application.logger.error("Failed to update movie ID:" + movie.getMovie_id() + "(not found)");
-		return tmp;
+		return this.statement.executeUpdate("UPDATE Movies SET name ='"+movie.getName()+"',genre = '"+movie.getGenre()+"'where movie_id = "+movie.getMovie_id()+";"); 
 	}
 	boolean DeleteShow(int id) throws SQLException {//returns true if successfully deleted
 		boolean tmp = this.statement.execute("DELETE FROM Shows WHERE show_id = "+id+";");
-		if(tmp)
-			Application.logger.info("Show ID:" + id + "removed successfully");
-		else
-			Application.logger.error("Failed to remove show ID:" + id + "(not found)");
-		return tmp;
+		return !tmp;
 	}
 	
 	Shows getShowsByID(int show_id) throws SQLException{
@@ -317,8 +292,10 @@ public class DatabaseController {
 		ArrayList<Users> tmp = new ArrayList<Users>();
 		while (rs.next()) {
 			tmp.add(new Users(rs.getInt("user_id"),rs.getString("username"),rs.getString("password"),rs.getString("email"),rs.getString("role")));
+			//System.out.println(rs.getString("username"));
 		}
 		return tmp;
+		
 	}
 
 	Users getUser(String username) throws SQLException {//written by TM
@@ -337,10 +314,7 @@ public class DatabaseController {
 	}
 	boolean deleteUser(int user_id) throws SQLException {
 		boolean tmp = this.statement.execute("DELETE FROM Users WHERE user_id = "+user_id+";");
-		if(tmp)
-			Application.logger.info("User ID:" + user_id + "removed successfully");
-		else
-			Application.logger.error("Failed to remove user ID:" + user_id + "(not found)");
+		System.out.println(tmp);
 		return tmp;
 	}
 	
