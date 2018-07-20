@@ -4,8 +4,6 @@ public class Seat {
 	public int id;
 	public boolean taken;
 	
-	public Seat() {} //constructor for testing purposes
-	
 	public Seat(int id, boolean taken) {
 		setId(id);
 		setTaken(taken);

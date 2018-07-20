@@ -44,7 +44,7 @@ public class Rooms {
 		}
 
 		public void setName(String name) {
-			if (name == ""|| name.length() > 20) {
+			if (name == "") {
 				throw new IllegalArgumentException();
 			} else {
 				this.name = name;;

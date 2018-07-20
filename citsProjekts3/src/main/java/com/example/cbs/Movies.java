@@ -31,7 +31,7 @@ public class Movies {
 	}
 
 	public void setName(String name) {
-		if (name == "" || name.length() > 30) {
+		if (name == "") {
 			throw new IllegalArgumentException();
 		} else {
 			this.name = name;;
@@ -43,7 +43,7 @@ public class Movies {
 	}
 
 	public void setGenre(String genre) {
-		if (genre == ""|| genre.length() > 30) {
+		if (genre == "") {
 			throw new IllegalArgumentException();
 		} else {
 			this.genre = genre;

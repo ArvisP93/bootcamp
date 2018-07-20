@@ -7,10 +7,12 @@ import org.junit.runner.RunWith;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
 
+import com.example.cbs.Cinemas;
+import com.example.cbs.Movies;
 import com.example.cbs.Rooms;
 
-//@RunWith(SpringRunner.class)
-//@SpringBootTest
+@RunWith(SpringRunner.class)
+@SpringBootTest
 
 public class TestRooms {
 	
@@ -39,11 +41,6 @@ public class TestRooms {
 		try {
 			Rooms obj = new Rooms(1, 404, "", 40);
 			fail("Exception was expected for empty name input");
-		} catch(IllegalArgumentException e) {
-		}
-		try {
-			Rooms obj = new Rooms(1, 404, "Vevryverylongroomnametoolongfortesetter", 40);
-			fail("Exception was expected for invalid name input");
 		} catch(IllegalArgumentException e) {
 		}
 		try {
@@ -100,11 +97,6 @@ public class TestRooms {
 			fail("Exception was expected for empty name input");
 		}
 		catch(IllegalArgumentException e) {
-		}
-		try {
-			obj.setName("Vevryverylongroomnametoolongfortesetter");
-			fail("Exception was expected for invalid name input");
-		} catch(IllegalArgumentException e) {
 		}
 	}
 	

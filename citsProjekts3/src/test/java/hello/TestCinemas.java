@@ -10,8 +10,8 @@ import org.springframework.test.context.junit4.SpringRunner;
 import com.example.cbs.Cinemas;
 
 
-//@RunWith(SpringRunner.class)
-//@SpringBootTest
+@RunWith(SpringRunner.class)
+@SpringBootTest
 public class TestCinemas {
 	
 	@Test
@@ -27,16 +27,25 @@ public class TestCinemas {
 		} catch(IllegalArgumentException e) {
 		}
 		try {
-			Cinemas obj = new Cinemas(1010, "KinoRio", -200.0, 15.7);
-			fail("Exception was expected for invalid latitude input");
+			Cinemas obj = new Cinemas(1010, "KinoRio", -10.2, 15.7);
+			fail("Exception was expected for negative latitude input");
 		} catch(IllegalArgumentException e) {
 		}
 		try {
-			Cinemas obj = new Cinemas(1010, "KinoRio", 10.2, -1500.1);
-			fail("Exception was expected for invalid longitude input");
+			Cinemas obj = new Cinemas(1010, "KinoRio", 10.2, -15.7);
+			fail("Exception was expected for negative longitude input");
 		} catch(IllegalArgumentException e) {
 		}
-		
+		try {
+			Cinemas obj = new Cinemas(1010, "KinoRio", 0, 15.7);
+			fail("Exception was expected for 0 latitude input");
+		} catch(IllegalArgumentException e) {
+		}
+		try {
+			Cinemas obj = new Cinemas(0, "KinoRio", 10.2, 0);
+			fail("Exception was expected for 0 longitude input");
+		} catch(IllegalArgumentException e) {
+		}
 	}
 	
 	@Test
@@ -68,8 +77,13 @@ public class TestCinemas {
 	public void testLatitude() {
 		Cinemas obj = new Cinemas();
 		try {
-			obj.setLatitude(200.0);
-			fail("Exception was expected for invalid latitude input");
+			obj.setLatitude(0);
+			fail("Exception was expected for 0 latitude input");
+		}catch(IllegalArgumentException e) {
+		}
+		try {
+			obj.setLatitude(-10.6);
+			fail("Exception was expected for negative latitude input");
 		}catch(IllegalArgumentException e) {
 		}
 	}
@@ -78,8 +92,13 @@ public class TestCinemas {
 	public void testLongitude() {
 		Cinemas obj = new Cinemas();
 		try {
-			obj.setLongitude(200.0);
-			fail("Exception was expected for invalid longitude input");
+			obj.setLongitude(0);
+			fail("Exception was expected for 0 longitude input");
+		}catch(IllegalArgumentException e) {
+		}
+		try {
+			obj.setLongitude(-10.6);
+			fail("Exception was expected for negative longitude input");
 		}catch(IllegalArgumentException e) {
 		}
 	}

@@ -11,8 +11,8 @@ import org.springframework.test.context.junit4.SpringRunner;
 
 import com.example.cbs.Shows;
 
-//@RunWith(SpringRunner.class)
-//@SpringBootTest
+@RunWith(SpringRunner.class)
+@SpringBootTest
 public class TestShows {
 	
 	@Test
@@ -82,91 +82,7 @@ public class TestShows {
 		}
 		catch(IllegalArgumentException e) {
 		}
-	}
 	
-	@Test
-	public void testCinema_name() {
-		Shows obj = new Shows();
-		try {
-			obj.setCinema_name("");
-			fail("Exception was expected for empty cinema_name input");
-		}
-		catch(IllegalArgumentException e) {
-		}
-		try {
-			obj.setCinema_name("Veryveryverylongcinemanameshouldcouseerrors");
-			fail("Exception was expected for invalid cinema_name input");
-		}
-		catch(IllegalArgumentException e) {
-		}
-	}
-	
-	@Test
-	public void testMovie_name() {
-		Shows obj = new Shows();
-		try {
-			obj.setMovie_name("");
-			fail("Exception was expected for empty movie_name input");
-		}
-		catch(IllegalArgumentException e) {
-		}
-		try {
-			obj.setMovie_name("Veryveryverylongmovienameshouldcouseerrors");
-			fail("Exception was expected for invalid movie_name input");
-		}
-		catch(IllegalArgumentException e) {
-		}
-	}
-	
-	@Test
-	public void testRoom_name() {
-		Shows obj = new Shows();
-		try {
-			obj.setRoom_name("");
-			fail("Exception was expected for empty room_name input");
-		}
-		catch(IllegalArgumentException e) {
-		}
-		try {
-			obj.setRoom_name("Veryveryverylongroomnameshouldcouseerrors");
-			fail("Exception was expected for invalid room_name input");
-		}
-		catch(IllegalArgumentException e) {
-		}
-	}
-	
-	@Test
-	public void testMovie_genre() {
-		Shows obj = new Shows();
-		try {
-			obj.setMovie_genre("");
-			fail("Exception was expected for empty movie_genre input");
-		}
-		catch(IllegalArgumentException e) {
-		}
-		try {
-			obj.setRoom_name("Veryveryverylonggenrenameshouldcouseerrors");
-			fail("Exception was expected for invalid movie_genre input");
-		}
-		catch(IllegalArgumentException e) {
-		}
-	}
-	
-	@Test
-	public void testTotal_seats() {
-		Shows obj = new Shows();
-		try {
-			obj.setTotal_seats(0);
-			fail("Exception was expected for 0 total_seats input");
-		}
-		catch(IllegalArgumentException e) {
-		}
-		try {
-			obj.setTotal_seats(-11);
-			fail("Exception was expected for negative total_seats input");
-		}
-		catch(IllegalArgumentException e) {
-		}
 	}
 
 }
