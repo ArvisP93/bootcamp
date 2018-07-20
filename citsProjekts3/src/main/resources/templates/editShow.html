@@ -59,7 +59,7 @@
 					
 				}
 			}
-			alert(inputTime[2]);
+			//alert(inputTime[2]);
 			if(inputTime[2]!='00.0'){
 				alert("Kluda: Neatbilstoss datuma formats [YYYY-MM-DD HH:MM:00.0]");
 				return false;
@@ -80,6 +80,9 @@
                 <tr>
                     <td>Cinema ID:</td>
                     <td th:text="${show.getCinema_id()}"/></td>
+                    <input type="text" th:field="*{room_id}" hidden/>
+					<input type="text" th:field="*{cinema_id}" hidden/>
+					<input type="text" th:field="*{taken_seats}" hidden/>
                 </tr>
                 <tr>
                     <td>Cinema Name:</td>
@@ -89,6 +92,7 @@
                 <tr>
                     <td>Room Name:</td>
                     <td th:text="${show.getRoom_name()}"/></td>
+                    
                 </tr>
                 <tr>
                     <td>Movie:</td>
