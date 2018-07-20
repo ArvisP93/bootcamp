@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>All Movies</title>
+</head>
+<body>
+<table border="1">
+<tr>
+	<th>Movie ID</th>
+	<th>Title</th>
+	<th>Genre</th>
+	<th>Edit Link</th>
+</tr>
+<tr th:each="movie : ${movies}">
+	<td th:text="${movie.getMovie_id()}">id</td>
+    <td th:text="${movie.getName()}">name</td>
+    <td th:text="${movie.getGenre()}">genre</td>
+    <td><a th:href="@{'/admin/editMovie?movie_id='+${movie.getMovie_id()}}">Edit</a></td>
+</tr>
+</table>
+
+
+<p>**********</p>
+</i><a href="/index.html"><i>Sakumlapa</i></a>
+</i><a href="/admin/main"><i>Admin Page</i></a>
+</body>
+</html>
